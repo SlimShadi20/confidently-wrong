@@ -435,13 +435,15 @@ body[data-tone="warn"] .bg{filter:grayscale(1) brightness(.25)}
 .hint.warn{color:var(--gold);font-weight:800}
 .hint.warn:empty{display:none}
 .pair{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:12px;border-radius:14px;background:rgba(0,0,0,.25);letter-spacing:0;text-transform:none}
-.pair-qr{width:132px;height:132px;flex:none;background:#fff;border-radius:10px;padding:4px}
+.pair-qr{width:164px;height:164px;flex:none;background:#fff;border-radius:10px;overflow:hidden}
 .pair-qr svg{width:100%;height:100%;display:block}
 .pair-info{display:grid;gap:6px;min-width:0;flex:1 1 200px}
 .pair-info p{margin:0;font:600 13px/1.4 var(--body);color:var(--muted)}
 .pair-info p.ok{color:var(--mint);font-weight:800}
 .pair-code{font:400 36px/1 var(--display);letter-spacing:.18em;color:var(--gold)}
 .pair-info .pair-link{font:600 12px/1.3 var(--body);color:var(--ink);overflow-wrap:anywhere;user-select:all}
+.pair-me{margin-top:2px;padding:10px 14px;font-size:12px}
+.rm-tv{justify-self:start;padding:10px 14px;font-size:12px}
 .chip-host{display:inline-flex;align-items:center;gap:6px;font:800 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;padding:8px 11px;border-radius:999px;background:rgba(63,242,162,.16);color:var(--mint);box-shadow:inset 0 0 0 2px var(--mint);flex:none}
 .chip-host svg{width:14px;height:14px}
 .pod .mem{grid-column:2/4;font:600 11px/1.2 var(--body);color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -5167,8 +5169,9 @@ function fitState(st){
   return s;
 }
 function playerView(st){ const v = Object.assign({}, st); delete v.a; delete v.n; delete v.acts; delete v.typing; delete v.b; delete v.say; return v; }
+/* The margin is in the same units as the cell size: 16 = a 4-square white border, which phone cameras need to lock on. */
 function qrSvg(text){
-  try{ if(typeof qrcode!=='function' || !text) return ''; const q = qrcode(0, 'M'); q.addData(text); q.make(); return q.createSvgTag(4, 2); }catch(e){ return ''; }
+  try{ if(typeof qrcode!=='function' || !text) return ''; const q = qrcode(0, 'M'); q.addData(text); q.make(); return q.createSvgTag(4, 16); }catch(e){ return ''; }
 }
 function paintPair(){
   const R = Remote, base = phoneBase(), link = (base && R.code) ? base+'#join-'+R.code.toLowerCase() : '';
@@ -5179,19 +5182,61 @@ function paintPair(){
     const qr = link ? qrSvg(link) : '', names = R.joinedNames();
     html = (qr ? '<div class="pair-qr" aria-label="QR code to join on a phone">'+qr+'</div>' : '')
       + '<div class="pair-info"><span class="pair-code" aria-label="Join code">'+esc(R.code)+'</span>'
-      + (link ? '<p>Point your phone camera at the code, or open the link below and type the 4 letters. Choose <b>player</b> for a buzzer, or <b>host</b> to see the answers.</p><p class="pair-link">'+esc(link)+'</p>'
+      + (link ? '<p>Scan this with a phone camera, or open the link below on the phone. If the phone opens this same screen, tap <b>Join</b> when it asks (or <b>On a phone?</b> below). Pick <b>player</b> for a buzzer, or <b>host</b> to see the answers.</p><p class="pair-link">'+esc(link)+'</p>'
+                + (R.mode==='room' ? '<p>Phones need to be signed in to Claude and able to open this page. Share the page with friends before they scan.</p>' : '')
               : '<p>Open the game’s website on your phone and type these 4 letters.</p>')
       + '<p class="'+(R.hostOn ? 'ok' : '')+'">'+(R.hostOn ? 'Host phone connected. Answers show on it, not here.' : 'No host phone yet.')+'</p>'
-      + '<p class="'+(names.length ? 'ok' : '')+'">'+(names.length ? 'Buzzer phones: '+esc(names.join(', ')) : 'No buzzer phones yet. Keyboard keys still work.')+'</p></div>';
+      + '<p class="'+(names.length ? 'ok' : '')+'">'+(names.length ? 'Buzzer phones: '+esc(names.join(', ')) : 'No buzzer phones yet. Keyboard keys still work.')+'</p>'
+      + (running ? '' : '<p><button class="btn ghost pair-me" type="button" data-act="bephone">On a phone? Join a show from here</button></p>')+'</div>';
   }
-  $$('[data-pair]').forEach(el => { el.innerHTML = html; });
+  /* Only rewrite when something changed, so the QR isn't rebuilt (and doesn't flicker) on every room update. */
+  $$('[data-pair]').forEach(el => { if(el._h!==html){ el._h = html; el.innerHTML = html; } });
   const th = $('#top-host');
   paintCaption();
   if(th){ const n = R.playerCount; th.hidden = !(R.hostOn || n); th.innerHTML = PHONE_SVG+'<span>'+[R.hostOn ? 'Host' : '', n ? n+' phone'+(n>1 ? 's' : '') : ''].filter(Boolean).join(' · ')+'</span>'; }
 }
 
+/* Codes of the TVs open on other screens. Each TV says so in the lobby, which every open copy of this page shares. */
+function otherTVs(peers){
+  const out = [];
+  for(const p of peers || []){
+    if(!p || p.sameTab || p.kind==='agent') continue;
+    const pr = p.presence || {}, c = String(pr.code||'').toUpperCase();
+    if(pr.role==='tv' && /^[A-Z]{4}$/.test(c) && !out.includes(c)) out.push(c);
+  }
+  return out;
+}
+const looksLikePhone = () => { try{ return matchMedia('(pointer:coarse)').matches && Math.min(screen.width, screen.height) < 600; }catch(e){ return false; } };
+/* claude.ai can drop the #join-CODE part of the link, so a scanned phone may open as a second TV.
+   When a phone finds another TV in the lobby, it offers to join that one instead (once per page load). */
+let OFFERED = false;
+function offerPhone(codes){
+  OFFERED = true;
+  const list = codes.slice(0, 3);
+  openModal('<h3>On your phone?</h3><p>'+(list.length>1 ? 'Shows are running on other screens. Pick the code on your TV.' : 'A show is running on another screen, code '+esc(list[0])+'.')+' Join it to use this phone as a buzzer, or as the host’s answer sheet.</p>'
+    + '<div class="actions">'+list.map(c => '<button class="btn gold" data-mact="pj" data-c="'+esc(c)+'">Join '+esc(c)+'</button>').join('')+'<button class="btn ghost" data-mact="close">No, this screen is the TV</button></div>',
+    { pj: el => toPhone(el.dataset.c), close: closeModal });
+}
+/* Switch this screen from TV to phone, or back. */
+function toPhone(code){
+  if(running) return;
+  closeModal(); Bed.stop(); Voice.cancel(); Snd.musicStop();
+  Remote.stop();
+  Phone.start({ code: code || '' });
+}
+function toTV(){
+  Phone.stop();
+  const R = $('#remote'); R.hidden = true; R.innerHTML = '';
+  delete document.body.dataset.mode; $('#app').hidden = false;
+  if(/^#(host|join|play)/i.test(location.hash || '')){ try{ history.replaceState(null, '', location.pathname + location.search); }catch(e){} }
+  OFFERED = true;
+  applyTheme(); goSetup(); Remote.start();
+}
+GLOBAL.bephone = () => toPhone(Remote.tvs.length===1 ? Remote.tvs[0] : '');
+
 const Remote = {
   state:'off', why:'', mode:'', code:'', chan:null, named:false, peer:null, iv:null,
+  lobby:null, unChan:null, unLobby:null, gen:0, tvs:[],
   clients:new Map(), lastFull:'', lastPlayer:'', lastSend:0, pend:null,
   get hostOn(){ for(const c of this.clients.values()) if(c.role==='host') return true; return false; },
   get playerCount(){ return this.playerPids().length; },
@@ -5199,28 +5244,49 @@ const Remote = {
   joinedNames(){ const names = (G && running && G.roster) ? G.roster : playerNames(); return this.playerPids().filter(p => names[p]).sort((a,b) => a-b).map(p => names[p]); },
   newCode(){ const A = 'ABCDEFGHJKLMNPQRSTUVWXYZ'; let s = ''; for(let i=0;i<4;i++) s += A[Math.floor(Math.random()*A.length)]; return s; },
   async start(){
+    const g = ++this.gen;
     this.code = store.get('cw_room_code', null) || this.newCode(); store.set('cw_room_code', this.code);
     this.state = 'connecting'; paintPair();
-    if(inClaude()) return this.startRoom();
+    if(inClaude()) return this.startRoom(g);
     if(!/^https?:$/.test(location.protocol) && !SITE_URL){ this.fail('This is the offline copy, and phones need the game’s website. Play with the keyboard tonight, or open the website version.'); return; }
     if(typeof Peer!=='function'){ this.fail('The phone link couldn’t load. Check this computer’s internet connection, then reload the page.'); return; }
-    this.startPeer();
+    this.startPeer(g);
+  },
+  /* Stop being a TV (this screen is turning into a phone). */
+  stop(){
+    this.gen++; clearInterval(this.iv); this.iv = null; this.state = 'off'; this.why = '';
+    this.clients.clear(); this.pend = null; this.lastFull = ''; this.lastPlayer = ''; this.tvs = [];
+    for(const k of ['unLobby','unChan']){ if(this[k]){ try{ this[k](); }catch(e){} this[k] = null; } }
+    const ch = this.chan; this.chan = null;
+    if(ch && this.named) ch.leave().catch(() => {});
+    if(this.lobby) this.lobby.presence({ role:null, code:null, st:null }).catch(() => {});
+    if(this.peer){ try{ this.peer.destroy(); }catch(e){} this.peer = null; }
   },
   fail(why){ this.state = 'unavailable'; this.why = why; paintPair(); },
   ready(){ this.state = 'ready'; this.why = ''; paintPair(); if(!this.iv) this.iv = setInterval(() => this.push(), 350); this.push(true); },
 
   /* ---- claude.ai: the live room ---- */
-  async startRoom(){
+  async startRoom(g){
     let room = null; try{ room = await window.claude.use('room'); }catch(e){}
+    if(g!==this.gen) return;
     if(!room){ this.fail('Sign in to Claude to link phones on this page, or use the website version.'); return; }
-    this.mode = 'room';
-    try{ this.chan = await room.join('cw-'+this.code.toLowerCase()); this.named = true; }
-    catch(e){ this.chan = room; this.named = false; }
-    this.chan.onPeers(ch => this.roomPeers(ch), () => { this.clients.clear(); this.fail('The live room closed. Reload the page to reconnect.'); });
+    this.mode = 'room'; this.lobby = room;
+    let chan = room, named = false;
+    try{ chan = await room.join('cw-'+this.code.toLowerCase()); named = true; }catch(e){}
+    if(g!==this.gen){ if(named) chan.leave().catch(() => {}); return; }
+    this.chan = chan; this.named = named;
+    this.unChan = chan.onPeers(ch => this.roomPeers(ch), () => { this.clients.clear(); this.fail('The live room closed. Reload the page to reconnect.'); });
+    /* Tell the lobby this screen is a TV, so a phone that opens the page without the code can find it. */
+    if(named) room.presence({ role:'tv', code:this.code }).catch(() => {});
+    this.unLobby = room.onPeers(ch => this.lobbyPeers(ch), () => {});
     this.ready();
   },
+  lobbyPeers(ch){
+    this.tvs = otherTVs(ch.peers).filter(c => c!==this.code);
+    if(this.tvs.length && !OFFERED && looksLikePhone() && current==='setup' && !running && !SKBUSY) offerPhone(this.tvs);
+  },
   roomPeers(ch){
-    const here = new Set();
+    const here = new Set(); let changed = false;
     for(const p of ch.peers){
       if(p.isMe && p.sameTab) continue;
       const pr = p.presence || {};
@@ -5228,30 +5294,33 @@ const Remote = {
       const key = 'r:'+p.peer; here.add(key);
       const cmd = (pr.cmd && typeof pr.cmd==='object') ? pr.cmd : null, n = cmd ? (+cmd.n || 0) : 0;
       let c = this.clients.get(key);
-      if(!c){ c = { role:'', pid:-1, n }; this.clients.set(key, c); }
+      if(!c){ c = { role:'', pid:-1, n }; this.clients.set(key, c); changed = true; }
       const pid = Number.isInteger(pr.pid) ? pr.pid : -1;
       if(c.role!==(pr.role==='phone' ? '' : pr.role) || c.pid!==pid) this.hello(c, pr.role, pid);
-      if(n > c.n){ c.n = n; this.exec(cmd, c); }
+      if(n > c.n){ c.n = n; this.exec(cmd, c); changed = true; }
     }
     for(const key of [...this.clients.keys()]) if(key.startsWith('r:') && !here.has(key)) this.drop(key);
-    paintPair(); this.push(true);
+    /* Our own presence updates land here too, so only repaint and push when a phone did something.
+       Pushing every time would answer our own update with another one, forever. */
+    if(changed){ paintPair(); this.push(true); }
   },
 
   /* ---- everywhere else: PeerJS ---- */
-  startPeer(){
+  startPeer(g){
     this.mode = 'peer';
     let tries = 0;
     const open = () => {
       const peer = new Peer(PEER_PREFIX + this.code.toLowerCase(), { debug:0 });
       let opened = false;
-      const timer = setTimeout(() => { if(!opened){ try{ peer.destroy(); }catch(e){} this.fail('Can’t reach the phone-link service. Check the internet connection, then reload the page.'); } }, 15000);
-      peer.on('open', () => { opened = true; clearTimeout(timer); this.peer = peer; this.ready(); });
+      const timer = setTimeout(() => { if(!opened){ try{ peer.destroy(); }catch(e){} if(g===this.gen) this.fail('Can’t reach the phone-link service. Check the internet connection, then reload the page.'); } }, 15000);
+      peer.on('open', () => { opened = true; clearTimeout(timer); if(g!==this.gen){ try{ peer.destroy(); }catch(e){} return; } this.peer = peer; this.ready(); });
       peer.on('connection', conn => this.accept(conn));
       peer.on('disconnected', () => { setTimeout(() => { try{ if(!peer.destroyed) peer.reconnect(); }catch(e){} }, 2000); });
       peer.on('error', e => {
         const t = e && e.type;
         if(opened) return;
         clearTimeout(timer); try{ peer.destroy(); }catch(_){}
+        if(g!==this.gen) return;
         if(t==='unavailable-id' && tries<4){ tries++; this.code = this.newCode(); store.set('cw_room_code', this.code); open(); return; }
         this.fail(t==='browser-incompatible' ? 'This browser can’t make direct phone links. Try Edge or Chrome.' : 'Can’t reach the phone-link service. Check the internet connection, then reload the page.');
       });
@@ -5398,7 +5467,7 @@ const Remote = {
 const PHONE_HTML = '<header class="rm-top"><span class="live"><i></i><span id="rm-badge">PHONE</span></span><b class="rm-name">Confidently Wrong</b><span class="rm-conn" id="rm-conn"></span></header>'
   + '<section class="rm-card" id="rm-pair"><small>Join the show</small><h2>Type the code on the TV</h2><p>It’s the 4 letters next to the QR code.</p>'
   + '<form id="rm-codeform" class="rm-code"><label class="sr" for="rm-code">Join code</label><input id="rm-code" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false"><button class="btn gold" type="submit">Join</button></form>'
-  + '<p class="hint" id="rm-msg" role="status"></p></section>'
+  + '<p class="hint" id="rm-msg" role="status"></p><button class="btn ghost rm-tv" type="button" data-r="betv">This screen is the TV, not a phone</button></section>'
   + '<section class="rm-card" id="rm-role" hidden><small>Who are you tonight?</small><div class="rm-roles">'
   + '<button class="btn gold" type="button" data-r="beplayer">I’m playing<span>Get a buzzer. Bets and final answers go here too.</span></button>'
   + '<button class="btn ghost" type="button" data-r="behost">I’m the host<span>See every answer and run the show. No playing, no cheating.</span></button></div></section>'
@@ -5426,31 +5495,59 @@ const PHONE_HTML = '<header class="rm-top"><span class="live"><i></i><span id="r
 const Phone = {
   via:'', code:'', role:'', pid:-1, st:null, seen:0, n:Date.now(), show:!!store.get('cw_rm_show', false),
   room:null, chan:null, named:false, peer:null, conn:null, retryT:null, sent:{}, formKey:'', formKind:'',
-  async start(){
+  wt:null, unChan:null, unLobby:null, bound:false, tvs:[], tried:new Set(),
+  /* opts.code: a code picked on this screen, for when the link arrived without one. */
+  async start(opts){
+    opts = opts || {};
     document.body.dataset.mode = 'remote';
     $('#app').hidden = true;
     const R = $('#remote'); R.innerHTML = PHONE_HTML; R.hidden = false;
     const m = /^#(join|host|play)-([a-z]{4})$/i.exec(location.hash||'');
     const saved = String(store.get('cw_rm_code','')||'').toUpperCase();
-    const code = m ? m[2].toUpperCase() : saved;
+    const given = /^[a-z]{4}$/i.test(opts.code||'') ? String(opts.code).toUpperCase() : '';
+    const code = given || (m ? m[2].toUpperCase() : saved);
+    this.code = ''; this.st = null; this.role = ''; this.pid = -1; this.tvs = []; this.tried = new Set();
     $('#rm-code').value = code;
-    if(m && m[1].toLowerCase()==='host') this.role = 'host';
-    else if(m && m[1].toLowerCase()==='play') this.role = 'player';
+    if(!given && m && m[1].toLowerCase()==='host') this.role = 'host';
+    else if(!given && m && m[1].toLowerCase()==='play') this.role = 'player';
     else if(code && code===saved) this.role = store.get('cw_rm_role','') || '';
     if(this.role==='player' && code && code===saved) this.pid = +store.get('cw_rm_pid', -1);
-    R.addEventListener('click', e => this.click(e));
+    if(!this.bound){ this.bound = true; R.addEventListener('click', e => this.click(e)); }
     $('#rm-codeform').addEventListener('submit', e => { e.preventDefault(); this.connect($('#rm-code').value); });
     $('#rm-typeform').addEventListener('submit', e => { e.preventDefault(); const v = $('#rm-typein').value.trim(); if(v){ this.send({ act:'submit', text:v }); $('#rm-typein').value = ''; } });
     $('#pl-form').addEventListener('submit', e => { e.preventDefault(); this.submitForm(); });
-    setInterval(() => this.watch(), 1000);
+    clearInterval(this.wt); this.wt = setInterval(() => this.watch(), 1000);
     if(inClaude()){
       this.via = 'room';
       try{ this.room = await window.claude.use('room'); }catch(e){ this.room = null; }
+      if(document.body.dataset.mode!=='remote') return;   // switched back to TV while waiting
       if(!this.room){ this.bar('Can’t connect'); this.msg('Sign in to Claude on this phone, or open the game’s website instead.'); return; }
+      /* Every TV says its code in the lobby, so this phone can find the TV even if the link lost the code. */
+      this.unLobby = this.room.onPeers(ch => this.spot(ch), () => {});
     } else if(typeof Peer==='function') this.via = 'peer';
     else { this.bar('Can’t connect'); this.msg('The phone link couldn’t load. Check this phone’s internet connection and reload.'); return; }
     this.bar('Not joined yet');
-    if(code && m) this.connect(code); else this.render();
+    if(code && (given || m)) this.connect(code); else this.render();
+  },
+  /* A TV showed up in the lobby. With exactly one, join it (once per code); with several, list them. */
+  spot(ch){
+    this.tvs = otherTVs(ch.peers);
+    if(this.st || document.body.dataset.mode!=='remote') return;
+    if(this.tvs.length===1){
+      const c = this.tvs[0];
+      if(c===this.code || this.tried.has(c)) return;
+      this.tried.add(c); $('#rm-code').value = c; this.connect(c);
+    } else if(this.tvs.length>1 && !this.code) this.msg('Shows running now: '+this.tvs.join(', ')+'. Type the 4 letters on your TV.');
+  },
+  /* Stop being a phone (this screen is going back to being the TV). */
+  stop(){
+    clearInterval(this.wt); this.wt = null; clearTimeout(this.retryT);
+    for(const k of ['unLobby','unChan']){ if(this[k]){ try{ this[k](); }catch(e){} this[k] = null; } }
+    const ch = this.chan; this.chan = null;
+    if(ch){ if(this.named) ch.leave().catch(() => {}); else ch.presence({ role:null, pid:null, code:null, cmd:null }).catch(() => {}); }
+    if(this.conn){ const c = this.conn; this.conn = null; try{ c.close(); }catch(e){} }
+    if(this.peer){ try{ this.peer.destroy(); }catch(e){} this.peer = null; }
+    this.st = null; this.code = ''; this.via = '';
   },
   connect(code){
     code = String(code||'').trim().toUpperCase();
@@ -5461,11 +5558,14 @@ const Phone = {
     return this.via==='room' ? this.joinRoom(code) : this.joinPeer(code);
   },
   async joinRoom(code){
+    if(this.unChan){ try{ this.unChan(); }catch(e){} this.unChan = null; }
     if(this.chan && this.named){ try{ await this.chan.leave(); }catch(e){} }
-    try{ this.chan = await this.room.join('cw-'+code.toLowerCase()); this.named = true; }
-    catch(e){ this.chan = this.room; this.named = false; }
+    let chan = this.room, named = false;
+    try{ chan = await this.room.join('cw-'+code.toLowerCase()); named = true; }catch(e){}
+    if(this.code!==code || document.body.dataset.mode!=='remote'){ if(named) chan.leave().catch(() => {}); return; }   // another code was picked meanwhile
+    this.chan = chan; this.named = named;
     this.hello();
-    this.chan.onPeers(ch => {
+    this.unChan = this.chan.onPeers(ch => {
       const tv = ch.peers.find(p => !(p.isMe && p.sameTab) && p.presence && p.presence.role==='tv' && (this.named || p.presence.code===code));
       this.st = (tv && tv.presence.st) ? tv.presence.st : null; if(this.st) this.seen = Date.now();
       this.render();
@@ -5516,6 +5616,7 @@ const Phone = {
   click(e){
     const b = e.target.closest('[data-r]'); if(!b || b.disabled) return;
     const r = b.dataset.r;
+    if(r==='betv'){ toTV(); return; }
     if(r==='beplayer'){ this.role = 'player'; this.pid = -1; store.set('cw_rm_role','player'); this.render(); return; }
     if(r==='behost'){ this.setRole('host', -1); return; }
     if(r==='rolechange'){ this.setRole('', -1); return; }
