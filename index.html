@@ -830,7 +830,94 @@ body.sk .pl-buzz{font:700 clamp(50px,17vw,80px)/1 var(--display)}
 .ph-opts{display:grid;gap:8px}
 .ph-opts .btn{justify-content:flex-start;text-align:left;white-space:normal;min-height:56px;font-size:16px;letter-spacing:.04em}
 .ph-opts .btn b{font:600 26px/1 var(--display);margin-right:6px}
-.ph-ult{width:100%;min-height:60px;font-size:17px}
+.ph-ult{width:100%;min-height:72px;font-size:20px;animation:skpulse .9s ease-in-out infinite}
+
+/* "FRIGGIN EZ": the slap before the takeover */
+#sk-take .tk-slapwrap{position:absolute;inset:0;overflow:hidden}
+#sk-take .tk-slap{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+#sk-take .tk-slap b{font:400 clamp(90px,19vw,300px)/.82 "Bungee","Arial Black",Impact,sans-serif;color:#ffe14d;text-align:center;letter-spacing:.02em;-webkit-text-stroke:.03em #1a0d00;text-shadow:.04em .04em 0 #ff4655,.08em .08em 0 #0b0d14,0 0 80px rgba(255,225,77,.6);transform:rotate(-8deg)}
+#sk-take .tk-burst{position:absolute;left:50%;top:50%;width:220vmax;height:220vmax;margin:-110vmax 0 0 -110vmax;background:repeating-conic-gradient(from 0deg,rgba(255,225,77,.85) 0 2deg,transparent 2deg 9deg);-webkit-mask:radial-gradient(circle,transparent 0 9%,#000 10% 32%,transparent 46%);mask:radial-gradient(circle,transparent 0 9%,#000 10% 32%,transparent 46%);opacity:0}
+#sk-take .tk-hand{position:absolute;left:50%;top:50%;font-size:clamp(160px,30vmin,380px);line-height:1;transform:translate(60vw,-50%) rotate(40deg)}
+#sk-take .tk-crack{position:absolute;inset:0;opacity:0}
+#sk-take .tk-crack svg{width:100%;height:100%}
+#app.punch{animation:punchin .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes punchin{0%{transform:scale(1.08) rotate(-1.5deg)}100%{transform:none}}
+
+/* question themes: the background and floating motifs follow the franchise on screen */
+#theme-fx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:0;transition:opacity .6s}
+body.sk.themed #theme-fx{opacity:1}
+body.sk.themed .bg{background:radial-gradient(110% 80% at 50% 115%,var(--th-a) 0%,color-mix(in srgb,var(--th-b) 80%,#000) 55%,#05060a 90%)!important;transition:background .6s}
+body.sk.themed .skbg .grid{background-image:linear-gradient(color-mix(in srgb,var(--th-c) 45%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--th-c) 45%,transparent) 1px,transparent 1px)}
+body.sk.themed .clue{background:radial-gradient(120% 90% at 50% 0%,color-mix(in srgb,var(--th-a) 45%,#0d1019),color-mix(in srgb,var(--th-b) 60%,#07080d) 70%);box-shadow:0 0 0 1px color-mix(in srgb,var(--th-c) 55%,transparent),0 30px 80px rgba(0,0,0,.6),0 0 90px color-mix(in srgb,var(--th-a) 35%,transparent)}
+body.sk.themed .clue::after{border-color:var(--th-c)}
+body.sk.themed .clue-val{color:var(--th-c);text-shadow:0 0 20px color-mix(in srgb,var(--th-c) 60%,transparent)}
+.th-tag{position:absolute;left:clamp(18px,3.4vmin,36px);bottom:clamp(20px,3.6vmin,38px);font:800 clamp(10px,1.5vmin,14px)/1 var(--body);letter-spacing:.32em;text-transform:uppercase;padding:7px 12px;border-radius:2px;color:#05060a;background:var(--th-c);z-index:2;white-space:nowrap}
+.th-tag:empty{display:none}
+:is(#theme-fx,.clue-fx) .mo,.clue-fx .mo{position:absolute;display:block;line-height:1;opacity:.5;filter:drop-shadow(0 6px 14px rgba(0,0,0,.5));animation:thfloat var(--d,14s) ease-in-out var(--dl,0s) infinite alternate}
+.clue-fx{display:none;position:absolute;inset:0;overflow:hidden;pointer-events:none;border-radius:inherit}
+body.sk.themed .clue-fx{display:block}
+.clue-fx .mo{opacity:.28}
+.clue-fx .fxl{opacity:.6}
+@keyframes thfloat{from{transform:translateY(0) rotate(var(--r0,-10deg)) scale(var(--s,1))}to{transform:translateY(-6vh) rotate(var(--r1,12deg)) scale(var(--s,1))}}
+:is(#theme-fx,.clue-fx) .db{width:1em;height:1em;border-radius:50%;background:radial-gradient(circle at 34% 30%,#fff8d6 0 8%,#ffb319 22%,#ff7a00 60%,#c24d00);box-shadow:0 0 30px rgba(255,140,0,.6);display:grid;place-items:center;color:#d40000;letter-spacing:-.05em}
+:is(#theme-fx,.clue-fx) .db b{font:900 .22em/1 Arial,sans-serif;max-width:3.6em;text-align:center;overflow-wrap:anywhere}
+:is(#theme-fx,.clue-fx) .pb{width:1em;height:1em;border-radius:50%;background:linear-gradient(#e3262d 0 46%,#111 46% 54%,#f4f4f4 54%);box-shadow:inset 0 0 0 .04em #111}
+:is(#theme-fx,.clue-fx) .pb::after{content:"";position:absolute;left:50%;top:50%;width:.26em;height:.26em;margin:-.13em 0 0 -.13em;border-radius:50%;background:#fff;box-shadow:0 0 0 .05em #111}
+:is(#theme-fx,.clue-fx) .crew{width:.8em;height:1em;border-radius:.4em .4em .14em .14em;background:var(--cc,#c51111);box-shadow:inset -.1em -.06em 0 rgba(0,0,0,.25)}
+:is(#theme-fx,.clue-fx) .crew::before{content:"";position:absolute;right:-.12em;top:.18em;width:.5em;height:.3em;border-radius:.16em;background:linear-gradient(#cfe9ff,#7fb5d8);box-shadow:inset 0 -.05em 0 rgba(0,0,0,.2)}
+:is(#theme-fx,.clue-fx) .crew::after{content:"";position:absolute;left:-.16em;top:.38em;width:.18em;height:.42em;border-radius:.08em;background:var(--cc,#c51111);filter:brightness(.8)}
+:is(#theme-fx,.clue-fx) .hexa{width:1em;height:1.15em;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:color-mix(in srgb,var(--th-c) 60%,transparent);opacity:.35}
+:is(#theme-fx,.clue-fx) .shard{width:1em;height:1em;clip-path:polygon(0 0,100% 30%,70% 100%);background:var(--th-a);opacity:.55}
+:is(#theme-fx,.clue-fx) .fxl{position:absolute;inset:0}
+:is(#theme-fx,.clue-fx) .fx-checker{background:repeating-conic-gradient(#0f4d3a 0 25%,#060606 0 50%) 0 0/9vmin 9vmin;opacity:.28;-webkit-mask:radial-gradient(ellipse at center,transparent 35%,#000 75%);mask:radial-gradient(ellipse at center,transparent 35%,#000 75%)}
+:is(#theme-fx,.clue-fx) .fx-halftone{background:radial-gradient(circle,rgba(255,255,255,.18) 22%,transparent 24%) 0 0/16px 16px;-webkit-mask:linear-gradient(135deg,#000,transparent 60%);mask:linear-gradient(135deg,#000,transparent 60%)}
+:is(#theme-fx,.clue-fx) .fx-pixels{background:linear-gradient(rgba(0,0,0,.25) 2px,transparent 2px) 0 0/48px 48px,linear-gradient(90deg,rgba(0,0,0,.25) 2px,transparent 2px) 0 0/48px 48px;-webkit-mask:linear-gradient(to top,#000 20%,transparent 70%);mask:linear-gradient(to top,#000 20%,transparent 70%)}
+:is(#theme-fx,.clue-fx) .fx-speed{background:repeating-conic-gradient(from 0deg at 50% 45%,rgba(255,255,255,.12) 0 1deg,transparent 1deg 6deg);-webkit-mask:radial-gradient(circle at 50% 45%,transparent 20%,#000 60%);mask:radial-gradient(circle at 50% 45%,transparent 20%,#000 60%);animation:spin 40s linear infinite}
+:is(#theme-fx,.clue-fx) .fx-rays{left:-50%;top:-50%;width:200%;height:200%;background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(255,255,255,.08) 0 8deg,transparent 8deg 20deg);animation:spin 30s linear infinite}
+:is(#theme-fx,.clue-fx) .fx-snow{background-image:radial-gradient(2px 2px at 20% 30%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 70% 60%,#fff 50%,transparent 51%),radial-gradient(3px 3px at 40% 80%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 85% 20%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 10% 70%,#fff 50%,transparent 51%);background-size:300px 300px;opacity:.6;animation:snowfall 12s linear infinite}
+@keyframes snowfall{to{background-position:0 300px,30px 300px,-20px 300px,10px 300px,0 300px}}
+:is(#theme-fx,.clue-fx) .fx-stars{background-image:radial-gradient(1px 1px at 10% 20%,#fff,transparent),radial-gradient(1px 1px at 30% 70%,#fff,transparent),radial-gradient(2px 2px at 60% 40%,#fff,transparent),radial-gradient(1px 1px at 80% 80%,#fff,transparent),radial-gradient(1px 1px at 90% 10%,#fff,transparent);background-size:220px 220px;opacity:.7;animation:snowfall 40s linear infinite reverse}
+:is(#theme-fx,.clue-fx) .fx-waves{top:auto;height:30vh;background:repeating-radial-gradient(circle at 50% 120%,rgba(120,200,255,.18) 0 18px,transparent 18px 40px);-webkit-mask:linear-gradient(to top,#000,transparent);mask:linear-gradient(to top,#000,transparent)}
+:is(#theme-fx,.clue-fx) .fx-sunset{background:radial-gradient(circle at 50% 78%,rgba(255,200,90,.55) 0 12vmin,transparent 13vmin),linear-gradient(to top,rgba(255,120,60,.25),transparent 60%)}
+:is(#theme-fx,.clue-fx) .fx-spot{background:conic-gradient(from 160deg at 50% 110%,transparent 0 10deg,rgba(255,240,170,.18) 14deg 26deg,transparent 30deg)}
+:is(#theme-fx,.clue-fx) .fx-cursed{background:radial-gradient(circle at 30% 60%,rgba(139,92,246,.35),transparent 40%),radial-gradient(circle at 75% 30%,rgba(59,7,100,.5),transparent 45%);animation:cursed 5s ease-in-out infinite alternate}
+@keyframes cursed{to{filter:hue-rotate(40deg) brightness(1.3)}}
+:is(#theme-fx,.clue-fx) .fx-storm{background:radial-gradient(circle at 50% 50%,transparent 38vmin,rgba(140,60,255,.45) 40vmin,rgba(60,20,120,.7) 70vmin)}
+:is(#theme-fx,.clue-fx) .fx-chaos{background:linear-gradient(120deg,rgba(255,0,150,.18),rgba(0,255,255,.18),rgba(255,255,0,.18));animation:cursed 1.6s linear infinite alternate}
+:is(#theme-fx,.clue-fx) .fx-leaves{background:radial-gradient(ellipse 14px 6px at 20% 30%,rgba(120,200,80,.5) 60%,transparent 62%),radial-gradient(ellipse 14px 6px at 70% 60%,rgba(120,200,80,.4) 60%,transparent 62%);background-size:260px 260px;animation:snowfall 18s linear infinite}
+
+/* picture rounds: silhouettes, zoom and enhance, feet */
+.clue-text.sk-pic{max-width:100%;text-transform:none}
+.pic{position:relative;margin:0 auto;display:grid;place-items:center}
+.pic img{display:block;max-width:100%;max-height:100%;object-fit:contain;transition:filter .7s ease,transform 1s cubic-bezier(.2,1,.3,1)}
+.pic.sil{width:min(78vmin,900px);height:clamp(200px,44vmin,520px)}
+.pic.sil img{filter:brightness(0) drop-shadow(0 0 2px rgba(255,255,255,.9)) drop-shadow(0 0 22px rgba(24,226,255,.45))}
+.pic.sil.shown img{filter:none}
+.pic.zoom{width:clamp(220px,42vmin,460px);height:clamp(220px,42vmin,460px);overflow:hidden;border-radius:4px;box-shadow:0 0 0 2px var(--th-c,var(--skc)),0 0 40px rgba(0,0,0,.6);background:#0b0d14}
+.pic.zoom img{width:100%;height:100%;object-fit:cover;transform-origin:var(--zx,50%) var(--zy,35%)}
+.pic.zoom.z0 img{transform:scale(5);filter:blur(5px) saturate(1.3)}
+.pic.zoom.z1 img{transform:scale(2.4);filter:blur(1.6px)}
+.pic.zoom.z2 img,.pic.zoom.shown img{transform:none;filter:none}
+.pic.feet{width:min(86vmin,980px);height:clamp(200px,44vmin,520px)}
+.pic.feet canvas{width:100%;height:100%;display:block}
+.pic-msg{font:700 clamp(14px,2.2vmin,20px)/1.3 var(--body);color:var(--muted)}
+.pic-msg:empty{display:none}
+/* once the answer is up, the picture shrinks so the answer card fits underneath */
+.clue-body:has(> .answer-card:not([hidden])) .pic.sil,.clue-body:has(> .answer-card:not([hidden])) .pic.feet{height:clamp(140px,27vmin,330px)}
+.clue-body:has(> .answer-card:not([hidden])) .pic.zoom{width:clamp(140px,27vmin,320px);height:clamp(140px,27vmin,320px)}
+.clue-body:has(> .answer-card:not([hidden])) .sk-pic .fmt-lbl{display:none}
+
+/* challenge roulette and face-off */
+.roul{display:grid;justify-items:center;gap:16px;text-align:center}
+.roul .name{font:700 clamp(70px,16vmin,200px)/.85 var(--display);text-transform:uppercase;letter-spacing:.03em;color:var(--pc,#fff);text-shadow:0 0 50px color-mix(in srgb,var(--pc,#fff) 60%,transparent)}
+.roul .vs{display:flex;align-items:center;gap:clamp(14px,4vmin,50px);flex-wrap:wrap;justify-content:center}
+.roul .vs i{font:700 clamp(40px,8vmin,90px)/1 var(--display);color:var(--skr);font-style:normal}
+.cv-tally{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.cv-tally span{font:800 clamp(13px,2vmin,18px)/1 var(--body);letter-spacing:.14em;text-transform:uppercase;padding:9px 12px;border-radius:2px;background:rgba(255,255,255,.07)}
+
+/* the ult reminder on the board */
+#ult-banner{position:absolute;left:50%;bottom:22px;translate:-50% 0;z-index:3;pointer-events:none;display:flex;align-items:center;gap:12px;padding:12px 18px;border-radius:3px;background:linear-gradient(90deg,#ffd23f,#ff9f1c);color:#1a1200;font:800 clamp(13px,2vmin,19px)/1.2 var(--body);letter-spacing:.06em;text-transform:uppercase;box-shadow:0 0 40px rgba(255,210,63,.55);animation:skpulse 1s ease-in-out infinite;max-width:92%;text-align:center}
+#ult-banner kbd{font:800 12px/1 var(--body);padding:5px 7px;border-radius:3px;background:rgba(0,0,0,.18)}
 
 @media (prefers-reduced-motion:reduce){
   .pl-buzz.open{animation:none}
@@ -846,6 +933,7 @@ body.sk .pl-buzz{font:700 clamp(50px,17vw,80px)/1 var(--display)}
 </svg>
 
 <div class="bg" aria-hidden="true"><div class="rays"></div><div class="spot l"></div><div class="spot r"></div><div class="floor"></div><div class="skbg"><i class="grid"></i><i class="beam a"></i><i class="beam b"></i><i class="sweep"></i><i class="scan"></i><i class="vig"></i><i class="hud"></i></div></div>
+<div id="theme-fx" aria-hidden="true"></div>
 
 <div id="app">
   <header class="top" id="top" hidden>
@@ -949,11 +1037,13 @@ body.sk .pl-buzz{font:700 clamp(50px,17vw,80px)/1 var(--display)}
       <div class="board-wrap">
         <div class="bulbs" aria-hidden="true"><i class="t"></i><i class="b"></i><i class="l"></i><i class="r"></i></div>
         <div class="board" id="board"></div>
+        <div id="ult-banner" hidden></div>
       </div>
     </section>
 
     <section id="s-clue" class="screen" aria-label="Clue">
       <div class="clue">
+        <div class="clue-fx" id="clue-fx" aria-hidden="true"></div>
         <div class="clue-head"><span class="chip" id="clue-cat"></span><span class="status" id="clue-status"></span><span class="clue-val" id="clue-val"></span></div>
         <div class="clue-body">
           <div class="clue-text" id="clue-text" aria-live="polite"></div>
@@ -965,6 +1055,7 @@ body.sk .pl-buzz{font:700 clamp(50px,17vw,80px)/1 var(--display)}
         <div class="host-peek" id="host-peek" hidden></div>
         <div class="timerbar"><b id="clue-timer"></b></div>
         <div id="sk-gate" hidden></div>
+        <span class="th-tag" id="th-tag"></span>
       </div>
     </section>
 
@@ -1333,372 +1424,853 @@ const SK_BANK = [
 K('shonen', 'Shonen Showdown', 'Naruto, One Piece, Dragon Ball, Bleach and Death Note. The big classics.', 'anime', 'std', 'buzz', [
   [1,'Which apple-obsessed Shinigami drops his Death Note into the human world because he is bored?','Ryuk'],
   [1,'Which pirate captain’s body turned to rubber after he ate the Gum-Gum Fruit?','Luffy','Also accept: Monkey D. Luffy.'],
+  [1,'In Bleach, which orange-haired teenager becomes a substitute Soul Reaper after Rukia gives him her powers?','Ichigo Kurosaki','Also accept: Ichigo.'],
+  [1,'Which short, bald Dragon Ball fighter with six dots on his forehead is Goku’s best mate?','Krillin','Also accept: Kuririn.'],
   [2,'Which Akatsuki member wiped out his own clan in a single night, sparing only his little brother?','Itachi Uchiha','Also accept: Itachi.'],
   [2,'Which Dragon Ball villain is a bio-android grown from the cells of Goku, Vegeta, Piccolo and Frieza?','Cell'],
+  [2,'Which Naruto jonin, nicknamed the Copy Ninja, keeps most of his face hidden behind a mask?','Kakashi Hatake','Also accept: Kakashi.'],
+  [2,'Which One Piece reindeer ate the Human-Human Fruit and became the Straw Hats’ doctor?','Tony Tony Chopper','Also accept: Chopper.'],
   [3,'What is the real name of the Nine-Tailed Fox sealed inside Naruto?','Kurama'],
   [3,'Which Soul Reaper captain faked his own death and turned out to be the big bad of the Soul Society arc?','Sosuke Aizen','Also accept: Aizen.'],
+  [3,'In Death Note, which blonde idol with Shinigami Eyes becomes the Second Kira?','Misa Amane','Also accept: Misa.'],
+  [3,'Which One Piece admiral, wielding the Magma-Magma Fruit, killed Ace at Marineford?','Akainu','Also accept: Sakazuki.'],
   [4,'What is the name of the sword Zoro inherited from his childhood rival Kuina?','Wado Ichimonji'],
   [4,'What is the name of Goku’s father, the Saiyan who stood up to Frieza?','Bardock'],
+  [4,'Which pale Bleach Espada, ranked number 4, fights Ichigo on top of the dome of Las Noches?','Ulquiorra Cifer','Also accept: Ulquiorra.'],
+  [4,'Which Hokage invented the Shadow Clone Jutsu that Naruto spams constantly?','Tobirama Senju','The Second Hokage. Also accept: Tobirama.'],
   [5,'What is the name of Head Captain Yamamoto’s Zanpakuto, the most powerful fire-type of them all?','Ryujin Jakka'],
   [5,'What is L’s full real name, finally revealed in an official guidebook?','L Lawliet','Revealed in Death Note 13: How to Read. Also accept: Lawliet.'],
+  [5,'In Death Note, which Shinigami died saving Misa’s life, leaving behind the notebook Rem later gave her?','Gelus','Killing to save a human you love is fatal for a Shinigami.'],
+  [5,'What is the name of Kenpachi Zaraki’s Zanpakuto, whose name he only learns in the Thousand-Year Blood War?','Nozarashi','Bleach.'],
 ]),
 K('cursed', 'Cursed & Slayers', 'Jujutsu Kaisen, Demon Slayer, Attack on Titan and Chainsaw Man.', 'anime', 'std', 'buzz', [
   [1,'Which King of Curses ends up living inside Yuji Itadori after Yuji eats one of his fingers?','Sukuna','Also accept: Ryomen Sukuna.'],
   [1,'Which of Tanjiro’s family survives as a demon and travels in a wooden box on his back?','Nezuko','His little sister. Also accept: Nezuko Kamado.'],
+  [1,'In Attack on Titan, which boy swears to wipe out every Titan after one eats his mother?','Eren Yeager','Also accept: Eren, Eren Jaeger.'],
+  [1,'Which Demon Slayer swordsman wears a boar’s head and fights with two jagged blades?','Inosuke','Also accept: Inosuke Hashibira.'],
   [2,'Which Survey Corps captain is known as humanity’s strongest soldier?','Levi','Also accept: Levi Ackerman.'],
   [2,'What is the name of Denji’s chainsaw devil dog, who later becomes his heart?','Pochita'],
+  [2,'Which Chainsaw Man Fiend, the Blood Fiend, moves in with Denji and brags about everything?','Power'],
+  [2,'Which Demon Slayer villain, the very first demon, can turn humans into demons with his blood?','Muzan Kibutsuji','Also accept: Muzan.'],
   [3,'Which Water Hashira spares Nezuko in the very first episode and sends Tanjiro off to train?','Giyu Tomioka','Also accept: Giyu.'],
   [3,'Which Jujutsu High first-year summons shikigami like his Divine Dogs with the Ten Shadows Technique?','Megumi Fushiguro','Also accept: Megumi.'],
+  [3,'Which Attack on Titan scout inherits the Colossal Titan by eating Bertholdt?','Armin Arlert','Also accept: Armin.'],
+  [3,'Which ex-salaryman Jujutsu sorcerer uses the Ratio Technique to strike the 7:3 weak point?','Kento Nanami','Also accept: Nanami.'],
   [4,'Makima is eventually revealed to be which devil?','Control Devil'],
   [4,'Who is the ancient sorcerer walking around in Suguru Geto’s body, forehead stitches and all?','Kenjaku'],
+  [4,'Which Jujutsu Kaisen sorcerer killer, Megumi’s father, was born with zero cursed energy?','Toji Fushiguro','Also accept: Toji, Toji Zenin.'],
+  [4,'Which devil lives in Aki Hayakawa’s right eye, letting him see a little way into the future?','Future Devil','Chainsaw Man. Its only price was living in his eye.'],
   [5,'Which slave girl became the very first Titan, around 2,000 years before the story?','Ymir Fritz','Also accept: Ymir. Not to be confused with the 104th Cadet Corps Ymir.'],
   [5,'Which demon, the strongest of the Twelve Kizuki, was once the twin brother of Yoriichi?','Kokushibo','Upper Moon One. Human name: Michikatsu Tsugikuni.'],
+  [5,'What is the name of Tanjiro’s late father, whose Hinokami Kagura dance Tanjiro remembers in battle?','Tanjuro Kamado','Demon Slayer. Also accept: Tanjuro.'],
+  [5,'In Attack on Titan, who secretly holds the War Hammer Titan when Eren attacks Liberio?','Lara Tybur','Her brother Willy was the public face of the Tybur family.'],
 ]),
 K('powerlv', 'Power Levels', 'My Hero Academia, One Punch Man, Solo Leveling, Hunter x Hunter, Mob Psycho 100, Spy x Family and Black Clover.', 'anime', 'std', 'buzz', [
   [1,'Which bald hero beats every enemy with a single punch and is bored stiff about it?','Saitama'],
   [1,'Which Symbol of Peace passes his Quirk, One For All, on to Deku?','All Might'],
+  [1,'Which cyborg hero becomes Saitama’s disciple, desperate to learn the secret of his strength?','Genos','One Punch Man.'],
+  [1,'In Spy x Family, which master spy goes by the codename Twilight?','Loid Forger','Also accept: Loid.'],
   [2,'Which telepathic little girl in Spy x Family is obsessed with peanuts?','Anya Forger','Also accept: Anya.'],
   [2,'Which boy from Whale Island becomes a Hunter to track down his father, Ging?','Gon Freecss','Also accept: Gon.'],
+  [2,'In Black Clover, which orphan raised alongside Asta receives a four-leaf grimoire?','Yuno'],
+  [2,'What is Mob’s real name in Mob Psycho 100?','Shigeo Kageyama','Also accept: Shigeo.'],
   [3,'Which self-proclaimed psychic with zero powers is Mob’s boss and mentor?','Reigen','Full name Arataka Reigen.'],
   [3,'Which knight in blood-red armour becomes one of Sung Jinwoo’s most loyal shadow soldiers?','Igris','The Blood-Red Commander.'],
+  [3,'In Solo Leveling, which Ant King from Jeju Island ends up serving Sung Jinwoo as a shadow?','Beru'],
+  [3,'Which Forger family dog, a former lab experiment, can see into the future?','Bond','Spy x Family. Also accept: Bond Forger.'],
   [4,'Who is the King of the Chimera Ants, who ends up playing Gungi with Komugi?','Meruem'],
   [4,'What was Tomura Shigaraki’s birth name before All For One took him in?','Tenko Shimura'],
+  [4,'Which tiny but terrifying S-Class psychic, the Tornado of Terror, is Fubuki’s big sister?','Tatsumaki','One Punch Man.'],
+  [4,'Who leads the Phantom Troupe, the spider-themed thieves of Hunter x Hunter?','Chrollo Lucilfer','Also accept: Chrollo.'],
   [5,'Who holds the number one spot among the S-Class heroes in One Punch Man?','Blast'],
   [5,'What is the name of the anti-magic devil living in Asta’s five-leaf grimoire?','Liebe'],
+  [5,'In Mob Psycho 100, who is the boss of Claw, the esper group bent on world domination?','Toichiro Suzuki','Sho Suzuki’s dad. Also accept: Toichiro.'],
+  [5,'In My Hero Academia, who was the very first holder of One For All?','Yoichi Shigaraki','All For One’s younger brother. Also accept: Yoichi.'],
 ]),
 K('deepcut', 'Deep Cuts', 'Frieren, Vinland Saga, Code Geass, Evangelion, Berserk, Cowboy Bebop and more.', 'anime', 'std', 'buzz', [
   [1,'In Fullmetal Alchemist, which Elric brother has his soul bound to a suit of armour?','Alphonse Elric','Also accept: Al, Alphonse.'],
   [1,'In Evangelion, which teenager is pushed by his father Gendo into piloting Eva Unit-01?','Shinji Ikari','Also accept: Shinji.'],
+  [1,'In Cowboy Bebop, which laid-back bounty hunter fights using Bruce Lee’s Jeet Kune Do?','Spike Spiegel','Also accept: Spike.'],
+  [1,'In Berserk, which mercenary with a giant sword and an iron arm is called the Black Swordsman?','Guts'],
   [2,'Which exiled prince gains the power of Geass and leads a rebellion as the masked Zero?','Lelouch','Code Geass. Full name Lelouch vi Britannia.'],
   [2,'Which student becomes a half-ghoul after receiving Rize’s organs in hospital?','Ken Kaneki','Tokyo Ghoul. Also accept: Kaneki.'],
+  [2,'Which Fullmetal Alchemist colonel, the Flame Alchemist, snaps his fingers to make fire?','Roy Mustang','Also accept: Mustang.'],
+  [2,'Which fiery Evangelion pilot controls the red Unit-02?','Asuka','Also accept: Asuka Langley Soryu, or Shikinami in the films.'],
   [3,'Which late hero, Frieren’s old party leader, inspires her journey to understand people?','Himmel'],
   [3,'Which white-haired leader of the Band of the Hawk is reborn as Femto?','Griffith','Berserk.'],
+  [3,'Which young mage, raised by the priest Heiter, becomes Frieren’s apprentice?','Fern'],
+  [3,'In Code Geass, which childhood friend of Lelouch pilots the white Knightmare Lancelot?','Suzaku Kururugi','Also accept: Suzaku.'],
   [4,'Which mercenary leader arranged the death of Thorfinn’s father, Thors, in Vinland Saga?','Askeladd'],
   [4,'Which Red Dragon Syndicate killer with a cormorant on his shoulder is Spike’s old nemesis?','Vicious','Cowboy Bebop.'],
+  [4,'In Steins;Gate, which teenage genius neuroscientist does Okabe insist on calling “Christina”?','Kurisu Makise','Also accept: Kurisu.'],
+  [4,'In Tokyo Ghoul, who is the kindly old manager of the Anteiku coffee shop?','Yoshimura','Also accept: Kuzen Yoshimura.'],
   [5,'In Dandadan, what is Okarun’s real name?','Ken Takakura','His nickname comes from “occult”.'],
   [5,'In the original Evangelion series, what is the Angel name of Kaworu Nagisa?','Tabris','The Seventeenth Angel.'],
+  [5,'In Berserk, who is the leader of the God Hand?','Void','Griffith became its fifth member, Femto.'],
+  [5,'In Vinland Saga, which farm owner buys Thorfinn as a slave?','Ketil'],
 ]),
 K('animemoji', 'Anime in Emoji', 'Name the anime from the emoji alone.', 'anime', 'emoji', 'buzz', [
   [1,'🏴‍☠️ 👒 🍖','One Piece'],
   [1,'📓 ✍️ 💀 🍎','Death Note'],
+  [1,'☝️ 👊 👨‍🦲','One Punch Man'],
+  [1,'🐉 🟠 ⭐ 🐒','Dragon Ball','Also accept: Dragon Ball Z or Dragon Ball Super.'],
   [2,'🍥 🦊 🍜','Naruto','That swirly fish cake is literally called narutomaki.'],
   [2,'🦸 🏫 💪','My Hero Academia'],
+  [2,'👹 🗡️ 📦 👧','Demon Slayer','Nezuko rides in the box.'],
+  [2,'🧱 👹 ⚔️ 😱','Attack on Titan'],
   [3,'🕵️ 🔫 🥜 👧','Spy x Family'],
   [3,'⛓️ 🪚 👨','Chainsaw Man','Chain plus saw plus man.'],
+  [3,'⚽ 🔒 🔵','Blue Lock','Football, lock, blue.'],
+  [3,'🏐 ⬆️ 🐦 🏫','Haikyuu!!','Karasuno High, the Crows. Also accept: Haikyu.'],
   [4,'🤠 🎷 🚀','Cowboy Bebop','See you, Space Cowboy…'],
   [4,'⚗️ 🦾 🛡️ 👬','Fullmetal Alchemist','Also accept: Fullmetal Alchemist: Brotherhood.'],
+  [4,'🍓 🗡️ 💀','Bleach','Ichigo sounds like the Japanese word for strawberry.'],
+  [4,'👽 👻 👵 🏎️','Dandadan','Aliens, ghosts and Turbo Granny.'],
   [5,'🧝 🧙 💐 ⏳','Frieren','Also accept: Frieren: Beyond Journey’s End.'],
   [5,'🥼 📱 🍌 🕰️','Steins;Gate','The Phone Microwave turns bananas into green jelly.'],
+  [5,'♟️ 👁️ 🎭 👑','Code Geass','Chess, the Geass eye and Zero’s mask.'],
+  [5,'⛵ 🪓 🍇 🌍','Vinland Saga','Vinland means “wine land”, after its grapes.'],
 ]),
 K('animequote', 'Who Said It? Anime', 'Name the character who said the line.', 'anime', 'quote', 'buzz', [
   [1,'It’s over nine thousand!','Vegeta','Dragon Ball Z. In the original Japanese it was only 8,000.'],
   [1,'I’m gonna be King of the Pirates!','Luffy','One Piece.'],
+  [1,'Waku waku!','Anya','Spy x Family. Also accept: Anya Forger.'],
+  [1,'I am here!','All Might','My Hero Academia. Usually “Fear not! Why? Because I am here!”'],
   [2,'Nah, I’d win.','Gojo','Jujutsu Kaisen. Also accept: Satoru Gojo.'],
   [2,'Believe it!','Naruto','Naruto, English dub catchphrase.'],
+  [2,'Arise.','Sung Jinwoo','Solo Leveling. Also accept: Jinwoo.'],
+  [2,'Thunder Breathing, First Form: Thunderclap and Flash.','Zenitsu','Demon Slayer. Also accept: Zenitsu Agatsuma.'],
   [3,'I’ll take a potato chip… and eat it!','Light Yagami','Death Note. Also accept: Light, Kira.'],
   [3,'Set your heart ablaze.','Rengoku','Demon Slayer: Mugen Train.'],
+  [3,'Yare yare daze.','Jotaro','JoJo’s Bizarre Adventure. Often subbed “Good grief.” Also accept: Jotaro Kujo.'],
+  [3,'This world shall know pain.','Pain','Naruto Shippuden. Also accept: Nagato.'],
   [4,'Bungee Gum possesses the properties of both rubber and gum.','Hisoka','Hunter x Hunter.'],
   [4,'People’s dreams… never end!','Blackbeard','One Piece. Also accept: Marshall D. Teach.'],
+  [4,'Nothing… happened.','Zoro','One Piece, after taking Luffy’s pain at Thriller Bark.'],
+  [4,'Whatever happens, happens.','Spike','Cowboy Bebop. Also accept: Spike Spiegel.'],
   [5,'El Psy Kongroo.','Okabe','Steins;Gate. Also accept: Rintaro Okabe, Hououin Kyouma.'],
   [5,'I am the hope of the universe.','Goku','Dragon Ball Z, English dub, going Super Saiyan on Namek.'],
+  [5,'A lesson without pain is meaningless.','Edward Elric','Fullmetal Alchemist: Brotherhood. Also accept: Ed.'],
+  [5,'You have no enemies.','Thors','Vinland Saga. Thorfinn’s father.'],
 ]),
 K('animeodd', 'Odd One Out: Anime', 'Four names. One does not belong. Which one?', 'anime', 'odd', 'buzz', [
   [1,'Goku | Vegeta | Gohan | Piccolo','Piccolo','The other three have Saiyan blood. Piccolo is a Namekian.'],
   [1,'Naruto | Sasuke | Sakura | Gaara','Gaara','The other three are Team 7.'],
+  [1,'Deku | Bakugo | Todoroki | Saitama','Saitama','The other three are U.A. Class 1-A. Saitama is One Punch Man.'],
+  [1,'Tanjiro | Zenitsu | Inosuke | Yuji','Yuji','The other three are Demon Slayer’s trio. Yuji is Jujutsu Kaisen.'],
   [2,'Zoro | Nami | Sanji | Shanks','Shanks','The other three are Straw Hats. Shanks leads the Red Hair Pirates.'],
   [2,'Hiruzen | Minato | Tsunade | Jiraiya','Jiraiya','The other three were Hokage. Jiraiya turned the job down.'],
+  [2,'Sharingan | Byakugan | Rinnegan | Chidori','Chidori','The other three are Naruto eye powers. Chidori is a lightning jutsu.'],
+  [2,'Kaido | Big Mom | Whitebeard | Crocodile','Crocodile','The other three were Emperors. Crocodile was a Warlord of the Sea.'],
   [3,'Yuji | Megumi | Nobara | Maki','Maki','The other three are first-years. Maki is a second-year.'],
   [3,'Rukia | Renji | Byakuya | Uryu','Uryu','The other three are Soul Reapers. Uryu is a Quincy.'],
+  [3,'Final Flash | Galick Gun | Big Bang Attack | Spirit Bomb','Spirit Bomb','The other three are Vegeta’s attacks. The Spirit Bomb is Goku’s.'],
+  [3,'Killua | Illumi | Milluki | Kurapika','Kurapika','The other three are Zoldyck siblings in Hunter x Hunter.'],
   [4,'Reiner | Bertholdt | Annie | Eren','Eren','The other three are Marleyan Warriors who infiltrated the walls.'],
   [4,'Akaza | Doma | Gyutaro | Rui','Rui','The other three are Upper Moons. Rui is only Lower Moon Five.'],
+  [4,'Cart Titan | Jaw Titan | Beast Titan | Smiling Titan','Smiling Titan','The other three are among the Nine Titans. The Smiling Titan was Pure.'],
+  [4,'Greed | Sloth | Wrath | Scar','Scar','The other three are Fullmetal Alchemist Homunculi. Scar is human.'],
   [5,'Gon | Kurapika | Leorio | Killua','Killua','The other three passed the 287th Hunter Exam. Killua was disqualified.'],
   [5,'L | Mello | Matt | Mikami','Mikami','The other three grew up at Wammy’s House orphanage.'],
+  [5,'Jogo | Hanami | Dagon | Choso','Choso','The other three are Jujutsu Kaisen’s Disaster Curses. Choso is a Death Painting.'],
+  [5,'Flame-Flame | Smoke-Smoke | Ice-Ice | Chop-Chop','Chop-Chop','The other three are One Piece Logia fruits. Buggy’s Chop-Chop is Paramecia.'],
 ]),
 K('animenum', 'Anime Numbers', 'Everyone writes down a number. Closest guess wins.', 'anime', 'std', 'ballpark', [
   [1,'How many swords does Zoro fight with in his signature style?',3,'swords','One goes in his mouth.',false],
   [1,'Saitama’s training routine: how many push-ups a day?',100,'push-ups','Plus 100 sit-ups, 100 squats and a 10 km run. Every day.',false],
+  [1,'How many Dragon Balls must you gather to summon the dragon Shenron?',7,'Dragon Balls','Then make your wish.',false],
+  [1,'In Attack on Titan, how many giant walls ring humanity’s last territory?',3,'walls','Maria, Rose and Sina.',false],
   [2,'How many of Sukuna’s fingers exist in total?',20,'fingers','He had four arms, so it adds up.',false],
   [2,'In what year did the first One Piece anime episode air in Japan?',1999,'','October 1999.',true],
+  [2,'In what year did the Naruto anime first air in Japan?',2002,'','October 2002.',true],
+  [2,'In Frieren, how many years did the hero party take to defeat the Demon King?',10,'years','A blink of an eye for an elf.',false],
   [3,'How tall is the Colossal Titan, in metres?',60,'metres','Tall enough to peek over a 50-metre wall.',false],
   [3,'If no cause of death is written in the Death Note, how many seconds until the heart attack?',40,'seconds','',false],
+  [3,'In Spy x Family, how many Stella stars does Anya need to become an Imperial Scholar?',8,'Stella stars','Eight Tonitrus bolts gets you expelled instead.',false],
+  [3,'How many episodes does the Death Note anime have?',37,'episodes','',false],
   [4,'How many episodes does Fullmetal Alchemist: Brotherhood have?',64,'episodes','',false],
   [4,'How many episodes does Naruto Shippuden have?',500,'episodes','A nice round number to bow out on.',false],
+  [4,'In Attack on Titan, how many years does a Titan Shifter live after inheriting their power?',13,'years','The Curse of Ymir.',false],
+  [4,'What was Luffy’s first bounty in One Piece, in berries?',30000000,'berries','Earned for beating Arlong.',false],
   [5,'In Neon Genesis Evangelion, in what year did the Second Impact happen?',2000,'','13 September 2000, in Antarctica.',true],
   [5,'What was Gol D. Roger’s bounty, in berries?',5564800000,'berries','Roughly 5.56 billion.',false],
+  [5,'In Jujutsu Kaisen, in what year does the Shibuya Incident take place?',2018,'','On Halloween, 31 October.',true],
+  [5,'How many episodes did Bleach’s original anime run have, before the 2012 break?',366,'episodes','Thousand-Year Blood War came back a decade later.',false],
 ]),
 K('marvel', 'Marvel Mayhem', 'The MCU, the comics and everything in between.', 'hero', 'std', 'buzz', [
   [1,'Which Avenger is the God of Thunder, swinging the hammer Mjolnir?','Thor'],
   [1,'Which actor played Tony Stark across the MCU, from Iron Man (2008) to Avengers: Endgame?','Robert Downey Jr.','Also accept: RDJ.'],
+  [1,'Which shrinking Marvel hero did Paul Rudd play, starting with his own film in 2015?','Ant-Man','Also accept: Scott Lang.'],
+  [1,'Which Marvel hero, the king of Wakanda, did Chadwick Boseman play?','Black Panther','Also accept: T’Challa.'],
   [2,'What rare metal is Captain America’s shield made of in the MCU?','Vibranium','Mined in Wakanda, naturally.'],
   [2,'Which Spider-Man villain did Michael Keaton play in Spider-Man: Homecoming (2017)?','The Vulture','An ex-Batman playing a bird-man. Again.'],
+  [2,'Which Asgardian God of Mischief, played by Tom Hiddleston, is Thor’s adopted brother?','Loki'],
+  [2,'What is the name of Tony Stark’s AI butler, voiced by Paul Bettany before he played Vision?','J.A.R.V.I.S.','Also accept: Jarvis.'],
   [3,'What is the name of the machine Professor X uses to boost his telepathy and find mutants?','Cerebro'],
   [3,'Which Infinity Stone is hidden on Vormir, costing “a soul for a soul”?','Soul Stone'],
+  [3,'On which junk-covered planet does Thor end up fighting the Hulk as a gladiator in Thor: Ragnarok?','Sakaar','Run by the Grandmaster, played by Jeff Goldblum.'],
+  [3,'Which alien army pours through a portal above New York in The Avengers (2012)?','The Chitauri','Also accept: Chitauri.'],
   [4,'Before Mark Ruffalo, who played Bruce Banner in The Incredible Hulk (2008)?','Edward Norton','Eric Bana had a go in 2003, outside the MCU.'],
   [4,'What is the name of Star-Lord’s ship in the first Guardians of the Galaxy film?','The Milano','James Gunn says it is named after Alyssa Milano.'],
+  [4,'Which small European country does Doctor Doom rule with an iron fist?','Latveria','And an iron mask.'],
+  [4,'In the MCU, what is the name of Doctor Strange’s amulet, which hides the Time Stone?','The Eye of Agamotto','Also accept: Eye of Agamotto.'],
   [5,'Spider-Man’s first comic appearance, in 1962, came in issue #15 of which series?','Amazing Fantasy'],
   [5,'Wolverine’s first full comic appearance (1974) came in a comic starring which other hero?','The Hulk','The Incredible Hulk #181, after a cameo in #180.'],
+  [5,'Which artist co-created both Spider-Man and Doctor Strange with Stan Lee?','Steve Ditko','Also accept: Ditko.'],
+  [5,'In the comics, Thanos wipes out half the universe to impress which cosmic being he loves?','Death','The Infinity Gauntlet (1991). Also accept: Mistress Death.'],
 ]),
 K('dc', 'DC After Dark', 'Gotham, Metropolis, Themyscira and the rest of the DC universe.', 'hero', 'std', 'buzz', [
   [1,'What is the name of the city Batman protects?','Gotham City'],
   [1,'Superman was born on which doomed planet?','Krypton'],
+  [1,'Which Joker-obsessed antiheroine did Margot Robbie play in Suicide Squad (2016)?','Harley Quinn'],
+  [1,'What glowing green rock is Superman’s big weakness?','Kryptonite'],
   [2,'Which actor won an Oscar for playing the Joker in The Dark Knight (2008)?','Heath Ledger'],
   [2,'Which Batman villain did Colin Farrell play in The Batman (2022) and his own spin-off series?','The Penguin'],
+  [2,'Which British actor played Superman in Man of Steel (2013)?','Henry Cavill'],
+  [2,'Which bald billionaire genius is Superman’s greatest enemy?','Lex Luthor','Boss of LexCorp.'],
   [3,'What is the name of the hidden island home of Wonder Woman and the Amazons?','Themyscira','Also accept: Paradise Island.'],
   [3,'What is the name of the energy field that gives the Flash his super-speed?','The Speed Force'],
+  [3,'What is the name of Superman’s secret icy hideout in the Arctic?','The Fortress of Solitude','Also accept: Fortress of Solitude.'],
+  [3,'Which Batman villain did Cillian Murphy play in Batman Begins, gassing Gotham with fear toxin?','Scarecrow','Also accept: Jonathan Crane.'],
   [4,'Which monstrous villain killed Superman in the famous 1992 comic storyline?','Doomsday','He got better. Superheroes usually do.'],
   [4,'Which founding Justice League member is a shapeshifting green alien from Mars?','Martian Manhunter','Real name J’onn J’onzz.'],
+  [4,'Which tyrant of the fiery planet Apokolips hunts for the Anti-Life Equation?','Darkseid'],
+  [4,'Which chalk-white, backwards-talking copy of Superman does everything the wrong way round?','Bizarro','He lives on a cube-shaped planet called Htrae.'],
   [5,'Which planet is the home base of the Green Lantern Corps and the Guardians of the Universe?','Oa'],
   [5,'Batman made his debut in 1939 in issue #27 of which comic?','Detective Comics','The “DC” in DC Comics comes from this title.'],
+  [5,'Which Kryptonian city did Brainiac shrink down and keep in a bottle?','Kandor','Also accept: the Bottle City of Kandor.'],
+  [5,'Which 1985 DC maxi-series, starring the Anti-Monitor, merged the whole multiverse into one Earth?','Crisis on Infinite Earths','Also accept: Crisis. Twelve issues, 1985 to 1986.'],
 ]),
 K('secretid', 'Secret Identity', 'Give us the hero or villain behind the name.', 'hero', 'std', 'buzz', [
   [1,'Clark Kent','Superman'],
   [1,'Peter Parker','Spider-Man'],
+  [1,'Bruce Wayne','Batman'],
+  [1,'Steve Rogers','Captain America'],
   [2,'Diana Prince','Wonder Woman'],
   [2,'Natasha Romanoff','Black Widow'],
+  [2,'Barry Allen','The Flash','Also accept: Flash.'],
+  [2,'Clint Barton','Hawkeye','Also accept: Ronin.'],
   [3,'Selina Kyle','Catwoman'],
   [3,'Dr Otto Octavius','Doctor Octopus','Also accept: Doc Ock.'],
+  [3,'Wanda Maximoff','Scarlet Witch','Also accept: The Scarlet Witch.'],
+  [3,'Oliver Queen','Green Arrow','Also accept: Arrow, from the TV series.'],
   [4,'Carol Danvers','Captain Marvel','Also accept: Ms. Marvel, her old codename.'],
   [4,'Edward Nygma','The Riddler','E. Nygma. Enigma. Get it?'],
+  [4,'Erik Lehnsherr','Magneto'],
+  [4,'Pamela Isley','Poison Ivy'],
   [5,'James Howlett, born in 19th-century Canada','Wolverine','Also accept: Logan.'],
   [5,'Slade Wilson, the one-eyed mercenary','Deathstroke'],
+  [5,'Remy LeBeau, from New Orleans','Gambit'],
+  [5,'Floyd Lawton, the hitman who never misses','Deadshot','Will Smith played him in Suicide Squad (2016).'],
 ]),
 K('heroquote', 'Who Said It? Heroes', 'Name the hero or villain behind the famous line.', 'hero', 'quote', 'buzz', [
   [1,'I am Groot.','Groot','Guardians of the Galaxy (2014)'],
   [1,'Why so serious?','The Joker','The Dark Knight (2008)'],
+  [1,'I am Iron Man.','Iron Man','Iron Man (2008), and again in Endgame. Also accept: Tony Stark.'],
+  [1,'Mr Stark, I don’t feel so good.','Spider-Man','Avengers: Infinity War (2018). Also accept: Peter Parker.'],
   [2,'With great power comes great responsibility.','Uncle Ben','Spider-Man (2002). Also accept: Aunt May, who echoes it in No Way Home.'],
   [2,'Perfectly balanced, as all things should be.','Thanos','Avengers: Infinity War (2018)'],
+  [2,'Maximum effort!','Deadpool','Deadpool (2016)'],
+  [2,'We are Venom.','Venom','Venom (2018). Also accept: Eddie Brock.'],
   [3,'Dormammu, I’ve come to bargain.','Doctor Strange','Doctor Strange (2016)'],
   [3,'Some men just want to watch the world burn.','Alfred','The Dark Knight (2008)'],
+  [3,'Is this your king?','Killmonger','Black Panther (2018). Also accept: Erik Killmonger.'],
+  [3,'I’m vengeance.','Batman','The Batman (2022)'],
   [4,'That’s my secret, Cap. I’m always angry.','Bruce Banner','The Avengers (2012). Also accept: Hulk.'],
   [4,'You merely adopted the dark. I was born in it…','Bane','The Dark Knight Rises (2012)'],
+  [4,'I have nothing to prove to you.','Captain Marvel','Captain Marvel (2019)'],
+  [4,'Because he’s the hero Gotham deserves, but not the one it needs…','Commissioner Gordon','The Dark Knight (2008). Also accept: Jim Gordon.'],
   [5,'What is grief, if not love persevering?','Vision','WandaVision (2021)'],
   [5,'I’m Mary Poppins, y’all!','Yondu','Guardians of the Galaxy Vol. 2 (2017)'],
+  [5,'This drink, I like it! Another!','Thor','Thor (2011). The coffee mug did not survive.'],
+  [5,'You’ve got me? Who’s got you?','Lois Lane','Superman (1978)'],
 ]),
 K('streamers', 'Streamers & YouTubers', 'The creators who live rent free on your For You page.', 'net', 'std', 'buzz', [
   [1,'Which YouTuber, real name Jimmy Donaldson, is famous for giant challenges and wild giveaways?','MrBeast','Also sells Feastables chocolate.'],
   [1,'Which UK YouTube group is made up of KSI, Miniminter, Zerkaa, Behzinga, Vikkstar123, TBJZL and W2S?','The Sidemen'],
+  [1,'Which Swedish YouTuber, real name Felix Kjellberg, raced T-Series to be YouTube’s most-subscribed channel?','PewDiePie','Also accept: Pewds.'],
+  [1,'Which YouTuber kicks off his videos with “Hello everybody, my name is…” followed by his own name?','Markiplier','Real name Mark Fischbach.'],
   [2,'Which hyper streamer is famous for barking, backflips and screaming “SIUUU” for his idol Ronaldo?','IShowSpeed','Also accept: Speed.'],
   [2,'Which YouTuber-turned-boxer launched the Prime drink brand with Logan Paul in 2022?','KSI'],
+  [2,'Which masked Minecraft YouTuber made the “Speedrunner VS Hunters” series, with his friends hunting him down?','Dream','Also known as Minecraft Manhunt.'],
+  [2,'Which UK YouTube group brought together Niko Omilana, Chunkz, Sharky, AJ Shabeel and King Kenny?','Beta Squad'],
   [3,'Which Twitch star from the AMP crew ran the record-breaking “Mafiathon” subathons?','Kai Cenat'],
   [3,'Whose 2021 subathon ran for a whole month, as every new sub added time to the clock?','Ludwig','31 days, and it broke Twitch’s sub record at the time.'],
+  [3,'Which ex-Cloud9 Counter-Strike pro turned streamer is nicknamed “the human aimbot”?','shroud','Real name Michael Grzesiek.'],
+  [3,'Which Twitch star’s name blends Pokémon with her real first name, Imane?','Pokimane','Full name Imane Anys.'],
   [4,'Which Fortnite star left Twitch for Microsoft’s Mixer in August 2019?','Ninja','shroud followed him there two months later.'],
   [4,'Which Sidemen member’s real name is Ethan Payne?','Behzinga'],
+  [4,'Before facing Logan Paul, KSI won his first big YouTube boxing match in 2018 against which British YouTuber?','Joe Weller','Copper Box Arena, London. Stopped in round three.'],
+  [4,'Which YouTube streamer became the first woman co-owner of esports team 100 Thieves in 2021?','Valkyrae','Real name Rachell Hofstetter.'],
   [5,'Which streamer was named MVP of the 2017 Overwatch World Cup, playing for Team Canada?','xQc','Canada lost the final, but he still took MVP.'],
   [5,'Which Valorant co-streaming king won a CS:GO Major with Cloud9 in 2018, taking MVP too?','Tarik','ELEAGUE Major: Boston 2018.'],
+  [5,'Which Canadian aim god won Masters Reykjavík 2021, Valorant’s first international LAN, with Sentinels?','TenZ','Sentinels won it without dropping a single map.'],
+  [5,'Sidemen member W2S got his name by shortening his original username. What was it?','Wroetoshaw','Real name Harry Lewis.'],
 ]),
 K('brainrot', 'Brainrot Dictionary', 'Define the internet word. The room judges if you got close enough.', 'net', 'std', 'buzz', [
   [1,'What does “rizz” mean?','Charm; skill at flirting','Oxford’s Word of the Year 2023.'],
   [1,'What does “no cap” mean?','No lie; for real'],
+  [1,'What does “GOAT” stand for?','Greatest of all time','Messi or Ronaldo? Don’t start.'],
+  [1,'If someone tells you to “touch grass”, what do they want you to do?','Go outside; log off','Usually aimed at the terminally online.'],
   [2,'If something is “mid”, what is it?','Average; nothing special'],
   [2,'What does “delulu” mean?','Delusional','“Delulu is the solulu”, apparently.'],
+  [2,'If your mate says it’s time to “lock in”, what should you do?','Focus up; get serious'],
+  [2,'If someone is “yapping”, what are they doing?','Talking non-stop; rambling','Also accept: chatting nonsense.'],
   [3,'If someone is “glazing”, what are they doing?','Over-hyping or over-praising someone','See: every YouTube comment section ever.'],
   [3,'If your mates say you’re “cooked”, what do they mean?','You’re doomed; in big trouble','Also accept: done for, finished.'],
+  [3,'What do you call it when a reply gets more likes than the post it answers?','A ratio','Also accept: getting ratioed.'],
+  [3,'If someone calls you an “NPC”, what are they saying?','Robotic; no original thoughts','Non-player character: a game’s scripted background extra.'],
   [4,'What is the “Fanum tax”?','Taking a bite of a mate’s food','Named after streamer Fanum, of Kai Cenat’s AMP crew.'],
   [4,'What phrase means posing and acting effortlessly cool on purpose, to rack up aura?','Aura farming','The Indonesian boat race kid took it global in 2025.'],
+  [4,'If something is “so Ohio”, what is it?','Weird, cursed or bizarre','From the “Only in Ohio” memes. Sorry, Ohio.'],
+  [4,'If someone “crashed out”, what did they do?','Lost it; went off','Acted recklessly out of anger. Also accept: lost their temper.'],
   [5,'“Mewing”, the tongue-on-the-roof jawline trick, is named after which family of British orthodontists?','The Mews','John Mew and his son Mike. Also accept: Mew.'],
   [5,'Dictionary.com’s 2025 Word of the Year was not really a word. What was it?','6-7 (six seven)','From Skrilla’s “Doot Doot (6 7)”. Never say “sixty-seven”.'],
+  [5,'Which rapper, “the BasedGod”, popularised “based”, meaning being unapologetically yourself?','Lil B'],
+  [5,'The hype word “pog” is short for which Twitch emote?','PogChamp'],
 ]),
 K('valorant', 'Valorant Agents', 'Agents, abilities, maps and the Spike.', 'game', 'std', 'buzz', [
   [1,'What is the bomb that attackers plant in Valorant called?','The Spike','Also accept: Spike.'],
   [1,'Which Valorant healer can bring a dead teammate back to life with her ultimate?','Sage','The ult is literally called Resurrection.'],
+  [1,'Which big Valorant sniper rifle does everyone just call “the Op”?','Operator','Also accept: Op.'],
+  [1,'Which Mexican duelist heals by devouring the Soul Orbs her victims leave behind?','Reyna','Her ult, Empress, sends her into a frenzy.'],
   [2,'Which British duelist plays with fire and respawns at his marker with the Run It Back ult?','Phoenix','Valorant’s resident Brit.'],
   [2,'Which Brazilian duelist’s ultimate is a rocket launcher called Showstopper?','Raze','Here comes the party!'],
+  [2,'Which Russian initiator scouts with a bow, a Recon Bolt and an Owl Drone?','Sova','His ult, Hunter’s Fury, fires blasts through walls.'],
+  [2,'Which Valorant map was the first to have three Spike sites: A, B and C?','Haven','Set beneath a monastery in Bhutan.'],
   [3,'Which German genius sentinel’s ultimate, Lockdown, detains every enemy caught inside its range?','Killjoy','You should run.'],
   [3,'Which Scottish controller can still drop smokes after being killed?','Clove','Not even death stops the smokes.'],
+  [3,'Which Filipino duelist sprints in High Gear and ults with Overdrive, a lightning beam?','Neon'],
+  [3,'Which Valorant map is set in Tokyo, with ropes to climb and a tower on each site?','Split'],
   [4,'Which Valorant map is set in Venice, Italy?','Ascent'],
   [4,'Which Valorant map, set in Morocco, has two one-way teleporters instead of a mid?','Bind','Rabat, to be exact.'],
+  [4,'Which Norwegian sentinel’s ult, Annihilation, cocoons an enemy in nanowire and drags them away?','Deadlock','Shoot the cocoon to free your mate.'],
+  [4,'Which Valorant map is an underwater city based on Lisbon, Portugal?','Pearl','No teleporters, ropes or doors. Just gunfights.'],
   [5,'In Valorant lore, which worldwide event gave the first modern Radiants their powers?','First Light','A huge radianite event that blacked out the whole planet.'],
-  [5,'Which Brazilian team won Valorant Champions 2022 in Istanbul?','LOUD','Beat OpTic Gaming in the final.']
+  [5,'Which Brazilian team won Valorant Champions 2022 in Istanbul?','LOUD','Beat OpTic Gaming in the final.'],
+  [5,'Which Valorant mega-corporation ran the secret dig site on Icebox and holds a monopoly on radianite?','Kingdom Corporation','Also accept: Kingdom.'],
+  [5,'Which European team won the very first Valorant Champions, in Berlin in 2021?','Acend','Beat Gambit 3–2 in the final.']
 ]),
 K('overwatch', 'Overwatch Heroes', 'Heroes, ultimates, lore and a few Overwatch 2 shake-ups.', 'game', 'std', 'buzz', [
   [1,'Which London-born hero zips about with Blink and rewinds time with Recall?','Tracer','Real name Lena Oxton.'],
   [1,'Which Swiss healer flies to teammates with Guardian Angel and ults with Valkyrie?','Mercy','Real name Angela Ziegler.'],
+  [1,'Which German knight tank swings a Rocket Hammer and holds up a giant Barrier Field?','Reinhardt','His ult, Earthshatter, knocks everyone in front of him flat.'],
+  [1,'Which cyborg ninja deflects your bullets back at you and unsheathes a Dragonblade?','Genji','Rebuilt by Overwatch, then trained by Zenyatta.'],
   [2,'Which Overwatch tank is a super-intelligent gorilla scientist raised on the Moon?','Winston','Loves peanut butter.'],
   [2,'Which Overwatch tank is a genius hamster rolling about in a ball-shaped mech?','Wrecking Ball','Also accept: Hammond.'],
+  [2,'Which Egyptian support sniper sends enemies to sleep with a dart and is Pharah’s mother?','Ana','Real name Ana Amari.'],
+  [2,'Which support hero is Torbjörn’s daughter and Reinhardt’s squire?','Brigitte','Also accept: Brigitte Lindholm.'],
   [3,'Which hero switched from damage to tank when Overwatch 2 launched?','Doomfist','Same fist, new job.'],
   [3,'In the original Overwatch, Reaper and Widowmaker were agents of which villainous organisation?','Talon'],
+  [3,'Brothers Hanzo and Genji were born into which Japanese crime clan?','Shimada','Also accept: the Shimada clan.'],
+  [3,'Which Overwatch map takes you through the streets of London?','King’s Row','Also accept: Kings Row.'],
   [4,'Which hero’s real name is Jack Morrison, a former strike commander of Overwatch?','Soldier: 76','Also accept: Soldier 76.'],
   [4,'Which tank was built by 11-year-old genius Efi Oladele to protect Numbani?','Orisa','Built from an old OR15 security robot.'],
+  [4,'Which hero’s real name is Satya Vaswani, an “architech” for the Vishkar Corporation?','Symmetra'],
+  [4,'Which team won the very first Overwatch League Grand Finals in 2018?','London Spitfire','Beat the Philadelphia Fusion in New York.'],
   [5,'What is the name of Bastion’s little bird friend?','Ganymede'],
-  [5,'Before he became Reaper, Gabriel Reyes commanded which covert Overwatch division?','Blackwatch','Overwatch’s secret ops wing.']
+  [5,'Before he became Reaper, Gabriel Reyes commanded which covert Overwatch division?','Blackwatch','Overwatch’s secret ops wing.'],
+  [5,'Which omnic monk, leader of the Shambali and Zenyatta’s teacher, was assassinated by Widowmaker?','Mondatta','Also accept: Tekhartha Mondatta.'],
+  [5,'Talon brainwashed Widowmaker into killing her husband, an Overwatch agent. What was his first name?','Gérard','Also accept: Gérard Lacroix.']
 ]),
 K('peak', 'Peak Performance', 'The co-op climbing game. Get to the top. Don’t look down.', 'game', 'std', 'buzz', [
   [1,'What kind of vehicle crashes at the start of PEAK, leaving your scouts stranded on the island?','A plane','BingBong Airlines. One star.'],
   [1,'Which PEAK plushie answers yes-or-no questions and sometimes just says “i miss my wife”?','Bing Bong','The BingBong Airlines mascot.'],
+  [1,'In PEAK, which bar drains as you climb and sprint, and shrinks when you’re hungry or hurt?','Stamina','Also accept: Stamina bar.'],
+  [1,'What do PEAK scouts light at the top of a biome to save progress and clear the fog ahead?','A campfire','Also accept: Campfire.'],
   [2,'Which PEAK biome always comes first, where you loot the crashed flight for supplies?','The Shore','Also accept: Shore.'],
   [2,'What item do you fire off at the summit to call the rescue helicopter?','A Flare','Also accept: Flare.'],
+  [2,'Which snowy PEAK biome freezes scouts with blizzards, icy caves and Cold?','Alpine','Also accept: The Alpine.'],
+  [2,'Which PEAK item, dropped or thrown, grows into a giant climbable beanstalk?','Magic Bean','Scouts zip up it twice as fast.'],
   [3,'Which skeletal monster hunts the scout who climbs way ahead of the rest of the troop?','The Scoutmaster','Also accept: Scoutmaster Myres. Stick together.'],
   [3,'Which Swedish studio, makers of Totally Accurate Battle Simulator, made PEAK with Aggro Crab?','Landfall','Also accept: Landfall Games.'],
+  [3,'Which sun-baked PEAK desert biome throws tornadoes, scorpions and dynamite at you?','Mesa','Also accept: The Mesa.'],
+  [3,'Which PEAK badge do you earn by escaping the island on a solo expedition?','Lone Wolf Badge','Also accept: Lone Wolf.'],
   [4,'Which narrow, vertical climb with rising lava comes straight after the Caldera?','The Kiln','Also accept: Kiln.'],
   [4,'Which PEAK badge do you earn when a friend escapes the island without you?','Participation Badge','Everyone’s a winner.'],
+  [4,'What is PEAK’s easiest difficulty, where hunger grows slower and the Scoutmaster never appears?','Tenderfoot'],
+  [4,'Which very rare PEAK compass points to the nearest unopened luggage?','Pirate’s Compass','Also accept: Pirate Compass.'],
   [5,'What was the number of the scout troop the Scoutmaster used to lead?','437','Also accept: Troop 437.'],
-  [5,'The Animal Serenading Badge needs you to play the Bugle for which animal?','A capybara','Also accept: Capybara.']
+  [5,'The Animal Serenading Badge needs you to play the Bugle for which animal?','A capybara','Also accept: Capybara.'],
+  [5,'PEAK began as a month-long game jam in February 2025. In which country?','South Korea','In Seoul, to be exact.'],
+  [5,'Which PEAK treasure, found only in the Mesa’s secret Tomb, makes you invincible while held?','Ancient Idol','Drop it in lava for the 24 Karat Badge.']
 ]),
 K('abilities', 'Ability Reveal', 'Three clues, one at a time. Buzz early for more points.', 'game', 'reveal', 'buzz', [
   [1,'Hooded phantom with no visible face | Blinds enemies through walls with Paranoia | Ult lets him teleport anywhere on the map','Omen','Valorant.'],
   [1,'Climatologist with a drone called Snowball | Encases herself in ice with Cryo-Freeze | Ult Blizzard freezes enemies in a big area','Mei','Overwatch.'],
+  [1,'Wind-powered duelist from South Korea | Dashes with Tailwind, rockets up with Updraft | Ult Blade Storm: a set of throwing knives','Jett','Valorant.'],
+  [1,'Egyptian soldier from a family of decorated warriors | Hovers on jets and fires Concussive Blasts | Ult Barrage: a nonstop volley of mini-rockets','Pharah','Overwatch.'],
   [2,'Australian initiator who can heal her team | Sends out a hawk that flashes enemies | Steers a Tasmanian tiger that pounces','Skye','Valorant.'],
   [2,'Australian bruiser in a pig-snout gas mask | Heals himself with Take a Breather | Chain Hook drags enemies right to him','Roadhog','Overwatch.'],
+  [2,'Japanese duelist who rips holes in reality | Gatecrash teleports; Fakeout sends a mirror decoy | Ult Dimensional Drift hides him in another dimension','Yoru','Valorant.'],
+  [2,'Dutch astrophysicist who once made a black hole | Kinetic Grasp swallows incoming projectiles | Ult Gravitic Flux lifts enemies, then slams them down','Sigma','Overwatch.'],
   [3,'Her abilities run on fuel, not charges | Toxic Screen and Poison Cloud | Ult: a huge toxic Pit she hides inside','Viper','Valorant.'],
   [3,'Russian weightlifter turned soldier | Throws protective bubbles onto teammates | Ult Graviton Surge sucks everyone together','Zarya','Overwatch.'],
+  [3,'Bionic Swede with heavy mechanical arms | Flashpoint blinds enemies straight through walls | Ult Rolling Thunder knocks everyone in the zone up','Breach','Valorant.'],
+  [3,'Thai artist and inventor of healing biolight | Life Grip yanks a teammate to safety | Ult Tree of Life sprouts and heals allies','Lifeweaver','Overwatch.'],
   [4,'Machine of war built to neutralise Radiants | Throws a knife that suppresses abilities | If downed during his ult, allies can revive him','KAY/O','Valorant.'],
   [4,'Leader of the Deadlock Gang | Coach Gun blasts her backwards | Ult summons her omnic butler, B.O.B.','Ashe','Overwatch.'],
+  [4,'Ghanaian controller who draws power from the cosmos | Places Stars, then turns them into smokes or pulls | Ult Cosmic Divide: an endless wall across the map','Astra','Valorant.'],
+  [4,'Adaptive robot built by Dr Mina Liao | Flies forward and fires Sticky Bombs | Ult Duplicate turns her into a copy of an enemy','Echo','Overwatch.'],
   [5,'Angeleno who leads a crew of creatures | Wingman can plant or defuse the Spike | Buddies called Dizzy, Mosh and Thrash','Gekko','Valorant.'],
-  [5,'Shrine caretaker who protects Kanezaka | Teleports to allies with Swift Step | Ult Kitsune Rush sends a fox spirit forward','Kiriko','Overwatch.']
+  [5,'Shrine caretaker who protects Kanezaka | Teleports to allies with Swift Step | Ult Kitsune Rush sends a fox spirit forward','Kiriko','Overwatch.'],
+  [5,'Veteran intelligence consultant from Colombia | Guided Salvo sends missiles to spots picked on a map | Ult Armageddon: a wave of explosions along a path','Tejo','Valorant.'],
+  [5,'Scottish anarchist rebuilt by the body-modding Phreaks | Violent Leap and a spiked Jagged Wall | Ult Downpour rains spikes that root enemies in place','Hazard','Overwatch.']
 ]),
 K('voiceline', 'Name That Voice Line', 'Who says it? Agents, heroes and game legends.', 'game', 'quote', 'buzz', [
   [1,'Let’s-a go!','Mario','Super Mario.'],
   [1,'It’s high noon.','Cassidy','Overwatch. Also accept: McCree.'],
+  [1,'Cheers, love! The cavalry’s here!','Tracer','Overwatch.'],
+  [1,'Hey! Listen!','Navi','The Legend of Zelda: Ocarina of Time. Link’s fairy.'],
   [2,'Nerf this!','D.Va','Overwatch. Self-destructing mech incoming.'],
   [2,'Get over here!','Scorpion','Mortal Kombat. Spear included.'],
+  [2,'Heroes never die!','Mercy','Overwatch. Her classic Resurrect line.'],
+  [2,'Thank you Mario! But our princess is in another castle!','Toad','Super Mario Bros. Also accept: Mushroom Retainer.'],
   [3,'Hey, you. You’re finally awake.','Ralof','Skyrim. Also accept: the Stormcloak on the cart.'],
   [3,'Prepare for hellfire!','Brimstone','Valorant. What enemies hear when his Orbital Strike lands.'],
+  [3,'Welcome to my world!','Viper','Valorant. What enemies hear when Viper’s Pit goes up.'],
+  [3,'Do a barrel roll!','Peppy Hare','Star Fox 64. Also accept: Peppy.'],
   [4,'I’ll have two number 9s, a number 9 large…','Big Smoke','GTA San Andreas. Plus a large soda.'],
   [4,'I know exactly where you are!','Cypher','Valorant. What enemies hear when Neural Theft goes off.'],
+  [4,'You want to play? Let’s play.','Chamber','Valorant. What enemies hear when Tour De Force comes out.'],
+  [4,'Stay awhile and listen!','Deckard Cain','Diablo series. Also accept: Cain.'],
   [5,'What’re ya buyin’?','The Merchant','Resident Evil 4. Also accept: Merchant.'],
-  [5,'Kept you waiting, huh?','Snake','Metal Gear Solid series. Also accept: Solid Snake or Big Boss.']
+  [5,'Kept you waiting, huh?','Snake','Metal Gear Solid series. Also accept: Solid Snake or Big Boss.'],
+  [5,'A man chooses, a slave obeys.','Andrew Ryan','BioShock.'],
+  [5,'You were almost a Jill sandwich!','Barry Burton','Resident Evil (1996). Also accept: Barry.']
 ]),
 K('feet', 'Whose Feet?', 'A very serious category. Identify the character by their feet.', 'mixed', 'feet', 'buzz', [
   [1,'Red-and-white trainers with gold buckles that outrun sound. Hates water.','Sonic','Sonic the Hedgehog.'],
   [1,'Sticks to walls and ceilings with his hands and feet. Friendly neighbourhood type.','Spider-Man','Marvel.'],
+  [1,'Brown boots that have stomped more Goombas than anyone could count. Red cap, big moustache.','Mario','Super Mario.'],
+  [1,'Bursts out of his shoes every time he gets angry, yet the torn purple trousers always survive.','Hulk','Marvel. Also accept: Bruce Banner.'],
   [2,'Fights only with kicks, because his hands are saved for cooking.','Sanji','One Piece.'],
   [2,'Skates everywhere, wall-rides round the map and drops the beat.','Lúcio','Overwatch.'],
+  [2,'Big red feet, no legs to speak of, and swallows enemies whole to copy their powers.','Kirby','Nintendo’s pink puffball.'],
+  [2,'Flies on jet-powered repulsors built into his boots and palms. Red-and-gold suit, genius billionaire.','Iron Man','Marvel. Also accept: Tony Stark.'],
   [3,'Spiked bracelets, thunderous Lightning Legs and an upside-down Spinning Bird Kick.','Chun-Li','Street Fighter.'],
-  [3,'Stomps about on a peg leg and leaves frag mines and a rolling tyre bomb wherever he goes.','Junkrat','Overwatch.'],
+  [3,'Stomps about on a peg leg and leaves concussion mines and a rolling tyre bomb wherever he goes.','Junkrat','Overwatch.'],
+  [3,'Trains with heavy weights strapped to his legs. When he finally drops them, they leave craters.','Rock Lee','Naruto. Also accept: Lee.'],
+  [3,'Comically oversized shoes, spiky brown hair and a giant key for a weapon.','Sora','Kingdom Hearts.'],
   [4,'Switched to a kick-based Shoot Style to stop breaking his arms.','Deku','My Hero Academia. Also accept: Izuku Midoriya.'],
   [4,'Her high heels have guns built into them. An Umbra Witch.','Bayonetta','Bayonetta.'],
+  [4,'His little sister mocks his sandals, then gives him sound-absorbing “SNEAKers” so he walks in silence.','Black Panther','Black Panther (2018). Also accept: T’Challa.'],
+  [4,'Clomps about in Iron Boots so heavy he sinks to the bottom of the Water Temple.','Link','The Legend of Zelda: Ocarina of Time.'],
   [5,'Orange leg warmers, green jumpsuit and a kick called Night Guy that nearly finished Madara.','Might Guy','Naruto. Also accept: Guy Sensei.'],
-  [5,'Kicking Pokémon whose legs stretch out like springs. All legs, no neck.','Hitmonlee','Pokémon. Leg day, every day.']
+  [5,'Kicking Pokémon whose legs stretch out like springs. All legs, no neck.','Hitmonlee','Pokémon. Leg day, every day.'],
+  [5,'Fights crime in turquoise ballet slippers and drums for a band called the Mary Janes. From Earth-65.','Spider-Gwen','Marvel. Also accept: Gwen Stacy, Spider-Woman, Ghost-Spider.'],
+  [5,'Its Pokédex says those legs can clear a 30-storey building in one leap. Fire and Fighting type.','Blaziken','Pokémon. Torchic, all grown up.']
 ]),
 K('gamenum', 'Gamer Numbers', 'Everyone writes down a number. Closest guess wins.', 'game', 'std', 'ballpark', [
   [1,'How many rounds does a team need to win a standard Valorant match?',13,'rounds','Tied at 12–12? Overtime.',false],
   [1,'How many hearts does a Minecraft player have at full health?',10,'hearts','That’s 20 health points.',false],
+  [1,'In what year was Valorant released?',2020,'','Launched on 2 June 2020.',true],
+  [1,'What is the most Pokémon you can carry in your party at once?',6,'Pokémon','The rest go in the PC.',false],
   [2,'In what year was the original Overwatch released?',2016,'','',true],
   [2,'How many Pokémon were in the original Pokédex of Pokémon Red and Blue?',151,'Pokémon','Mew included.',false],
+  [2,'In most Sonic games, how many Chaos Emeralds are there to collect?',7,'emeralds','The very first Sonic game only had six.',false],
+  [2,'How many real-life minutes does one full Minecraft day–night cycle last?',20,'minutes','Daytime takes about ten of them.',false],
   [3,'In what year was GTA V first released?',2013,'','On PS3 and Xbox 360.',true],
   [3,'What is the most scouts that can climb together in one game of PEAK?',4,'players','',false],
+  [3,'In what year was Among Us first released?',2018,'','It only blew up in 2020.',true],
+  [3,'How many Power Stars are there to collect in Super Mario 64?',120,'stars','Get them all to meet Yoshi on the castle roof.',false],
   [4,'How many Eyes of Ender does it take to fill every slot of a Minecraft End Portal frame?',12,'eyes','',false],
   [4,'In what year was Super Mario Bros. first released on the NES?',1985,'','',true],
+  [4,'How many heroes could you pick from when the original Overwatch launched in 2016?',21,'heroes','',false],
+  [4,'In what year was the very first Call of Duty released?',2003,'','A World War II shooter on PC.',true],
   [5,'In what year did Roblox officially launch?',2006,'','A beta called DynaBlocks ran back in 2004.',true],
-  [5,'How many different block shapes (tetrominoes) are there in Tetris?',7,'shapes','I, O, T, S, Z, J and L.',false]
+  [5,'How many different block shapes (tetrominoes) are there in Tetris?',7,'shapes','I, O, T, S, Z, J and L.',false],
+  [5,'How many agents could you pick from when Valorant launched in June 2020?',11,'agents','Killjoy arrived two months later.',false],
+  [5,'How many Korok seeds are hidden in The Legend of Zelda: Breath of the Wild?',900,'seeds','Find them all and Hestu gives you a golden poo.',false]
 ]),
 K('blockroyale', 'Block & Battle Royale', 'Minecraft, Fortnite and Roblox.', 'game', 'std', 'buzz', [
   [1,'Which green Minecraft mob sneaks up on you, hisses, then blows up?','Creeper','Aw man.'],
   [1,'In Fortnite, what flying vehicle carries every player over the island at the start of a match?','Battle Bus','Always thank the bus driver.'],
+  [1,'Which huge boss do you fight in Minecraft’s End dimension, healed by crystals on top of tall pillars?','Ender Dragon','Also accept: The Ender Dragon.'],
+  [1,'In Fortnite, what is the shrinking, damaging circle called that herds everyone closer together?','The Storm','Also accept: Storm, the storm circle.'],
   [2,'Which one-word death sound did Roblox players hear for years, until it was replaced in 2022?','Oof','A copyright row finished it off.'],
   [2,'Which tall, purple-eyed Minecraft mob teleports around and attacks if you stare at it?','Enderman','Wear a carved pumpkin to look safely.'],
+  [2,'In which Roblox game do you raise pets and fuse four fully grown ones into a glowing Neon pet?','Adopt Me!','Also accept: Adopt Me.'],
+  [2,'Which white-eyed Minecraft legend has never been in the game, yet keeps getting “removed” in patch notes?','Herobrine','A creepypasta Mojang loves to troll.'],
   [3,'Which rapper headlined Fortnite’s giant in-game concert “Astronomical” in April 2020?','Travis Scott'],
   [3,'Which Roblox horror game sends you through numbered hotel rooms, hiding from entities like Rush and Seek?','Doors'],
+  [3,'Which planet-eating Marvel giant did Fortnite players blow up in the December 2020 live event?','Galactus','The “Devourer of Worlds” event ended Chapter 2 Season 4.'],
+  [3,'Which 2025 Roblox hit has you buying meme characters like Tung Tung Tung Sahur, then robbing them from other bases?','Steal a Brainrot'],
   [4,'Minecraft’s Creeper was born from a coding mistake. Which animal was Notch actually trying to make?','Pig','He mixed up its height and length.'],
   [4,'Before Battle Royale took over, Fortnite launched in 2017 with which paid co-op mode against zombie-like husks?','Save the World','Battle Royale arrived about two months later.'],
+  [4,'Which purple cube rolled across Fortnite’s island in 2018, leaving runes behind, before melting into Loot Lake?','Kevin','Also accept: Kevin the Cube. The fans named it.'],
+  [4,'Which artist, real name Daniel Rosenfeld, made Minecraft’s original music, like “Sweden” and “Wet Hands”?','C418'],
   [5,'Which username does Roblox co-founder David Baszucki go by on the platform?','builderman'],
   [5,'What was the October 2019 Fortnite event called, when the whole island was sucked into a black hole?','The End','Chapter 1’s finale. The game was a black hole for about 36 hours.'],
+  [5,'In Fortnite lore, which shadowy organisation, with Dr. Slone in its ranks, tries to control the Zero Point?','The Imagined Order','Also accept: IO.'],
+  [5,'Roblox players call the default hairstyle “Bacon Hair”. What is the item’s official name?','Pal Hair'],
 ]),
 K('pokedex', 'Pokédex', 'Games, anime and legendaries. Gotta answer ’em all.', 'game', 'std', 'buzz', [
   [1,'Which Electric-type Pokémon is Ash’s first partner and the face of the whole franchise?','Pikachu'],
   [1,'Which Pokémon is the talking cat in Team Rocket, alongside Jessie and James?','Meowth','That’s right!'],
+  [1,'Which round, pink Pokémon sings everyone to sleep, then angrily scribbles on their faces with a marker?','Jigglypuff'],
+  [1,'What red-and-white ball do Pokémon trainers throw to catch wild Pokémon?','Poké Ball','Also accept: Pokéball.'],
   [2,'What does Charmander evolve into at level 16?','Charmeleon','Then Charizard at 36.'],
   [2,'Which Psychic-type legendary was created by scientists cloning Mew?','Mewtwo'],
+  [2,'Which huge, sleepy Pokémon blocks the road in Pokémon Red and Blue until you wake it with the Poké Flute?','Snorlax'],
+  [2,'Which grinning Ghost-type Pokémon evolves from Haunter, but only when traded?','Gengar'],
   [3,'Introduced in Pokémon X and Y, which type is completely immune to Dragon-type moves?','Fairy'],
   [3,'Which region is the setting for Pokémon Ruby and Sapphire?','Hoenn'],
+  [3,'In Pokémon Journeys, which Galar Champion did Ash beat to finally become World Champion?','Leon','The Masters Eight final.'],
+  [3,'Which glitch Pokémon could you find in Red and Blue by surfing up and down Cinnabar Island’s coast?','MissingNo.','Also accept: MissingNo, Missingno.'],
   [4,'In Pokémon Red and Blue, which Viridian City Gym Leader is secretly the boss of Team Rocket?','Giovanni'],
   [4,'Which of Ash’s Pokémon did he release in an early episode so it could fly off with a pink partner?','Butterfree','Episode 21, “Bye Bye Butterfree”. Tissues ready.'],
+  [4,'In Pokémon Gold and Silver, which silent trainer waits at the top of Mt. Silver as the final boss?','Red','The hero of Red and Blue, all grown up.'],
+  [4,'A 1997 Pokémon episode with flashing lights sent hundreds of Japanese children to hospital. Which Pokémon was it named after?','Porygon','“Electric Soldier Porygon” never aired again.'],
   [5,'Which Pokémon, number 112 in the National Pokédex, is said to be the very first one ever designed?','Rhydon','According to designer Ken Sugimori.'],
   [5,'In Japan, Ash is not called Ash. What is his Japanese name, borrowed from Pokémon’s creator?','Satoshi','After Satoshi Tajiri.'],
+  [5,'Before it became Pocket Monsters, what was Pokémon’s working title in Japan?','Capsule Monsters'],
+  [5,'Before the Dark type existed, which type was the move Bite in Pokémon Red and Blue?','Normal','It became Dark-type in Gold and Silver.'],
 ]),
 K('gta', 'Wasted', 'Grand Theft Auto, from Vice City to Los Santos.', 'game', 'std', 'buzz', [
   [1,'GTA V is set in which fictional city, a parody of Los Angeles?','Los Santos'],
   [1,'Which company, also behind Red Dead Redemption, makes Grand Theft Auto?','Rockstar Games','Also accept: Rockstar.'],
+  [1,'In GTA, which word flashes up on screen when the cops arrest you?','Busted','The cousin of “Wasted”.'],
+  [1,'Which unhinged GTA V hero lives in a grotty trailer in Sandy Shores?','Trevor Philips','Also accept: Trevor.'],
   [2,'GTA: Vice City is a neon parody of which real US city?','Miami'],
   [2,'In San Andreas, CJ comes home to Los Santos to rejoin which gang?','Grove Street Families','Also accept: Grove Street.'],
+  [2,'In GTA IV, which cousin keeps ringing Niko to ask if he fancies going bowling?','Roman','Also accept: Roman Bellic.'],
+  [2,'What is the name of Franklin’s Rottweiler in GTA V?','Chop'],
   [3,'Which GTA IV hero arrives in Liberty City from Eastern Europe, chasing the American dream?','Niko Bellic','Also accept: Niko.'],
   [3,'GTA VI stars a Bonnie-and-Clyde style couple. Jason is one of them. Who is the other?','Lucia','Also accept: Lucia Caminos.'],
+  [3,'Which GTA: Vice City hero gets out of prison after 15 years and builds a criminal empire in 1986?','Tommy Vercetti','Also accept: Tommy.'],
+  [3,'GTA: San Andreas has three cities. Which one is the parody of San Francisco?','San Fierro'],
   [4,'In San Andreas, which corrupt C.R.A.S.H. officer, voiced by Samuel L. Jackson, makes CJ’s life a misery?','Officer Tenpenny','Also accept: Frank Tenpenny.'],
   [4,'What is GTA V’s parody of Facebook called?','Lifeinvader','Its boss meets an exploding phone.'],
+  [4,'Which GTA V cult takes Michael’s money, makes him wear a robe and greets everyone with “Kifflom!”?','The Epsilon Program','Also accept: Epsilon.'],
+  [4,'In GTA V’s final heist, “The Big Score”, the crew steals gold from which heavily guarded building?','Union Depository','Also accept: The Union Depository.'],
   [5,'Before becoming Rockstar North, the Scottish studio that made the first GTA was called what?','DMA Design'],
   [5,'GTA V’s Michael De Santa is living under witness protection. What is his real surname?','Townley'],
+  [5,'GTA IV’s Liberty City has its own boroughs. Which one is its version of Brooklyn?','Broker'],
+  [5,'Which real Rockstar writer plays a sleazy radio and TV host under his own name across several GTA games?','Lazlow','Also accept: Lazlow Jones.'],
 ]),
 K('sus', 'Sus', 'Among Us and the party games that end friendships.', 'game', 'std', 'buzz', [
   [1,'In Among Us, what is the secret killer hiding among the crew called?','Impostor','Also accept: Imposter.'],
   [1,'Which rainbow-coloured Mario Kart track floats in space and is infamous for sending racers off the edge?','Rainbow Road'],
+  [1,'In Among Us, what do impostors crawl through to pop up around the map unseen?','Vents','Crewmates can’t, unless they’re the Engineer.'],
+  [1,'In Uno, what must you shout when you’re down to your last card?','Uno','Get caught forgetting and you draw two.'],
   [2,'Which Among Us task infamously rejects you with “Too fast. Try again.”?','Swipe Card','Also accept: Card swipe.'],
   [2,'Which Jackbox game has everyone write funny answers to the same prompt, then vote head-to-head?','Quiplash'],
+  [2,'What do you win in Fall Guys for being the last bean standing in the final round?','A Crown','Also accept: Crown.'],
+  [2,'In Mario Party, what do you buy on the board, usually for 20 coins, with the most at the end winning?','Stars','Also accept: Star.'],
   [3,'In Phasmophobia, which crackly radio gadget lets you ask the ghost questions out loud?','Spirit Box'],
   [3,'In Super Smash Bros., which glowing floating orb do you break to unleash a Final Smash?','Smash Ball'],
+  [3,'In Phasmophobia, which evidence is a small floating light you can only spot through a video camera?','Ghost Orb','Also accept: Ghost Orbs.'],
+  [3,'Which small US indie studio made Among Us?','Innersloth'],
   [4,'In Lethal Company, which spring-necked mannequin monster only moves when nobody is looking at it?','Coil-Head','Also accept: Coilhead.'],
   [4,'Which UK studio developed Fall Guys?','Mediatonic','Epic Games bought it in 2021.'],
+  [4,'In the first Overcooked, which giant spaghetti-and-meatball monster threatens the Onion Kingdom?','The Ever Peckish','Also accept: Ever Peckish.'],
+  [4,'Which Swedish studio, led by Josef Fares, made the co-op hit It Takes Two?','Hazelight','Also accept: Hazelight Studios.'],
   [5,'Which small Sheffield studio, founded by three brothers, made the wobbly brawler Gang Beasts?','Boneloaf'],
   [5,'Which Among Us map, added in 2023, is a mushroom-filled jungle island where you can roast marshmallows?','The Fungle','Also accept: Fungle.'],
+  [5,'In Lethal Company, which moon is home to the Company building where you sell your scrap?','Gordion','Also accept: 71-Gordion.'],
+  [5,'Among Us’s Airship map is the Toppat Clan’s ship, borrowed from which stick-figure game series?','Henry Stickmin','Also accept: The Henry Stickmin Collection.'],
 ]),
 K('mixtape', 'Mainstream Mixtape', 'The biggest games ever made. Name that game, hero or place.', 'game', 'std', 'buzz', [
   [1,'In The Legend of Zelda, what is the name of the green-clad hero you play as?','Link','Zelda is the princess. Every time.'],
   [1,'Which round, yellow arcade hero munches dots while running from four ghosts?','Pac-Man'],
+  [1,'In Super Mario, which princess of the Mushroom Kingdom does Bowser keep kidnapping?','Princess Peach','Also accept: Peach.'],
+  [1,'In Insomniac’s Marvel’s Spider-Man games, who is the second Spider-Man, starring in his own 2020 game?','Miles Morales','Also accept: Miles.'],
   [2,'Which pale, ash-covered Spartan is the hero of God of War?','Kratos','BOY!'],
   [2,'Who is the outlaw hero of Red Dead Redemption 2, a loyal member of the Van der Linde gang?','Arthur Morgan','Also accept: Arthur.'],
+  [2,'In Halo, what is Spartan super-soldier John-117 better known as?','Master Chief','Also accept: The Chief.'],
+  [2,'In Resident Evil, which shady drug company made the T-virus behind the zombie outbreak?','Umbrella Corporation','Also accept: Umbrella.'],
   [3,'Which Elden Ring boss, the “Blade of Miquella”, is infamous for her Waterfowl Dance?','Malenia','Let me solo her.'],
   [3,'In Cyberpunk 2077, which rocker’s ghost lives inside V’s head, played by Keanu Reeves?','Johnny Silverhand','Also accept: Johnny.'],
+  [3,'In Baldur’s Gate 3, which pale, sarcastic vampire spawn companion is a huge fan favourite?','Astarion'],
+  [3,'In Assassin’s Creed, which machine lets people relive their ancestors’ memories hidden in their DNA?','The Animus','Also accept: Animus.'],
   [4,'What is the name of the fallen bug kingdom you explore in Hollow Knight?','Hallownest'],
   [4,'In The Witcher 3, what is Geralt’s horse called? (He gives every horse the same name.)','Roach'],
+  [4,'In Hogwarts Legacy, which goblin leads a rebellion and hunts ancient magic as the main villain?','Ranrok'],
+  [4,'Stardew Valley was made almost entirely by one person. What is his developer name?','ConcernedApe','Also accept: Eric Barone.'],
   [5,'Which Soviet computer engineer created Tetris in 1984?','Alexey Pajitnov','Also accept: Pajitnov.'],
   [5,'What is the name of the default graffiti kid in Subway Surfers, chased by the Inspector and his dog?','Jake'],
+  [5,'In Skyrim, “Fus Ro Dah” is the full version of which Dragon Shout?','Unrelenting Force'],
+  [5,'In the 1981 arcade Donkey Kong, the hero was not yet called Mario. What was his name?','Jumpman','Renamed after a landlord, Mario Segale.'],
 ]),
 K('gameemoji', 'Game in Emoji', 'Name the game from the emoji alone.', 'game', 'emoji', 'buzz', [
   [1,'⛏️ 💎 🧱 🧟','Minecraft'],
   [1,'😡 🐦 🐷','Angry Birds'],
+  [1,'⚡ 🐭 🔴 ⚪','Pokémon'],
+  [1,'🚌 🪂 🏗️ 🕺','Fortnite'],
   [2,'🦹 🚗 🚓 ⭐','Grand Theft Auto','Also accept: GTA.'],
   [2,'🐻 🍕 🔦 🚪 📹','Five Nights at Freddy’s','Also accept: FNAF.'],
+  [2,'🧑‍🚀 🔪 🚨 🗳️','Among Us'],
+  [2,'📞 🫡 🪖 💥','Call of Duty','Call, then duty. Salute.'],
   [3,'🍄 🧟 👧 🧔','The Last of Us'],
   [3,'👨‍🍳 👨‍🍳 🔥 😡','Overcooked','Also accept: Overcooked! 2.'],
+  [3,'⭐ 💧 🏞️ 👨‍🌾','Stardew Valley','Star, dew, valley.'],
+  [3,'🔴 💀 🤠 🐴','Red Dead Redemption','Also accept: Red Dead Redemption 2, Red Dead.'],
   [4,'🔥 💀 ☀️ 🙌','Dark Souls','Praise the sun!'],
   [4,'🐒 🎈 🎯','Bloons TD','Also accept: Bloons Tower Defense.'],
+  [4,'🔵 🟠 🍰 🤥','Portal','The cake is a lie. Also accept: Portal 2.'],
+  [4,'☕ 😈 🎲 🎞️','Cuphead','Never bet against the Devil.'],
   [5,'🌕 😠 ⏳ 🎭','Majora’s Mask','Also accept: The Legend of Zelda: Majora’s Mask.'],
   [5,'🐻 🐦 🎒 🎵','Banjo-Kazooie'],
+  [5,'🛂 📄 🙏','Papers, Please','Glory to Arstotzka.'],
+  [5,'🪣 🔨 ⛰️ 😤','Getting Over It','Also accept: Getting Over It with Bennett Foddy.'],
 ]),
 K('gameodd', 'Odd One Out: Games', 'Four things from gaming. One does not belong. Which one?', 'game', 'odd', 'buzz', [
   [1,'Mario | Luigi | Yoshi | Sonic','Sonic','The other three are Nintendo’s Mario crew; Sonic is Sega’s.'],
   [1,'Robux | V-Bucks | Rupees | Creepers','Creepers','The other three are in-game currencies.'],
+  [1,'Creeper | Zombie | Skeleton | Goomba','Goomba','The other three are Minecraft mobs; Goombas are Mario’s.'],
+  [1,'Fortnite | Apex Legends | Warzone | Among Us','Among Us','The other three are battle royale shooters.'],
   [2,'Clash Royale | Clash of Clans | Brawl Stars | Candy Crush','Candy Crush','The other three are made by Supercell; Candy Crush is King’s.'],
   [2,'Blinky | Pinky | Clyde | Boo','Boo','The other three are Pac-Man ghosts; Boo haunts Mario.'],
+  [2,'Squirtle | Totodile | Mudkip | Cyndaquil','Cyndaquil','The other three are Water starters; Cyndaquil is Fire.'],
+  [2,'Moo Moo Meadows | Coconut Mall | Toad’s Factory | Green Hill Zone','Green Hill Zone','The other three are Mario Kart Wii tracks; Green Hill is Sonic’s.'],
   [3,'Los Santos | Liberty City | Vice City | Night City','Night City','The other three are GTA cities; Night City is Cyberpunk 2077’s.'],
   [3,'Ryu | Ken | Guile | Kazuya','Kazuya','The other three are Street Fighter fighters; Kazuya is from Tekken.'],
+  [3,'Ezio | Altaïr | Kassandra | Geralt','Geralt','The other three are Assassin’s Creed heroes; Geralt is The Witcher’s.'],
+  [3,'Overworld | Nether | The End | Aether','Aether','The other three are real Minecraft dimensions; the Aether is a fan mod.'],
   [4,'Michael | Franklin | Trevor | Lester','Lester','The other three are GTA V’s playable heroes; Lester just plans heists.'],
   [4,'Brock | Misty | Erika | Bugsy','Bugsy','The other three are Kanto Gym Leaders; Bugsy runs Johto’s Azalea Gym.'],
+  [4,'Banana | Coral | Maroon | Peach','Peach','The other three are Among Us crewmate colours.'],
+  [4,'Leon | Cynthia | Steven | Sabrina','Sabrina','The other three are Pokémon League Champions; Sabrina is a Gym Leader.'],
   [5,'Allay | Sniffer | Armadillo | Glare','Glare','The other three won Minecraft mob votes; the Glare lost to the Allay.'],
   [5,'Ness | Jigglypuff | Captain Falcon | Bowser','Bowser','The other three were in the original Smash 64; Bowser arrived in Melee.'],
+  [5,'Mew | Celebi | Jirachi | Lugia','Lugia','The other three are Mythical Pokémon; Lugia is a Legendary.'],
+  [5,'Sunny | Kai | Efe | Jeb','Jeb','The other three are Minecraft default skins; Jeb is a real Mojang developer.'],
+]),
+K('whosthat', 'Who’s That Pokémon?', 'A silhouette. You know exactly what to do.', 'game', 'sil', 'buzz', [
+  [1,'pk:25','Pikachu','Pokémon #25.'],
+  [1,'pk:4','Charmander','Pokémon #4.'],
+  [1,'pk:39','Jigglypuff','Pokémon #39.'],
+  [1,'pk:54','Psyduck','Pokémon #54.'],
+  [2,'pk:143','Snorlax','Pokémon #143.'],
+  [2,'pk:94','Gengar','Pokémon #94.'],
+  [2,'pk:7','Squirtle','Pokémon #7.'],
+  [2,'pk:129','Magikarp','Pokémon #129.'],
+  [2,'pk:133','Eevee','Pokémon #133.'],
+  [3,'pk:448','Lucario','Pokémon #448.'],
+  [3,'pk:658','Greninja','Pokémon #658.'],
+  [3,'pk:150','Mewtwo','Pokémon #150.'],
+  [3,'pk:130','Gyarados','Pokémon #130.'],
+  [4,'pk:778','Mimikyu','Pokémon #778.'],
+  [4,'pk:445','Garchomp','Pokémon #445.'],
+  [4,'pk:257','Blaziken','Pokémon #257.'],
+  [4,'pk:197','Umbreon','Pokémon #197.'],
+  [5,'pk:887','Dragapult','Pokémon #887.'],
+  [5,'pk:748','Toxapex','Pokémon #748.'],
+  [5,'pk:132','Ditto','Pokémon #132.'],
+  [5,'pk:194','Wooper','Pokémon #194.'],
+  [5,'pk:823','Corviknight','Pokémon #823.'],
+]),
+K('agentsil', 'Agent Silhouette', 'Name the Valorant agent from their shadow alone.', 'game', 'sil', 'buzz', [
+  [1,'va:add6443a-41bd-e414-f6ad-e58d267f4e95','Jett','Valorant Duelist.'],
+  [1,'va:a3bfb853-43b2-7238-a4f1-ad90e9e46bcc','Reyna','Valorant Duelist.'],
+  [1,'va:569fdd95-4d10-43ab-ca70-79becc718b46','Sage','Valorant Sentinel.'],
+  [1,'va:eb93336a-449b-9c1b-0a54-a891f7921d69','Phoenix','Valorant Duelist.'],
+  [2,'va:320b2a48-4d9b-a075-30f1-1f93a9b638fa','Sova','Valorant Initiator.'],
+  [2,'va:8e253930-4c05-31dd-1b6c-968525494517','Omen','Valorant Controller.'],
+  [2,'va:f94c3b30-42be-e959-889c-5aa313dba261','Raze','Valorant Duelist.'],
+  [2,'va:1e58de9c-4950-5125-93e9-a0aee9f98746','Killjoy','Valorant Sentinel.'],
+  [3,'va:707eab51-4836-f488-046a-cda6bf494859','Viper','Valorant Controller.'],
+  [3,'va:117ed9e3-49f3-6512-3ccf-0cada7e3823b','Cypher','Valorant Sentinel.'],
+  [3,'va:9f0d8ba9-4140-b941-57d3-a7ad57c6b417','Brimstone','Valorant Controller.'],
+  [3,'va:22697a3d-45bf-8dd7-4fec-84a9e28c69d7','Chamber','Valorant Sentinel.'],
+  [4,'va:6f2a04ca-43e0-be17-7f36-b3908627744d','Skye','Valorant Initiator.'],
+  [4,'va:5f8d3a7f-467b-97f3-062c-13acf203c006','Breach','Valorant Initiator.'],
+  [4,'va:bb2a4828-46eb-8cd1-e765-15848195d751','Neon','Valorant Duelist.'],
+  [4,'va:dade69b4-4f5a-8528-247b-219e5a1facd6','Fade','Valorant Initiator.'],
+  [4,'va:7f94d92c-4234-0a36-9646-3a87eb8b5c89','Yoru','Valorant Duelist.'],
+  [4,'va:41fb69c1-4189-7b37-f117-bcaf1e96f1bf','Astra','Valorant Controller.'],
+  [4,'va:601dbbe7-43ce-be57-2a40-4abd24953621','KAY/O','Valorant Initiator.'],
+  [5,'va:95b78ed7-4637-86d9-7e41-71ba8c293152','Harbor','Valorant Controller.'],
+  [5,'va:e370fa57-4757-3604-3648-499e1f642d3f','Gekko','Valorant Initiator.'],
+  [5,'va:cc8b64c8-4b25-4ff9-6e7f-37b4da43d235','Deadlock','Valorant Sentinel.'],
+  [5,'va:0e38b510-41a8-5780-5e8f-568b2a4f2d6c','Iso','Valorant Duelist.'],
+  [5,'va:1dbf2edd-4729-0984-3115-daa5eed44993','Clove','Valorant Controller.'],
+  [5,'va:efba5359-4016-a1e5-7626-b1ae76895940','Vyse','Valorant Sentinel.'],
+  [5,'va:b444168c-4e35-8076-db47-ef9bf368f384','Tejo','Valorant Initiator.'],
+  [5,'va:df1cb487-4902-002e-5c17-d28e83e78588','Waylay','Valorant Duelist.'],
+  [5,'va:92eeef5d-43b5-1d4a-8d03-b3927a09034b','Veto','Valorant Sentinel.'],
+  [5,'va:7c8a4701-4de6-9355-b254-e09bc2a34b72','Miks','Valorant Controller.'],
+]),
+K('feetpic', 'Whose Feet? Valorant Cut', 'Real feet. Real agents. Name them. We are so sorry.', 'game', 'feetpic', 'buzz', [
+  [1,'va:add6443a-41bd-e414-f6ad-e58d267f4e95','Jett','Valorant Duelist.'],
+  [1,'va:a3bfb853-43b2-7238-a4f1-ad90e9e46bcc','Reyna','Valorant Duelist.'],
+  [1,'va:569fdd95-4d10-43ab-ca70-79becc718b46','Sage','Valorant Sentinel.'],
+  [1,'va:eb93336a-449b-9c1b-0a54-a891f7921d69','Phoenix','Valorant Duelist.'],
+  [2,'va:f94c3b30-42be-e959-889c-5aa313dba261','Raze','Valorant Duelist.'],
+  [2,'va:8e253930-4c05-31dd-1b6c-968525494517','Omen','Valorant Controller.'],
+  [2,'va:320b2a48-4d9b-a075-30f1-1f93a9b638fa','Sova','Valorant Initiator.'],
+  [2,'va:601dbbe7-43ce-be57-2a40-4abd24953621','KAY/O','Valorant Initiator.'],
+  [3,'va:1e58de9c-4950-5125-93e9-a0aee9f98746','Killjoy','Valorant Sentinel.'],
+  [3,'va:707eab51-4836-f488-046a-cda6bf494859','Viper','Valorant Controller.'],
+  [3,'va:9f0d8ba9-4140-b941-57d3-a7ad57c6b417','Brimstone','Valorant Controller.'],
+  [3,'va:22697a3d-45bf-8dd7-4fec-84a9e28c69d7','Chamber','Valorant Sentinel.'],
+  [3,'va:bb2a4828-46eb-8cd1-e765-15848195d751','Neon','Valorant Duelist.'],
+  [4,'va:6f2a04ca-43e0-be17-7f36-b3908627744d','Skye','Valorant Initiator.'],
+  [4,'va:5f8d3a7f-467b-97f3-062c-13acf203c006','Breach','Valorant Initiator.'],
+  [4,'va:117ed9e3-49f3-6512-3ccf-0cada7e3823b','Cypher','Valorant Sentinel.'],
+  [4,'va:41fb69c1-4189-7b37-f117-bcaf1e96f1bf','Astra','Valorant Controller.'],
+  [4,'va:dade69b4-4f5a-8528-247b-219e5a1facd6','Fade','Valorant Initiator.'],
+  [4,'va:7f94d92c-4234-0a36-9646-3a87eb8b5c89','Yoru','Valorant Duelist.'],
+  [5,'va:95b78ed7-4637-86d9-7e41-71ba8c293152','Harbor','Valorant Controller.'],
+  [5,'va:e370fa57-4757-3604-3648-499e1f642d3f','Gekko','Valorant Initiator.'],
+  [5,'va:cc8b64c8-4b25-4ff9-6e7f-37b4da43d235','Deadlock','Valorant Sentinel.'],
+  [5,'va:0e38b510-41a8-5780-5e8f-568b2a4f2d6c','Iso','Valorant Duelist.'],
+  [5,'va:1dbf2edd-4729-0984-3115-daa5eed44993','Clove','Valorant Controller.'],
+  [5,'va:efba5359-4016-a1e5-7626-b1ae76895940','Vyse','Valorant Sentinel.'],
+  [5,'va:b444168c-4e35-8076-db47-ef9bf368f384','Tejo','Valorant Initiator.'],
+  [5,'va:df1cb487-4902-002e-5c17-d28e83e78588','Waylay','Valorant Duelist.'],
+]),
+K('owzoom', 'Zoom & Enhance: Overwatch', 'An extreme close-up of a hero. It zooms out. Buzz early for more points.', 'game', 'zoom', 'buzz', [
+  [1,'ow:4504f6f15cb3feaa92ecd38e01dcf751cb5abdac2e0bb52d0555727e53277502','Tracer','Overwatch damage.'],
+  [1,'ow:3bfb8bd8ec827e53d870f1238ab73d8aa1f5dbfbcfaaf7f96ffcd35b5c6102ab','Mercy','Overwatch support.'],
+  [1,'ow:df5a5532862d9292634fb3dc0e51a4705aa601de65e5e815513ccc663d84de56','D.Va','Overwatch tank.'],
+  [1,'ow:551fbe070c16fdfcc17f7f1de63af22c53e7d2f1340fc2f3172441504527bc4e','Reinhardt','Overwatch tank.'],
+  [2,'ow:156b12c20b1aea872c1eeb5bb37a7de1047b2ab30ecefd0663a8925badde1ea8','Genji','Overwatch damage.'],
+  [2,'ow:6e4702b45f196aaf51555cf57327322721f45458b17f5f0643ed008a88378259','Widowmaker','Overwatch damage.'],
+  [2,'ow:46a10db3aa908c590ddc4e7606376a88143d1f1306ecfbea043263040f9529a5','Winston','Overwatch tank.'],
+  [2,'ow:c93b5f0a528c40473188f77cc2a267aee7d5b6cf5c9e104105d634b4388674e2','Soldier: 76','Overwatch damage.'],
+  [2,'ow:4a55ced3bd597fb08e0fde9dc007f8543ac616ba98ca3db9b0e4d871a8ae17f8','Mei','Overwatch damage.'],
+  [3,'ow:985b06beae46b7ba3ca87d1512d0fc62ca7f206ceca58ef16fc44d43a1cc84ed','Ana','Overwatch support.'],
+  [3,'ow:040bb13f5123ab93faad2f95627ba184608aef4b2469a4d3003859c7087df044','Lúcio','Overwatch support.'],
+  [3,'ow:78b61c3e806fb26b02b8980fba62189155074fc15bd865b0883268e546030be5','Hanzo','Overwatch damage.'],
+  [3,'ow:60ac2d5de4a6d34644d8872233da402f1436c87f804bb11a21661bb30bf4a51f','Pharah','Overwatch damage.'],
+  [3,'ow:408603fe037e8576078eaac5eab2fb251489ced4003b11f5f522776d43d0b83d','Kiriko','Overwatch support.'],
+  [3,'ow:7660b9fc6f25f30858fdd8797fe0d52b2306f1e78fef99843f58a274e69af046','Junkrat','Overwatch damage.'],
+  [4,'ow:f48f8485056d5d00dad195859188d23e50f7126b8b08b5646f46ef1b42f5e1de','Moira','Overwatch support.'],
+  [4,'ow:a4c032fa466c9a6d9c6974747635d7ef910027f91cd58892af0c899db565f92d','Sigma','Overwatch tank.'],
+  [4,'ow:d4e6f1ca45d9f88fa89260787397f141a6f007b14e5b26698883b6a17bab9680','Baptiste','Overwatch support.'],
+  [4,'ow:06eeecb359f311f43a8f5121d4f9f3a93c565d70b30e94ef543c05596c9a39dc','Junker Queen','Overwatch tank.'],
+  [4,'ow:82b8c1b8765dcb9a0ba16e343c3516bf324c771ac81e9878473280216e70a889','Sojourn','Overwatch damage.'],
+  [4,'ow:7d1546b1541a8afc39353f9337a408d6275a141b0432b7e560ef61579996b0fc','Zenyatta','Overwatch support.'],
+  [5,'ow:ddef7c9fb8ce4256e8508196b486f81950efe7aaa6cf27fec4668beb4cd15774','Ramattra','Overwatch tank.'],
+  [5,'ow:3376515cebed0904012e67e956f6d1b9c12e03da642845eeaf787b7e4c7b339d','Lifeweaver','Overwatch support.'],
+  [5,'ow:ce42d1455e03e79f321345fea84b27a8918b5db8bd7ab9b2ca9e569606ede9e4','Illari','Overwatch support.'],
+  [5,'ow:33d39bb439c08975197fc52eff4874716839711b5356c4fdc174f9c24bac1d0e','Mauga','Overwatch tank.'],
+  [5,'ow:dcab9123f5f55df22e54d4e797de43c71b917e0149dd059a7fd6136f48464cd0','Venture','Overwatch damage.'],
+  [5,'ow:c0167d251e57b0aa2b1e16c37d87f0e7c77263db9dd0503d77b5f2589bf3e4a0','Juno','Overwatch support.'],
+  [5,'ow:d4f2d5b0c2b7e82d61353186c5f23152ccba9d3569b50839aa580dca3e9114ba','Echo','Overwatch damage.'],
+]),
+K('animezoom', 'Zoom & Enhance: Anime', 'An extreme close-up of an anime character. Buzz early for more points.', 'anime', 'zoom', 'buzz', [
+  [1,'al:246-wsRRr6z1kii8.png','Goku','Dragon Ball.'],
+  [1,'al:b17-phjcWCkRuIhu.png','Naruto','Naruto.'],
+  [1,'al:b40-MNypXsxSRb1R.png','Luffy','One Piece.'],
+  [1,'al:b127691-9zqh1xpIubn7.png','Gojo','Jujutsu Kaisen.'],
+  [2,'al:b45627-CR68RyZmddGG.png','Levi','Attack on Titan.'],
+  [2,'al:b126071-BTNEc1nRIv68.png','Tanjiro','Demon Slayer.'],
+  [2,'al:b62-S7oAeA9WInjV.png','Zoro','One Piece.'],
+  [2,'al:b913-NIFkKazWM8VO.png','Vegeta','Dragon Ball.'],
+  [2,'al:b138100-4Li0tWRCa5bQ.png','Anya','Spy x Family.'],
+  [2,'al:b127518-NRlq1CQ1v1ro.png','Nezuko','Demon Slayer.'],
+  [3,'al:b14-9Kb1E5oel1ke.png','Itachi','Naruto.'],
+  [3,'al:b80-26EhwSsSqQ50.png','Light Yagami','Death Note.'],
+  [3,'al:b89028-8w1I9o1ISHMg.png','Deku','My Hero Academia.'],
+  [3,'al:b73935-ON5d0mAcrItd.jpg','Saitama','One Punch Man.'],
+  [3,'al:b133701-rCQuDpHr3UZL.png','Sukuna','Jujutsu Kaisen.'],
+  [3,'al:b5-a7bkJgjhhigE.png','Ichigo','Bleach.'],
+  [3,'al:b127212-FVm2tD0erQ5B.png','Yuji Itadori','Jujutsu Kaisen.'],
+  [4,'al:b27-Z5O02kQUydpT.jpg','Killua','Hunter x Hunter.'],
+  [4,'al:b130102-FO1VHNnEnLlB.png','Denji','Chainsaw Man.'],
+  [4,'al:b85-mkVBh2yjxjmx.png','Kakashi','Naruto.'],
+  [4,'al:b129133-VlTPowwt68rJ.png','Rengoku','Demon Slayer.'],
+  [4,'al:b40882-dsj7IP943WFF.jpg','Eren','Attack on Titan.'],
+  [4,'al:b11-TA5Nuk7EDUZG.jpg','Edward Elric','Fullmetal Alchemist.'],
+  [4,'al:b137080-UHcynYNjb5ZU.png','Makima','Chainsaw Man.'],
+  [4,'al:b87275-mb13EWZBdbh3.png','Kaneki','Tokyo Ghoul.'],
+  [4,'al:b30-lyFExKyDhefc.jpg','Gon','Hunter x Hunter.'],
+  [4,'al:b89224-K6KEuQAuYKzq.jpg','All Might','My Hero Academia.'],
+  [5,'al:b176754-PCnpqIOkjhFk.png','Frieren','Frieren.'],
+  [5,'al:b417-gVLmIJu9phcK.png','Lelouch','Code Geass.'],
+  [5,'al:b1-ChxaldmieFlQ.png','Spike Spiegel','Cowboy Bebop.'],
+  [5,'al:b10138-zOPrka0ddZOR.png','Thorfinn','Vinland Saga.'],
+  [5,'al:b35252-DY9TW6pusqeh.png','Okabe','Steins;Gate.'],
+  [5,'al:b89616-dXmdOc7L6SDi.png','Mob','Mob Psycho 100.'],
+  [5,'al:b31-FZckOuu7L1un.png','Hisoka','Hunter x Hunter.'],
 ]),
   K('voiceact', 'Do the Voice Line', 'Perform it. Full commitment. The room votes.', 'mixed', 'std', 'challenge', [
     [1,'Do your best Pikachu: “Pika pika… PIKACHUUU!” Full volume, full cheeks.','Pass if the room felt the Thunderbolt.',10],
     [1,'Say “I’m Batman.” in the deepest, gravelliest voice you own.','Pass if it sounded like it came from inside a cave.',8],
+    [1,'Be the Pokédex: introduce yourself as a brand-new Pokémon in a flat robot voice. Name, type and one fact.','Pass if it sounded like it came straight out of Ash’s Pokédex.',12],
+    [1,'Do the GTA death screen: stumble in slow motion, drop to the floor, then say “Wasted.” in your most dramatic voice.','Pass if the room saw the screen go grey.',10],
     [2,'Charge Goku’s Kamehameha: “Ka… me… ha… me… HAAA!” Stance, hands, the full charge-up.','Pass if the charge-up gave the room goosebumps.',15],
     [2,'Hit D.Va’s ultimate: shout “Nerf this!” and bail out of your imaginary mech.','Pass if the room heard the boom.',10],
+    [2,'Narrate a Minecraft player falling into lava like a nature documentary. Calm, hushed and heartbroken.','Pass if the room mourned the lost diamonds.',15],
+    [2,'Announce yourself in the deep Smash Bros. announcer voice: your name, “…joins the battle!”, then a booming “GAME!”','Pass if the room got newcomer chills.',10],
     [3,'Pick a Valorant agent and shout their ult line like it’s match point in ranked. Do not say who it is.','Pass if someone in the room names the agent.',15],
     [3,'Give a villain monologue as Thanos, explaining why half the snacks in this room must go.','Pass if the room felt a little bit threatened.',20],
+    [3,'Give a half-time team talk to your Valorant team. You are losing 0–12. Make them believe.','Pass if the room would queue up with you again.',20],
+    [3,'Do the “Previously on…” anime recap voice for everything that has happened in this room tonight.','Pass if it felt like the start of a brand-new episode.',20],
     [4,'Power up like a Super Saiyan: scream, clench, shake. At least 10 seconds of build-up.','Pass if your hair should have turned gold.',20],
     [4,'Act out a dramatic anime death scene: last words, flashback face, slow collapse.','Pass if someone in the room felt something.',20],
-    [5,'Someone walks to the door and back. Cast it like the final round of a world championship.','Pass if the room was cheering by the end.',25],
-    [5,'Play a whole Among Us emergency meeting by yourself: the accuser, the sus one and the one who just says “skip”.','Pass if the room could tell who was who.',25] ]),
+    [4,'Be a GTA radio DJ: advertise any object near you as a ridiculous must-have product for 15 seconds.','Pass if it could play between songs on a Los Santos station.',20],
+    [4,'Do a villain laugh that builds from a quiet chuckle to a full evil cackle over 10 seconds.','Pass if somebody in the room checked where the exits are.',15],
+    [5,'Walk to the door and back while casting yourself like the final round of a world championship.','Pass if the room was cheering by the end.',25],
+    [5,'Play a whole Among Us emergency meeting by yourself: the accuser, the sus one and the one who just says “skip”.','Pass if the room could tell who was who.',25],
+    [5,'Cast your own Overwatch Play of the Game: name your hero, then commentate every kill as it happens.','Pass if the room would have clipped it.',25],
+    [5,'Narrate yourself picking up a nearby object like an anime inner monologue, where every tiny move is a life-or-death plan.','Pass if it took far too long and the room loved every second.',25] ]),
   K('emote', 'Hit the Emote', 'Do the move. The room decides if it counts.', 'mixed', 'std', 'challenge', [
     [1,'Do the Fortnite Default Dance.','Pass if the room could hear the music in their heads.',10],
     [1,'Walk across the room like a Minecraft character, stiff arms swinging, then sneak back crouched like you’re holding Shift.','Pass if Steve would recognise you.',12],
+    [1,'Hit a T-pose and hold it for 10 seconds with a totally straight face.','Pass if there was no wobble and no smile.',12],
+    [1,'Jump like a classic Roblox avatar: arms straight up, legs stiff, three jumps in a row.','Pass if you looked like a 2010 Roblox noob.',10],
     [2,'Floss for 10 seconds without losing the rhythm.','Pass if the arms and hips never fell out of sync.',12],
     [2,'Naruto run across the room and back. Arms back, head down, full speed (mind the furniture).','Pass if you looked fast enough to dodge a kunai.',10],
+    [2,'Crouch-spam across the room like you just won a gunfight: up, down, up, down, all the way.','Pass if it was disrespectful enough to get you reported.',10],
+    [2,'Strike the Sailor Moon pose with a big “In the name of the Moon, I’ll punish you!”','Pass if it had full magical-girl sparkle.',10],
     [3,'Strike a JoJo pose and hold it for 5 seconds without a wobble.','Pass if it was truly menacing.',10],
     [3,'Mime the Among Us wires task while looking as innocent as possible.','Pass if it looked like a real task and not a fake one.',15],
+    [3,'Shadow Clone Jutsu: cross your fingers in the sign, shout the name, then act like ten of you just appeared.','Pass if the room could count the clones.',12],
+    [3,'Mime building a five-block staircase in Minecraft, block by block, then climb it.','Pass if the room could see every block.',15],
     [4,'Hit the Griddy across the room, then turn round and Take the L at everyone.','Pass if there were heel taps, goggle hands and a proper L.',15],
-    [4,'Spider-Man pointing meme: pick someone, point at each other and hold it for 5 seconds without laughing.','Pass if neither of you cracked.',15],
+    [4,'Hit the Spider-Man pointing meme at the lobby and hold it for 5 seconds without laughing while they stare back.','Pass if you didn’t crack.',15],
+    [4,'Do the Dragon Ball Fusion Dance on your own: the side shuffle, the arm swing, then the finger point on a big “HA!”','Pass if the moves were clean enough to avoid a failed fusion.',15],
+    [4,'Mime a Valorant clutch: crouch over the bomb, hold the defuse for 7 seconds while flinching at every sound, then celebrate.','Pass if the room was nervous for you.',15],
     [5,'Do Orange Justice for 10 seconds, then finish with a superhero landing: one knee, one fist, slow look up (no jumping off anything).','Pass if both moves landed clean.',20],
-    [5,'Gojo’s Domain Expansion: do the hand sign, announce your domain by name and hold the stare for 5 seconds.','Pass if the room felt trapped inside it.',15] ]),
+    [5,'Gojo’s Domain Expansion: do the hand sign, announce your domain by name and hold the stare for 5 seconds.','Pass if the room felt trapped inside it.',15],
+    [5,'Freeze as a Pokémon’s silhouette, “Who’s That Pokémon?” style, and do not move until the room names it.','Pass if the room names the Pokémon before time runs out.',20],
+    [5,'Mime a whole Fortnite win with no talking: jump off the bus, loot a chest, build a ramp, win the final fight and hit an emote.','Pass if the room could follow every step.',25] ]),
   K('speedrun', 'Speedrun', 'Name them all before the timer runs out.', 'mixed', 'std', 'challenge', [
     [1,'Name 5 Pokémon in 10 seconds.','Pass if all 5 are real Pokémon.',10],
     [1,'Name 5 Minecraft mobs in 10 seconds.','Pass if all 5 are real Minecraft mobs. Steve and Alex do not count.',10],
+    [1,'Name 5 anime in 10 seconds.','Pass if all 5 are Japanese anime series or films. Avatar: The Last Airbender does not count.',10],
+    [1,'Name 5 Overwatch heroes in 10 seconds.','Pass if all 5 are playable Overwatch heroes. Valorant agents do not count.',10],
     [2,'Name 5 Valorant agents in 10 seconds.','Pass if all 5 are real Valorant agents.',10],
     [2,'Name 4 of the 6 Avengers from the first Avengers film (2012) in 10 seconds.','Pass if all 4 are Iron Man, Captain America, Thor, Hulk, Black Widow or Hawkeye. Nick Fury does not count.',10],
+    [2,'Name 4 of the 6 heroes in the Justice League film (2017) in 10 seconds.','Pass if all 4 are Batman, Superman, Wonder Woman, The Flash, Aquaman or Cyborg.',10],
+    [2,'Name 5 Minecraft ores in 15 seconds.','Pass if all 5 are Coal, Iron, Copper, Gold, Redstone, Lapis Lazuli, Diamond, Emerald, Nether Quartz, Nether Gold or Ancient Debris. Deepslate versions do not count as extra ones.',15],
     [3,'Name 6 Pokémon types in 10 seconds.','Pass if all 6 are among the 18: Normal, Fire, Water, Grass, Electric, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, Fairy.',10],
     [3,'Name 4 members of the Straw Hat crew in 10 seconds.','Pass if all 4 are Luffy, Zoro, Nami, Usopp, Sanji, Chopper, Robin, Franky, Brook or Jinbe.',10],
+    [3,'Name 3 Fire-type starter Pokémon in 10 seconds.','Pass if all 3 are Charmander, Cyndaquil, Torchic, Chimchar, Tepig, Fennekin, Litten, Scorbunny, Fuecoco or Pombon. Evolved forms do not count.',10],
+    [3,'Name 5 Valorant maps in 15 seconds.','Pass if all 5 are Ascent, Bind, Haven, Split, Icebox, Breeze, Fracture, Pearl, Lotus, Sunset, Abyss, Corrode, Summit or any newer standard map. Team Deathmatch maps and the Range do not count.',15],
     [4,'Name 5 Overwatch tank heroes in 15 seconds.','Pass if all 5 are tanks: Reinhardt, D.Va, Winston, Zarya, Roadhog, Sigma, Orisa, Wrecking Ball, Doomfist, Junker Queen, Ramattra, Mauga, Hazard, Domina or any newer tank.',15],
     [4,'Name 5 Eeveelutions in 15 seconds.','Pass if all 5 are Vaporeon, Jolteon, Flareon, Espeon, Umbreon, Leafeon, Glaceon or Sylveon.',15],
+    [4,'Name all 5 Guardians of the Galaxy from the first film (2014) in 15 seconds.','Pass only if you said Star-Lord, Gamora, Drax, Rocket and Groot. Peter Quill counts for Star-Lord.',15],
+    [4,'Name all 5 Kage titles from Naruto in 15 seconds.','Pass only if you said Hokage, Kazekage, Mizukage, Raikage and Tsuchikage.',15],
     [5,'Name all 6 Infinity Stones in 15 seconds.','Pass only if you said Space, Mind, Reality, Power, Time and Soul.',15],
-    [5,'Name 5 Hashira from Demon Slayer in 20 seconds.','Pass if all 5 are Giyu, Shinobu, Kyojuro Rengoku, Tengen, Mitsuri, Muichiro, Gyomei, Obanai or Sanemi. First names or surnames both count.',20] ]),
+    [5,'Name 5 Hashira from Demon Slayer in 20 seconds.','Pass if all 5 are Giyu, Shinobu, Kyojuro Rengoku, Tengen, Mitsuri, Muichiro, Gyomei, Obanai or Sanemi. First names or surnames both count.',20],
+    [5,'Name 4 of the 5 Ginyu Force members from Dragon Ball Z in 15 seconds.','Pass if all 4 are Captain Ginyu, Recoome, Burter, Jeice or Guldo.',15],
+    [5,'Name 5 Grand Theft Auto main characters you play as in 20 seconds.','Pass if all 5 are Claude, Tommy Vercetti, CJ, Mike, Toni Cipriani, Victor Vance, Niko Bellic, Johnny Klebitz, Luis Lopez, Huang Lee, Michael, Franklin, Trevor, Jason or Lucia. First names or surnames both count.',20] ]),
+  K('impress', 'Impression Roulette', 'The roulette picks who. You do the impression. The lobby judges.', 'mixed', 'std', 'challenge', [
+    [1,'Be a Minecraft villager: fold your arms, go “Hrmm”, and turn down a terrible trade.','Pass if the room heard a villager about to rip someone off.',10],
+    [1,'Throw a Poké Ball like a trainer: big wind-up, shout “Go!” and a Pokémon’s name, then throw.','Pass if the room saw the red flash.',8],
+    [1,'Swing across the room like Spider-Man: thwip a web with the proper hand sign, swing, then land in a crouch.','Pass if the hand sign was right: middle and ring fingers down.',10],
+    [1,'Do IShowSpeed’s “SIUUU”: a short run, a little jump with a spin, and land it arms out like Ronaldo, at full Speed volume.','Pass if the neighbours heard it.',8],
+    [2,'Be Luffy: wind up a Gum-Gum Pistol, stretching your arm way back, then let it fly across the room.','Pass if your arm looked at least a metre longer.',10],
+    [2,'Be Superman taking off: rip open your shirt to show the S (mime it!), hands on hips, then “Up, up and away!”','Pass if the room looked up.',10],
+    [2,'Be an Among Us crewmate who just found a body: freeze, jump back, then slam the report button screaming “DEAD BODY REPORTED!”','Pass if you looked shocked and not like the one who did it.',10],
+    [2,'Kai Cenat style: react to the best thing that has happened tonight like it is the hypest moment of your stream, and end on a massive “W!”','Pass if the room felt like they just took a W.',12],
+    [3,'Be Sage: kneel, raise your hands and resurrect an imaginary teammate with a calm “Your duty is not over!”','Pass if that teammate was definitely back on their feet.',12],
+    [3,'Be Thanos: put on the Infinity Gauntlet, look slowly round the room, then snap.','Pass if the pause before the snap was long enough to hurt.',12],
+    [3,'Be Goku using Instant Transmission: two fingers to your forehead, a second of focus, then pop up somewhere else in the room with a cheerful “Hey!”','Pass if the room believed you teleported.',10],
+    [3,'Be a GTA pedestrian who just watched a car smash into a lamppost: react, panic and run off flailing your arms.','Pass if you looked like a true Los Santos local.',12],
+    [4,'Be Reinhardt: raise your barrier, charge on the spot with a big roar, then slam the floor shouting “Hammer DOWN!”','Pass if the room wanted to hide behind your shield.',15],
+    [4,'Be All Might arriving to save the day: huge grin, hands on hips, and “It’s fine now. Why? Because I am here!”','Pass if the room felt instantly safer.',12],
+    [4,'Announce a MrBeast-style giveaway for whatever is in your pockets, with million-dollar energy.','Pass if somebody in the room wanted to enter.',20],
+    [4,'Be a PEAK scout running out of stamina halfway up a cliff: grip, shake, slip, and yell for your mates as you fall.','Pass if the room wanted to throw you a rope.',15],
+    [5,'Be Zenitsu: panic and cry for 5 seconds, faint, then strike in your sleep with Thunder Breathing, First Form: Thunderclap and Flash.','Pass if the room saw the lightning.',20],
+    [5,'Transform into a Titan like Eren: bite your hand (mime it!), a flash of lightning, then rise up slowly and ROAR.','Pass if the room felt the ground shake.',15],
+    [5,'Be Captain America in Endgame: catch Mjolnir out of the air, look at your army, whisper “Avengers…” and roar “…assemble!”','Pass if the room was ready to charge with you.',15],
+    [5,'Be Wonder Woman: cross your bracelets to block a hail of bullets, then spin the Lasso of Truth over your head.','Pass if every bullet bounced off.',15] ]),
 
 ];
 const SK_FINALS = [
@@ -1717,7 +2289,15 @@ const SK_FINALS = [
   { cat:'Roblox', q:'What was Roblox called in its early testing days, before it got its famous name?', a:'DynaBlocks', note:'It opened to everyone as Roblox in 2006.' },
   { cat:'Pokémon', q:'Which legendary Pokémon is on the box of Pokémon Gold?', a:'Ho-Oh', note:'Lugia took the cover of Pokémon Silver.' },
   { cat:'Among Us', q:'What is the name of the original spaceship map in Among Us?', a:'The Skeld' },
-  { cat:'Streamers', q:'What is IShowSpeed’s real first name?', a:'Darren', note:'Full name Darren Watkins Jr.' }
+  { cat:'Streamers', q:'What is IShowSpeed’s real first name?', a:'Darren', note:'Full name Darren Watkins Jr.' },
+  { cat:'Demon Slayer', q:'What are the Demon Slayer Corps’ special swords called, the ones that change colour for whoever draws them?', a:'Nichirin Blades', note:'Also accept: Nichirin swords. Forged from ore dug from a mountain that is always in sunlight.' },
+  { cat:'Marvel', q:'In Captain America: The Winter Soldier, which secret organisation is revealed to have taken over S.H.I.E.L.D. from the inside?', a:'Hydra', note:'Hail Hydra.' },
+  { cat:'DC', q:'What is the name of the asylum where Gotham’s most dangerous villains are locked up?', a:'Arkham Asylum', note:'Also accept: Arkham. It gave its name to the Batman: Arkham games.' },
+  { cat:'Valorant', q:'In Valorant lore, every match is you against your mirror double from a parallel world. What is that other world called?', a:'Omega Earth', note:'Ours is Alpha Earth. Also accept: Mirror Earth.' },
+  { cat:'Peak', q:'How often does PEAK swap in a brand-new island layout for every player?', a:'Once a day', note:'It resets every day at 17:00 UTC. Also accept: daily, every 24 hours.' },
+  { cat:'Minecraft', q:'Which Minecraft boss drops a Nether Star when you beat it?', a:'The Wither', note:'Summoned with four blocks of soul sand and three wither skeleton skulls.' },
+  { cat:'Pokémon', q:'Which Pokémon is number 001 in the National Pokédex?', a:'Bulbasaur', note:'Ivysaur is 002 and Venusaur is 003.' },
+  { cat:'Streamers', q:'QTCinderella created which yearly awards show, first held in Los Angeles in March 2022?', a:'The Streamer Awards' }
 ];
 
 const SK_HIVE = [
@@ -1745,12 +2325,22 @@ const SK_HIVE = [
   { q:'Name a reason someone is sus in Among Us.', a:[['Near the body',33],['Faking tasks',22],['Saw them vent',16],['Too quiet',11],['Following people',7],['They’re red',4]] },
   { q:'Name an anime character everyone knows.', a:[['Goku',34],['Naruto',24],['Luffy',15],['Pikachu',10],['Gojo',8],['Light Yagami',5]] },
   { q:'Name something streamers always say on stream.', a:[['Thanks for the sub',30],['What’s up, chat',22],['Chat, is this real?',15],['Like and subscribe',12],['Clip that',9],['Let’s go!',6]] },
-  { q:'Name something your mate does in a co-op game that drives you mad.', a:[['Keeps dying',30],['Steals the loot',24],['Goes AFK',14],['Runs off alone',11],['Friendly fire',8],['Sings on mic',6]] }
+  { q:'Name something your mate does in a co-op game that drives you mad.', a:[['Keeps dying',30],['Steals the loot',24],['Goes AFK',14],['Runs off alone',11],['Friendly fire',8],['Sings on mic',6]] },
+  { q:'Name a Valorant agent.', a:[['Jett',34],['Reyna',20],['Sage',15],['Phoenix',11],['Omen',8],['Raze',6]] },
+  { q:'Name an Overwatch hero.', a:[['Tracer',32],['Mercy',22],['Reinhardt',14],['Genji',12],['D.Va',9],['Widowmaker',6]] },
+  { q:'Name something every superhero has.', a:[['A cape',30],['A mask',24],['Superpowers',16],['A secret identity',12],['A tragic backstory',9],['A sidekick',5]] },
+  { q:'Name something every anime main character has.', a:[['Spiky hair',30],['A rival',20],['Missing parents',16],['The power of friendship',13],['A training arc',9],['A huge appetite',6]] },
+  { q:'Name the first thing you do in a new Minecraft world.', a:[['Punch a tree',38],['Build a house',20],['Find a village',13],['Find food',10],['Dig straight down',8],['Make a bed',5]] },
+  { q:'Name something you do in GTA instead of the actual mission.', a:[['Run from the cops',30],['Steal a fast car',24],['Cause chaos',15],['Crash on purpose',12],['Buy new clothes',8],['Climb Mount Chiliad',6]] },
+  { q:'Name an excuse for not hopping on tonight.', a:[['Got work tomorrow',30],['Mum said no',20],['Too tired',16],['Game’s updating',12],['Wi-Fi’s down',10],['Got a date',6]] },
+  { q:'Name a famous video game mascot.', a:[['Mario',36],['Sonic',22],['Pikachu',14],['Pac-Man',10],['Crash Bandicoot',8],['Kirby',6]] },
+  { q:'Name a gamer word that confuses parents.', a:[['GG',30],['Noob',22],['Sus',16],['Nerf',12],['Cracked',10],['Sweaty',6]] },
+  { q:'Name something you’d wish for from Shenron, the Dragon Ball wish dragon.', a:[['Infinite money',34],['To live forever',20],['Bring someone back',15],['Super Saiyan powers',12],['Pass my exams',9],['More wishes',6]] }
 ];
 /*SK_BANK_END*/
 
 const SK_GROUP = { anime:'Anime', hero:'Heroes', game:'Games', net:'Internet', mixed:'Mixed' };
-const SK_FMT = { std:'Buzz in', emoji:'Emoji decode', quote:'Who said it?', odd:'Odd one out', feet:'Whose feet?', reveal:'Ability reveal · buzz early, score more', ballpark:'Everyone guesses · closest wins', challenge:'Challenge · the room votes' };
+const SK_FMT = { std:'Buzz in', emoji:'Emoji decode', quote:'Who said it?', odd:'Odd one out', feet:'Whose feet?', reveal:'Ability reveal · buzz early, score more', sil:'Picture round · silhouette', zoom:'Picture round · zoom and enhance', feetpic:'Picture round · real feet', ballpark:'Everyone guesses · closest wins', challenge:'Challenge · roulette picks who · phones vote' };
 const SK_TIERS = [null,
   { n:'CASUAL', c:'#3dffa2', s:'Anyone can get this one.' },
   { n:'FAN', c:'#18e2ff', s:'Watched or played a bit? You’ve got this.' },
@@ -1867,12 +2457,197 @@ const SK_VOTES = [
   { q:'GOAT superhero?', o:['Spider-Man','Batman','Iron Man','Superman','Wolverine','Captain America','Black Panther','Deadpool'] },
   { q:'Delete one game forever. Which one?', o:['Fortnite','Roblox','Valorant','Overwatch','Minecraft','GTA','Among Us','Peak'] },
   { q:'1v1: Batman with prep time, or Goku?', o:['Batman','Goku'] },
-  { q:'Best villain ever?', o:['Thanos','The Joker','Madara','Frieza','Sukuna','Aizen','Darth Vader','Dio'] }
+  { q:'Best villain ever?', o:['Thanos','The Joker','Madara','Frieza','Sukuna','Aizen','Darth Vader','Dio'] },
+  { q:'Who in this lobby survives the longest in a zombie apocalypse?', o:'players' }, { q:'Who in this lobby gets carried in ranked?', o:'players' },
+  { q:'Who in this lobby dies first in a horror film?', o:'players' }, { q:'Who in this lobby has the most cringe gamer tag?', o:'players' },
+  { q:'Who in this lobby gets eaten by Sukuna first?', o:'players' }, { q:'Who in this lobby would rage at a Peak rope?', o:'players' },
+  { q:'Best Overwatch ult of all time?', o:['Nerf This!','Dragonblade','Deadeye','Graviton Surge','Rally','Earthshatter','Valkyrie','Kitsune Rush'] },
+  { q:'Most annoying Valorant ability to play against?', o:['Raze’s Showstopper','Sova’s Recon Bolt','Chamber’s Tour De Force','Yoru’s Fakeout','Skye’s flash','Killjoy’s Turret','Viper’s Toxic Screen','Breach’s Fault Line'] },
+  { q:'Best anime opening ever?', o:['Naruto','Attack on Titan','Jujutsu Kaisen','Demon Slayer','One Piece','My Hero Academia','Chainsaw Man','Tokyo Ghoul'] },
+  { q:'Which villain actually had a point?', o:['Thanos','Pain','Killmonger','Light Yagami','Magneto','Madara','Zeke','Vegeta'] },
+  { q:'Which Pokémon would you actually want as a pet?', o:['Pikachu','Eevee','Snorlax','Growlithe','Charmander','Mimikyu','Lucario','Rowlet'] }
 ];
 const SK_TAG = 'The ranked edition. Anime, heroes and games. Every question shows its difficulty first, so you can sit out the ones you don’t know.';
 const CLASSIC_TAG = 'The quiz show for you and your mates where being right is optional and being confident is mandatory.';
 const SK_NEED = ['2 to 8 players, or teams of up to 12','One big screen','A phone each for Lock In and votes','Thick skin'];
 const CLASSIC_NEED = ['2 to 8 players, or teams of up to 12','One big screen','Pen and paper each','A phone for the bailout call'];
+/* Question themes: the background, colours and floating motifs follow whatever the question is about.
+   a/b = background colours, c = accent, m = motifs (emoji, or db/pb/crew/hexa/shard drawn in CSS), fx = an extra pattern layer. */
+const THEMES = {
+  dragonball:{ n:'Dragon Ball', a:'#ff7a00', b:'#0d3b8c', c:'#ffd23f', m:['db','db','db','db','⚡','💥'], fx:'speed' },
+  naruto:{ n:'Naruto', a:'#ff7a1a', b:'#141418', c:'#ffb347', m:['🍥','🍜','🌀','🍃','🍥'], fx:'leaves' },
+  onepiece:{ n:'One Piece', a:'#0a6ebd', b:'#062a4a', c:'#ffd23f', m:['👒','🏴‍☠️','🍖','⚓','👒'], fx:'waves' },
+  bleach:{ n:'Bleach', a:'#ff6a00', b:'#120808', c:'#ff9a3d', m:['⚔️','🦋','💀','🦋'], fx:'' },
+  deathnote:{ n:'Death Note', a:'#5a0000', b:'#0a0505', c:'#ff2d2d', m:['🍎','📓','✍️','🍎'], fx:'' },
+  jjk:{ n:'Jujutsu Kaisen', a:'#6d28d9', b:'#0a0618', c:'#a78bfa', m:['🤞','👁️','✋','🌀'], fx:'cursed' },
+  demonslayer:{ n:'Demon Slayer', a:'#0f6d4f', b:'#0b0b0b', c:'#3dffa2', m:['🗡️','🌸','🔥','🌊','🦋'], fx:'checker' },
+  aot:{ n:'Attack on Titan', a:'#6b5536', b:'#121410', c:'#d9b77a', m:['🗡️','🧱','🪽','🗡️'], fx:'' },
+  chainsaw:{ n:'Chainsaw Man', a:'#c2410c', b:'#1a0606', c:'#ff8a3d', m:['🪚','⛓️','🐶','🍞'], fx:'' },
+  mha:{ n:'My Hero Academia', a:'#15803d', b:'#7f1d1d', c:'#ffd23f', m:['💥','⚡','💪','🦸'], fx:'halftone' },
+  opm:{ n:'One Punch Man', a:'#eab308', b:'#7f1d1d', c:'#fff7cc', m:['👊','🥚','💥','👊'], fx:'speed' },
+  hxh:{ n:'Hunter x Hunter', a:'#16a34a', b:'#0b2a14', c:'#86efac', m:['🎣','🃏','⚡','🃏'], fx:'' },
+  spyfamily:{ n:'Spy x Family', a:'#9f1239', b:'#111827', c:'#fca5a5', m:['🥜','🕵️','🌹','🥜'], fx:'' },
+  anime:{ n:'Anime', a:'#4338ca', b:'#0f172a', c:'#c4b5fd', m:['✨','🌸','⭐','🌙'], fx:'' },
+  pokemon:{ n:'Pokémon', a:'#dc2626', b:'#1e293b', c:'#facc15', m:['pb','pb','pb','⚡','⭐'], fx:'rays' },
+  minecraft:{ n:'Minecraft', a:'#4d7c0f', b:'#4a2f1b', c:'#86efac', m:['⛏️','💎','🧱','🟩','🍖'], fx:'pixels' },
+  fortnite:{ n:'Fortnite', a:'#7c3aed', b:'#1e1b4b', c:'#c084fc', m:['🚌','🦙','🍌','🪂'], fx:'storm' },
+  roblox:{ n:'Roblox', a:'#e11d48', b:'#18181b', c:'#f4f4f5', m:['🟥','⬛','🧱','🟥'], fx:'pixels' },
+  valorant:{ n:'Valorant', a:'#ff4655', b:'#0f1923', c:'#ece8e1', m:['shard','shard','shard','◆'], fx:'' },
+  overwatch:{ n:'Overwatch', a:'#f97316', b:'#1e3a8a', c:'#ffffff', m:['hexa','hexa','hexa','hexa','✚'], fx:'' },
+  peak:{ n:'Peak', a:'#38bdf8', b:'#1e3a5f', c:'#ffffff', m:['🏔️','❄️','🧗','🎒','🏔️'], fx:'snow' },
+  amongus:{ n:'Among Us', a:'#1f2937', b:'#030712', c:'#ef4444', m:['crew','crew','crew','🚀','⭐'], fx:'stars' },
+  gta:{ n:'GTA', a:'#f97316', b:'#7c2d12', c:'#fde68a', m:['🌴','💵','⭐','🚗','🌴'], fx:'sunset' },
+  marvel:{ n:'Marvel', a:'#b91c1c', b:'#1f0a0a', c:'#fde047', m:['💥','⭐','🛡️','⚡','💥'], fx:'halftone' },
+  dc:{ n:'DC', a:'#1e3a8a', b:'#020617', c:'#facc15', m:['🦇','🌃','🦇','⚡'], fx:'spot' },
+  mario:{ n:'Mario', a:'#2563eb', b:'#1e3a8a', c:'#facc15', m:['🍄','⭐','🪙','🍄'], fx:'' },
+  zelda:{ n:'Zelda', a:'#15803d', b:'#052e16', c:'#facc15', m:['🗡️','🛡️','🔺'], fx:'' },
+  sonic:{ n:'Sonic', a:'#1d4ed8', b:'#0c4a6e', c:'#facc15', m:['💍','💨','💍'], fx:'speed' },
+  streamers:{ n:'Streamers', a:'#9146ff', b:'#18181b', c:'#ffffff', m:['💬','🔴','🎮','💜'], fx:'' },
+  brainrot:{ n:'Brainrot', a:'#db2777', b:'#1e1b4b', c:'#22d3ee', m:['💀','🗿','🤑','😭','🔥'], fx:'chaos' },
+  games:{ n:'Gaming', a:'#7c3aed', b:'#0f172a', c:'#a3e635', m:['🎮','🕹️','👾','🏆','🎮'], fx:'pixels' },
+  party:{ n:'Showtime', a:'#ec4899', b:'#1e1b4b', c:'#fde047', m:['🎤','🎉','🕺','⭐','🎭'], fx:'rays' }
+};
+/* Which words point at which theme. Checked only against themes in the category's own topic, so a game question
+   that mentions a "sage" or a "storm" doesn't turn into Valorant or Fortnite by accident. */
+const THEME_KEYS = [
+  ['dragonball','anime',/dragon ?ball|goku|vegeta|gohan|piccolo|frieza|freeza|saiyan|kamehameha|bulma|krillin|majin buu|trunks|bardock|shenron|kakarot|\bcell\b/],
+  ['naruto','anime',/naruto|sasuke|sakura|kakashi|itachi|hokage|akatsuki|konoha|leaf village|jiraiya|madara|orochimaru|gaara|hinata|rasengan|chidori|sharingan|boruto|kurama|minato|tsunade|might guy|shippuden|chunin/],
+  ['onepiece','anime',/one piece|luffy|zoro|sanji|usopp|chopper|straw hat|shanks|blackbeard|gol d\.? roger|devil fruit|going merry|thousand sunny|kaido|whitebeard|grand line|marineford|jinbe|franky|nico robin|berries|gum-gum/],
+  ['bleach','anime',/bleach|ichigo|rukia|soul reaper|zanpakuto|bankai|aizen|byakuya|kenpachi|quincy|uryu|yamamoto|renji|ryujin jakka/],
+  ['deathnote','anime',/death note|light yagami|\bkira\b|ryuk|lawliet|shinigami|misa|mello|mikami|wammy/],
+  ['jjk','anime',/jujutsu|gojo|sukuna|itadori|\byuji\b|megumi|nobara|geto|kenjaku|domain expansion|cursed energy|cursed technique|toji/],
+  ['demonslayer','anime',/demon slayer|tanjiro|nezuko|zenitsu|inosuke|hashira|rengoku|muzan|akaza|kokushibo|giyu|shinobu|upper moon|lower moon|breathing/],
+  ['aot','anime',/attack on titan|titan\b|titans|eren|mikasa|armin|survey corps|reiner|bertholdt|\bymir|zeke|marley|paradis|wall maria|\blevi\b/],
+  ['chainsaw','anime',/chainsaw man|denji|pochita|makima|aki hayakawa|devil hunter|control devil/],
+  ['mha','anime',/my hero academia|deku|midoriya|all might|bakugo|todoroki|quirk|one for all|all for one|shigaraki|tenko/],
+  ['opm','anime',/one punch|saitama|genos|s-class/],
+  ['hxh','anime',/hunter x hunter|\bgon\b|killua|kurapika|leorio|hisoka|\bnen\b|meruem|chimera ant|zoldyck|phantom troupe|hunter exam/],
+  ['spyfamily','anime',/spy x family|\banya\b|loid|yor forger|twilight/],
+  ['anime','anime',/anime|frieren|himmel|vinland|thorfinn|askeladd|code geass|lelouch|evangelion|shinji|cowboy bebop|spike spiegel|dandadan|okarun|fullmetal|elric|haikyu|blue lock|tokyo ghoul|kaneki|berserk|griffith|jojo|steins|okabe|solo leveling|jinwoo|mob psycho|reigen|black clover|\basta\b|sword art|kirito|kaiju no/],
+  ['pokemon','game',/pok[eé]mon|pikachu|charizard|charmander|squirtle|bulbasaur|eevee|mewtwo|ash ketchum|team rocket|gym leader|pok[eé] ?ball|pok[eé]dex|kanto|johto|hoenn|sinnoh|snorlax|gengar|meowth|jigglypuff|\bpk:/],
+  ['minecraft','game',/minecraft|creeper|enderman|nether|notch|ender dragon|redstone|villager|wither|\bmob vote/],
+  ['fortnite','game',/fortnite|battle bus|v-bucks|victory royale|peely|loot llama|default dance|orange justice/],
+  ['roblox','game',/roblox|robux|\boof\b|obby|builderman|blox fruits|adopt me|brookhaven/],
+  ['valorant','game',/valorant|\bva:|radianite|the spike|kay\/o|killjoy|brimstone|reyna|\bjett\b|\bsova\b|\bomen\b|chamber|gekko|deadlock|harbor|\bvyse\b|\btejo\b|waylay|clove/],
+  ['overwatch','game',/overwatch|\bow:|tracer|mercy|d\.va|reinhardt|genji|widowmaker|winston|soldier: ?76|l[uú]cio|hanzo|pharah|kiriko|junkrat|moira|sigma|baptiste|junker queen|sojourn|zenyatta|ramattra|lifeweaver|illari|mauga|roadhog|zarya|sombra|symmetra|doomfist|orisa|cassidy|mccree|wrecking ball|hammond|torbj|brigitte|talon|omnic|blackwatch|bastion/],
+  ['peak','game',/\bpeak\b|bing bong|scoutmaster|aggro crab|the kiln|caldera|\bscouts?\b/],
+  ['amongus','game',/among us|impostor|imposter|crewmate|the skeld|emergency meeting|innersloth|polus|mira hq|fungle/],
+  ['gta','game',/\bgta\b|grand theft auto|los santos|vice city|liberty city|san andreas|niko bellic|trevor|franklin|de santa|big smoke|tommy vercetti|leonida|tenpenny|lifeinvader|grove street/],
+  ['mario','game',/mario|luigi|bowser|princess peach|yoshi|mushroom kingdom|koopa|goomba|rainbow road|smash bros|smash ball/],
+  ['zelda','game',/zelda|hyrule|ganon|triforce|master sword|tears of the kingdom|breath of the wild|majora/],
+  ['sonic','game',/sonic|eggman|knuckles/],
+  ['marvel','hero',/marvel|avengers|iron man|tony stark|spider-man|peter parker|\bthor\b|loki|hulk|banner|captain america|thanos|infinity|x-men|wolverine|deadpool|black widow|wakanda|black panther|guardians|groot|star-lord|doctor strange|wanda|venom|mjolnir|vibranium|nick fury|ant-man|hawkeye|doc(tor)? oc|green goblin|magneto|professor x|captain marvel|yondu|dormammu|cerebro|vulture/],
+  ['dc','hero',/\bdc\b|batman|bruce wayne|gotham|joker|superman|clark kent|krypton|wonder woman|themyscira|the flash|speed force|aquaman|justice league|green lantern|harley|riddler|penguin|\bbane\b|alfred|lex luthor|catwoman|metropolis|daily planet|darkseid|deathstroke|nightwing|doomsday|martian manhunter|detective comics/],
+  ['streamers','net',/./],
+  ['brainrot','net',/rizz|skibidi|sigma|aura|delulu|mewing|no cap|bussin|glaz|cooked|\bmid\b|ohio|six seven|6-7|\bnpc\b|brainrot|fanum tax|let him cook|touch grass|rent free|gatekeep|\bgoat\b|\bsus\b|simp/]
+];
+/* Categories that are about one thing get that theme outright. */
+const CAT_THEME = { sk_valorant:'valorant', sk_overwatch:'overwatch', sk_peak:'peak', sk_pokedex:'pokemon', sk_whosthat:'pokemon', sk_gta:'gta', sk_marvel:'marvel', sk_dc:'dc', sk_streamers:'streamers', sk_brainrot:'brainrot', sk_agentsil:'valorant', sk_feetpic:'valorant', sk_owzoom:'overwatch' };
+const CAT_FALLBACK = { sk_blockroyale:'minecraft', sk_sus:'amongus', sk_animemoji:'anime', sk_deepcut:'anime', sk_animezoom:'anime' };
+function themeFor(cat, clue){
+  if(!cat || !clue) return '';
+  if(CAT_THEME[cat.id]) return CAT_THEME[cat.id];
+  const text = (String(clue.q||'')+' '+String(clue.a||'')+' '+String(clue.note||'')).toLowerCase();
+  const g = cat.g, keys = THEME_KEYS.filter(k => k[0]!=='streamers' && (g==='mixed' || k[1]===g || (g==='net' && k[1]==='net')));
+  for(const [key, , re] of keys) if(re.test(text)) return key;
+  if(cat.id==='sk_brainrot') return 'brainrot';
+  return CAT_FALLBACK[cat.id] || (g==='anime' ? 'anime' : g==='hero' ? 'marvel' : g==='net' ? 'streamers' : g==='game' ? 'games' : cat.type==='challenge' ? 'party' : 'games');
+}
+let THEME = '';
+function setTheme(key){
+  key = (skOn() && key && THEMES[key]) ? key : '';
+  if(key===THEME) return;
+  THEME = key;
+  const fx = document.getElementById('theme-fx'), b = document.body, tag = document.getElementById('th-tag');
+  const cfx = document.getElementById('clue-fx');
+  if(!key){ b.classList.remove('themed'); if(tag) tag.textContent = ''; setTimeout(() => { if(!THEME){ if(fx) fx.innerHTML = ''; if(cfx) cfx.innerHTML = ''; } }, 700); return; }
+  const T0 = THEMES[key];
+  b.style.setProperty('--th-a', T0.a); b.style.setProperty('--th-b', T0.b); b.style.setProperty('--th-c', T0.c);
+  if(tag) tag.textContent = T0.n;
+  let h = T0.fx ? '<i class="fxl fx-'+T0.fx+'"></i>' : '';
+  const n = RM ? 6 : 16, cc = ['#c51111','#132ed1','#117f2d','#ed54ba','#ef7d0d','#f5f557','#3f474e','#d6e0f0','#6b2fbb','#71491e','#38fedc','#50ef39'];
+  for(let k=0;k<n;k++){
+    const mo = T0.m[k % T0.m.length], sz = 28 + Math.random()*90, x = Math.random()*96, y = Math.random()*92;
+    const st = 'left:'+x.toFixed(1)+'%;top:'+y.toFixed(1)+'%;font-size:'+sz.toFixed(0)+'px;--d:'+(9+Math.random()*12).toFixed(1)+'s;--dl:-'+(Math.random()*10).toFixed(1)+'s;--r0:'+(-30+Math.random()*30).toFixed(0)+'deg;--r1:'+(Math.random()*30).toFixed(0)+'deg;--cc:'+cc[k % cc.length];
+    if(mo==='db') h += '<i class="mo db" style="'+st+'"><b>'+'★'.repeat(1 + k % 7)+'</b></i>';
+    else if(['pb','crew','hexa','shard'].includes(mo)) h += '<i class="mo '+mo+'" style="'+st+'"></i>';
+    else h += '<i class="mo" style="'+st+'">'+mo+'</i>';
+  }
+  fx.innerHTML = h; b.classList.add('themed');
+  if(cfx) cfx.innerHTML = h.replace(/class="mo /g, 'class="mo in ').replace(/class="mo"/g, 'class="mo in"');
+}
+
+/* Picture rounds. Pictures stay on their owners' servers and load while the game runs:
+   Pokémon official artwork via PokéAPI, Valorant art via the community valorant-api.com (Riot's fan-content policy),
+   Overwatch portraits from Blizzard's own site, anime characters from AniList. */
+const PIC_SRC = {
+  pk: id => 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'+id+'.png',
+  va: id => 'https://media.valorant-api.com/agents/'+id+'/fullportrait.png',
+  ow: id => 'https://d15f34w2p8l1cc.cloudfront.net/overwatch/'+id+'.png',
+  al: id => 'https://s4.anilist.co/file/anilistcdn/character/large/'+id
+};
+const picUrl = q => { const m = /^(pk|va|ow|al):(.+)$/.exec(String(q||'')); return m ? PIC_SRC[m[1]](m[2]) : ''; };
+const PIC_FMTS = ['sil','zoom','feetpic'];
+const IMGS = new Map();
+/* cors: only the feet round reads pixels (to find the feet), so only it asks for a cross-origin copy. */
+function loadImg(url, cors){
+  if(!url) return Promise.reject(new Error('no picture'));
+  const key = (cors ? 'c:' : 'p:') + url;
+  if(IMGS.has(key)) return IMGS.get(key);
+  const p = new Promise((res, rej) => { const im = new Image(); if(cors) im.crossOrigin = 'anonymous'; im.decoding = 'async'; im.onload = () => res(im); im.onerror = () => { IMGS.delete(key); rej(new Error('picture failed')); }; im.src = url; });
+  IMGS.set(key, p); return p;
+}
+/* Finds the figure in a transparent full-body portrait, and the strip at the bottom where the feet are. */
+function figureBox(img){
+  const nw = img.naturalWidth, nh = img.naturalHeight, W = 220, H = Math.max(1, Math.round(nh/nw*W)), k = nw/W;
+  try{
+    const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d'); g.drawImage(img, 0, 0, W, H);
+    const d = g.getImageData(0, 0, W, H).data, A = (x,y) => d[(y*W+x)*4+3];
+    let top = H, bot = -1, minx = W, maxx = -1;
+    for(let y=0;y<H;y++) for(let x=0;x<W;x++) if(A(x,y)>60){ if(y<top) top = y; if(y>bot) bot = y; if(x<minx) minx = x; if(x>maxx) maxx = x; }
+    if(bot<0) throw new Error('empty');
+    const fh = Math.max(1, bot-top), band = bot - Math.round(fh*.14);
+    let f0 = W, f1 = -1; for(let y=band;y<=bot;y++) for(let x=0;x<W;x++) if(A(x,y)>60){ if(x<f0) f0 = x; if(x>f1) f1 = x; }
+    const pad = fh*.035; let fx = f0-pad, fy = band-pad, fw = (f1-f0)+pad*2, fhh = (bot-band)+pad*2;
+    if(fw < fhh*1.7){ const ex = fhh*1.7-fw; fx -= ex/2; fw += ex; }
+    return { feet:{x:fx*k, y:fy*k, w:fw*k, h:fhh*k}, full:{x:(minx-pad)*k, y:(top-pad)*k, w:(maxx-minx+pad*2)*k, h:(fh+pad*2)*k} };
+  }catch(e){ return { feet:{x:0, y:nh*.78, w:nw, h:nh*.22}, full:{x:0, y:0, w:nw, h:nh} }; }
+}
+function feetPic(cv, url){
+  const ctl = { stage(){}, shown:false };
+  const draw = r => {
+    const img = ctl.img; if(!img || !r) return;
+    const dpr = Math.min(2, devicePixelRatio||1), W = Math.max(1, cv.clientWidth*dpr), H = Math.max(1, cv.clientHeight*dpr);
+    if(cv.width!==W || cv.height!==H){ cv.width = W; cv.height = H; }
+    const s = Math.min(W/r.w, H/r.h), dw = r.w*s, dh = r.h*s, g = cv.getContext('2d');
+    g.clearRect(0, 0, W, H); g.imageSmoothingQuality = 'high';
+    g.drawImage(img, r.x, r.y, r.w, r.h, (W-dw)/2, (H-dh)/2, dw, dh);
+  };
+  ctl.ready = loadImg(url, true).then(img => { ctl.img = img; const b = figureBox(img); ctl.feet = b.feet; ctl.full = b.full; draw(ctl.feet); const m = $('#pic-msg'); if(m) m.textContent = ''; });
+  ctl.reveal = () => {
+    if(!ctl.img) return;
+    const a = ctl.feet, b = ctl.full, t0 = performance.now(), dur = RM ? 1 : 1100;
+    const lerp = k => ({ x:a.x+(b.x-a.x)*k, y:a.y+(b.y-a.y)*k, w:a.w+(b.w-a.w)*k, h:a.h+(b.h-a.h)*k });
+    const step = () => { const k = Math.min(1, (performance.now()-t0)/dur), e = 1-Math.pow(1-k, 3); draw(lerp(e)); if(k<1) requestAnimationFrame(step); };
+    requestAnimationFrame(step); setTimeout(() => draw(b), dur+150); SKS.reveal();
+  };
+  return ctl;
+}
+/* Waits for the current picture; false if it never arrives (no internet, blocked site). */
+let PIC = null;
+async function picReady(){ if(!PIC || !PIC.ready) return true; return Promise.race([PIC.ready.then(() => true, () => false), sleep(8000).then(() => false)]); }
+/* Returns true when the picture is there. If not, it shows the answer, skips the tile and returns false. */
+async function picFailed(clue){
+  status('Loading the picture…', 'info');
+  const ok = await picReady(); chk(); status('');
+  if(ok) return true;
+  if(PIC) PIC.shown = true; if(G && G.sk) markAfk(null);
+  SFX.crickets(); stamp('NO SIGNAL', 'meh', 'The picture wouldn’t load. Nobody wins or loses this one.');
+  await wait(1300); showAnswer('The answer was', clue.a, clue.note); await cont();
+  return false;
+}
+const SK_DISSENT = 100;   // what you lose for voting against the lobby
+
 const SPIKE_SVG = '<svg class="spike-ic" viewBox="0 0 100 120" aria-hidden="true"><path d="M50 4 86 26v52L50 116 14 78V26z" fill="#1a0b10" stroke="#ff4655" stroke-width="5" stroke-linejoin="round"/><path d="M50 22 72 36v34L50 98 28 70V36z" fill="#ff4655" opacity=".25"/><circle cx="50" cy="58" r="14" fill="#ff4655"/><circle cx="50" cy="58" r="6" fill="#fff"/></svg>';
 
 /* =========================================================
@@ -2014,6 +2789,8 @@ const SKS = {
   promote(){ [67,71,74,79].forEach((m,k)=>Snd.tone(N(m),{type:'triangle',at:k*.08,dur:.3,vol:.12})); },
   demote(){ [67,63,60,55].forEach((m,k)=>Snd.tone(N(m),{type:'triangle',at:k*.1,dur:.3,vol:.1})); },
   stomp(){ Snd.kick(0,.95); Snd.noise({dur:.25,vol:.2,type:'lowpass',f:600}); },
+  whip(){ Snd.noise({dur:.2,vol:.28,f:600,to:9000,q:2.2}); },
+  slap(){ Snd.noise({dur:.09,vol:.6,type:'highpass',f:1200}); Snd.noise({dur:.3,vol:.4,type:'bandpass',f:850,q:.7}); Snd.kick(0,1); Snd.tone(70,{dur:.6,vol:.45,slide:32}); Snd.noise({at:.03,dur:1.4,vol:.2,type:'lowpass',f:4500,to:150}); [33,40].forEach(m=>Snd.tone(N(m),{type:'sawtooth',dur:1.2,vol:.08,filter:{f:500,to:120}})); },
   lockin(){ Snd.tone(N(76),{type:'square',dur:.06,vol:.1}); Snd.tone(N(83),{type:'square',at:.06,dur:.18,vol:.1}); Snd.noise({dur:.1,vol:.08,type:'highpass',f:4000}); },
   queue(){ [69,76,81].forEach((m,k)=>Snd.tone(N(m),{type:'triangle',at:k*.09,dur:.6,vol:.14})); Snd.noise({dur:.3,vol:.08,f:2000,to:9000}); },
   pop(k=0){ Snd.tone(N(72+k*3),{type:'triangle',dur:.12,vol:.12}); Snd.noise({dur:.05,vol:.06,type:'highpass',f:4000}); },
@@ -2109,7 +2886,9 @@ const Voice = {
     let s = 0;
     if(/natural/i.test(v.name)) s += 100;
     if(/en-US/i.test(v.lang)) s += 30;
-    if(/\bGuy\b/.test(v.name)) s += 40; else if(/Christopher/.test(v.name)) s += 36; else if(/Eric/.test(v.name)) s += 34; else if(/Andrew/.test(v.name)) s += 32; else if(/Brian/.test(v.name)) s += 30; else if(/Steffan|Roger/.test(v.name)) s += 24;
+    if(/Multilingual/i.test(v.name)) s += 70;   // Edge's newest voices: far more human
+    if(/Andrew/.test(v.name)) s += 44; else if(/Brian/.test(v.name)) s += 42; else if(/\bGuy\b/.test(v.name)) s += 40; else if(/Christopher/.test(v.name)) s += 36; else if(/Eric/.test(v.name)) s += 34; else if(/Steffan|Roger/.test(v.name)) s += 24;
+    if(/Ava|Emma|Jenny|Aria|Michelle|Ana\b/.test(v.name)) s -= 40;
     if(/en-AU/i.test(v.lang) && /William/.test(v.name)) s += 28;
     if(/Thomas|Ryan/.test(v.name)) s += 18;
     if(/Google US English/.test(v.name)) s += 40;
@@ -2136,7 +2915,7 @@ const Voice = {
       if(!this.v || !this.vk) this.pick();
       const sk = skOn(), v = this.cur;
       const u = new SpeechSynthesisUtterance(text); if(v){ u.voice = v; u.lang = v.lang; }
-      if(sk){ u.rate = this.natural ? 1.16 : 1.12; u.pitch = this.natural ? 1 : 1.05; }
+      if(sk){ u.rate = this.natural ? (/Multilingual/i.test(v && v.name) ? 1.06 : 1.1) : 1.1; u.pitch = this.natural ? 1 : 1.05; }
       else { u.rate = this.natural ? Math.max(rate, 1.08) : rate; u.pitch = this.natural ? 1 : pitch; }
       if(sk) Bed.duck(true);
       return new Promise(res=>{ const done = () => { if(sk) Bed.duck(false); res(); }; u.onend = done; u.onerror = done; speechSynthesis.speak(u); setTimeout(done, 900 + text.length*85); });
@@ -2400,6 +3179,7 @@ function show(id){
   $('#pods').hidden = !(G && PODS_ON[id]);
   $('#top').hidden = (id==='setup');
   if(skOn()) Bed.play((running && G && G.phase==='final' && id==='card') ? 'final' : ({ setup:'lobby', card:'lobby', board:'board', clue:'clue', hive:'clue', winner:'hype' }[id] || 'lobby'));
+  if(id!=='clue') setTheme('');
   paintUltBtn();
 }
 async function showWipe(id){
@@ -2492,7 +3272,22 @@ function rankPop(i, up, r){
 }
 /* Ult charge: every right answer adds 25%. At 100% the ult can be fired from the board (U, the top button, or a phone). */
 const ultReady = () => (G && G.ult) ? G.players.map((_,i)=>i).filter(i => G.ult[i]>=100) : [];
-function paintUltBtn(){ const b = $('#ult-btn'); if(b) b.hidden = !(running && G && G.sk && current==='board' && ultReady().length); }
+function paintUltBtn(){
+  const ready = ultReady(), on = !!(running && G && G.sk && current==='board' && ready.length);
+  const b = $('#ult-btn'); if(b) b.hidden = !on;
+  const bn = $('#ult-banner');
+  if(bn){ bn.hidden = !on; if(on) bn.innerHTML = '⚡ Ult ready: '+esc(ready.map(pname).join(', '))+' · press <kbd>U</kbd> or tap <b>Use your ult</b> on your phone'; }
+}
+/* The first time someone's ult is ready on the board, the caster tells them how to fire it. */
+function announceUlts(){
+  if(!G || !G.sk) return;
+  G.ultAnn = G.ultAnn || [];
+  const fresh = ultReady().filter(i => !G.ultAnn[i]);
+  if(!fresh.length) return;
+  fresh.forEach(i => { G.ultAnn[i] = true; });
+  SKS.ready();
+  Voice.say(listJoin(fresh.map(pname))+(fresh.length>1 ? ', your ults are ready!' : ', your ult is ready!')+' Press U, or tap use your ult on your phone.');
+}
 function ultCharge(i, amt){
   if(!G || !G.sk || !G.ult || !G.players[i]) return;
   const was = G.ult[i]||0; G.ult[i] = Math.min(100, was+amt); updatePod(i);
@@ -2524,7 +3319,9 @@ function buildBoard(r){
   const rows = G.length==='quick' ? 3 : 5, base = r===0 ? 100 : 200, cats = G.cats[r].map(c => JSON.parse(JSON.stringify(c)));
   const tiles = [];
   cats.forEach((c,ci) => { for(let row=0; row<rows; row++) tiles.push({ ci, row, value:base*(row+1), used:false, special:null }); });
-  const pool = shuffle(tiles.filter(t => cats[t.ci].type==='buzz' && t.row>=1 && cats[t.ci].f!=='reveal'));
+  const pool = shuffle(tiles.filter(t => cats[t.ci].type==='buzz' && t.row>=1 && !['reveal','zoom','sil','feetpic'].includes(cats[t.ci].f)));
+  /* Start loading this round's pictures now, so they're ready when the tile is picked. */
+  if(G.sk) cats.forEach(c => { if(PIC_FMTS.includes(c.f)) c.clues.slice(0, rows).forEach(q => loadImg(picUrl(q.q), c.f==='feetpic').catch(() => {})); });
   let k = 0;
   if(pool[k]) pool[k++].special = G.sk ? 'spike' : 'send';
   for(let s=0; s<(r===0?1:2); s++) if(pool[k]) pool[k++].special = 'chaos';
@@ -2564,7 +3361,7 @@ function dropZoomer(z){ if(!z) return; anim(z,[{opacity:1},{opacity:0}],{duratio
    ========================================================= */
 const isEmoji = s => !/[\p{L}\p{N}]/u.test(s||'');
 function clueScreen({cat, value, text, f}){
-  show('clue'); CUR = { ans:'', note:'' }; clearInterval(TYPER); CURQ = text ? String(text).split(/\s*\|\s*/).join(' · ') : '';
+  show('clue'); CUR = { ans:'', note:'' }; clearInterval(TYPER); PIC = null; CURQ = text ? String(text).split(/\s*\|\s*/).join(' · ') : '';
   $('#clue-cat').textContent = cat; $('#clue-val').textContent = value; status('');
   const tx = $('#clue-text'); $('#sk-opts').hidden = true; $('#sk-opts').innerHTML = '';
   if(skOn() && text && f && f!=='std') skClue(tx, f, String(text));
@@ -2597,6 +3394,26 @@ function skClue(tx, f, text){
     tx.className = 'clue-text sk-feet'; tx.innerHTML = '<small class="fmt-lbl">Whose feet?</small><span class="foot" aria-hidden="true">🦶</span><p>'+esc(text)+'</p>';
     const ft = $('.foot', tx);
     if(!RM){ anim(ft,[{transform:'translateY(-120vh) rotate(-20deg)'},{transform:'translateY(0) rotate(0) scale(1.15,.7)',offset:.7},{transform:'scale(.95,1.08)',offset:.85},{transform:'none'}],{duration:700,easing:'cubic-bezier(.6,0,.4,1)'}); setTimeout(() => { SKS.stomp(); shake($('.clue')); }, 490); anim($('p', tx),[{opacity:0,transform:'translateY(16px)'},{opacity:1,transform:'none'}],{duration:400,delay:650,fill:'backwards'}); }
+  } else if(PIC_FMTS.includes(f)){
+    const url = picUrl(text), pk = /^pk:/.test(text);
+    tx.className = 'clue-text sk-pic';
+    CURQ = f==='feetpic' ? 'Whose feet? Look at the TV.' : f==='sil' ? (pk ? 'Who’s that Pokémon? Look at the TV.' : 'Who’s that? Look at the TV.') : 'Zoom & enhance. Look at the TV.';
+    const lbl = f==='feetpic' ? 'Whose feet?' : f==='sil' ? (pk ? 'Who’s that Pokémon?' : 'Who’s that agent?') : 'Zoom & enhance';
+    if(f==='feetpic'){
+      tx.innerHTML = '<small class="fmt-lbl">'+lbl+'</small><div class="pic feet"><canvas></canvas></div><div class="pic-msg" id="pic-msg">Loading the feet…</div>';
+      PIC = feetPic($('.pic canvas', tx), url);
+      if(!RM) PIC.ready.then(() => { SKS.stomp(); shake($('.clue')); }).catch(() => {});
+    } else if(f==='sil'){
+      tx.innerHTML = '<small class="fmt-lbl">'+lbl+'</small><div class="pic sil"><img alt="" src="'+esc(url)+'"></div>';
+      const box = $('.pic', tx);
+      PIC = { ready:loadImg(url), stage(){}, reveal(){ box.classList.add('shown'); flash('white'); SKS.reveal(); } };
+      if(!RM) anim(box,[{opacity:0,transform:'scale(.6)'},{opacity:1,transform:'scale(1.06)',offset:.7},{opacity:1,transform:'none'}],{duration:600,easing:'cubic-bezier(.2,1.3,.4,1)'});
+    } else {
+      const fp = rand([[50,28],[44,36],[56,32],[50,40]]);
+      tx.innerHTML = '<small class="fmt-lbl">'+lbl+'</small><div class="pic zoom z0" style="--zx:'+fp[0]+'%;--zy:'+fp[1]+'%"><img alt="" src="'+esc(url)+'"></div>';
+      const box = $('.pic', tx);
+      PIC = { ready:loadImg(url), stage(k){ box.className = 'pic zoom z'+Math.min(2, k); }, reveal(){ box.className = 'pic zoom shown'; SKS.reveal(); } };
+    }
   } else {
     tx.className = 'clue-text'; tx.textContent = text;
   }
@@ -2625,6 +3442,7 @@ function showAnswer(label, text, note, big){
   const a = $('#clue-answer'); a.className = 'answer-card' + (big===true?' big':big==='note'?' note':'');
   a.innerHTML = '<small>'+esc(label)+'</small><b id="ans-b">'+esc(text)+'</b>' + (note ? '<p>'+esc(note)+'</p>' : '');
   a.hidden = false; SFX.reveal();
+  if(PIC && PIC.reveal && !PIC.shown){ PIC.shown = true; PIC.reveal(); }
   anim(a,[{opacity:0,transform:'rotateX(90deg)'},{opacity:1,transform:'none'}],{duration:420,easing:'cubic-bezier(.2,1.3,.4,1)'});
 }
 async function cont(label='Back to the board'){ foot([{act:'next',label,kbd:'Space',cls:'gold'}]); await ask({next:['space','enter']}); }
@@ -2712,13 +3530,14 @@ async function playTile(t, tileEl){
   topChip(null); markSeen(clue.k);
   const z = await zoomFrom(tileEl, String(t.value));
   clueScreen({cat:cat.title, value:fmt(t.value), text:''}); dropZoomer(z);
+  if(G.sk) setTheme(themeFor(cat, clue));
   if(G.sk){
     if(t.special==='spike') return playSpike(cat, clue, t);
     if(t.special==='chaos') return playChaos(cat, clue, t);
     if(t.special==='lockin') return playLockIn(cat, clue, t);
     if(cat.type==='ballpark') return playBallpark(cat, clue, t);
-    if(cat.type==='challenge') return playChallenge(cat, clue, t);
-    if(cat.f==='reveal') return playReveal(cat, clue, t);
+    if(cat.type==='challenge') return playChallengeSK(cat, clue, t);
+    if(cat.f==='reveal' || cat.f==='zoom') return playReveal(cat, clue, t);
     return buzzTile(cat, clue, t.value, {});
   }
   if(t.special==='send') return playSendIt(cat, clue, t);
@@ -2773,6 +3592,7 @@ async function buzzTile(cat, clue, value, o={}){
 async function playBuzz(cat, clue, value, o){
   const mult = o.mult||1, v = value*mult, n = G.players.length;
   clueScreen({cat:cat.title, value:fmt(v), text:clue.q, f:o.f}); setPeek(clue.a, clue.note);
+  if(PIC && !(await picFailed(clue))) return;
   announceClue(clue.q, o.f);
   const out = new Set([...(o.afk||[]), ...(G.sk && o.only==null ? mutedSides() : [])]);
   const locked = new Set(out); setLocked(locked); if(G.sk) markAfk(o.afk);
@@ -3105,15 +3925,25 @@ async function playLockIn(cat, clue, t){
 
 /* Ability Reveal: three hints, one at a time. Buzz on hint 1 for double, hint 2 for one and a half, hint 3 for the normal value. */
 async function playReveal(cat, clue, t){
-  const hints = String(clue.q).split(/\s*\|\s*/).filter(Boolean).slice(0,3), base = t.value, mults = [2, 1.5, 1], n = G.players.length;
+  /* Two kinds of staged question: Ability Reveal (three text hints) and Zoom & Enhance (one picture, three zoom levels). */
+  const zoom = cat.f==='zoom';
+  const hints = zoom ? ['Extreme close-up','Zooming out','The full picture'] : String(clue.q).split(/\s*\|\s*/).filter(Boolean).slice(0,3), base = t.value, mults = [2, 1.5, 1], n = G.players.length;
   const worth = k => Math.round(base*mults[Math.min(k, 2)]/50)*50;
   const afk = await tierGate(clue);
-  clueScreen({cat:cat.title, value:fmt(worth(0)), text:''}); setPeek(clue.a, clue.note);
-  const tx = $('#clue-text'); tx.className = 'clue-text';
-  tx.innerHTML = '<small class="fmt-lbl">Ability reveal</small><ol class="sk-hints">'+hints.map((h,k) => '<li class="hid"><b>'+(k+1)+'</b><span>'+esc(h)+'</span></li>').join('')+'</ol>';
-  const items = $$('.sk-hints li', tx);
+  let items = [];
+  if(zoom){
+    clueScreen({cat:cat.title, value:fmt(worth(0)), text:clue.q, f:'zoom'}); setPeek(clue.a, clue.note);
+    if(!(await picFailed(clue))) return;
+  } else {
+    clueScreen({cat:cat.title, value:fmt(worth(0)), text:''}); setPeek(clue.a, clue.note);
+    const tx = $('#clue-text'); tx.className = 'clue-text';
+    tx.innerHTML = '<small class="fmt-lbl">Ability reveal</small><ol class="sk-hints">'+hints.map((h,k) => '<li class="hid"><b>'+(k+1)+'</b><span>'+esc(h)+'</span></li>').join('')+'</ol>';
+    items = $$('.sk-hints li', tx);
+  }
   let stage = 0;
-  const showHint = k => { const li = items[k]; if(!li) return; li.classList.remove('hid'); CURQ = 'Ability reveal · '+hints.slice(0, k+1).join(' · '); anim(li,[{opacity:0,transform:'translateX(-40px)'},{opacity:1,transform:'none'}],{duration:380,easing:'cubic-bezier(.2,1.2,.4,1)'}); SKS.reveal(); $('#clue-val').textContent = fmt(worth(k)); if(presenter()==='person') scriptLine('Hint '+(k+1)+': '+hints[k]); else if(CFG().readClues) Voice.say(hints[k]); };
+  const showHint = k => {
+    if(zoom){ if(PIC) PIC.stage(k); CURQ = 'Zoom & enhance · step '+(k+1)+' of 3. Look at the TV.'; if(k) SKS.whoosh(); $('#clue-val').textContent = fmt(worth(k)); return; }
+    const li = items[k]; if(!li) return; li.classList.remove('hid'); CURQ = 'Ability reveal · '+hints.slice(0, k+1).join(' · '); anim(li,[{opacity:0,transform:'translateX(-40px)'},{opacity:1,transform:'none'}],{duration:380,easing:'cubic-bezier(.2,1.2,.4,1)'}); SKS.reveal(); $('#clue-val').textContent = fmt(worth(k)); if(presenter()==='person') scriptLine('Hint '+(k+1)+': '+hints[k]); else if(CFG().readClues) Voice.say(hints[k]); };
   const out = new Set([...afk, ...mutedSides()]), locked = new Set(out); setLocked(locked); markAfk(afk);
   let tried = 0;
   try{
@@ -3149,6 +3979,102 @@ async function playReveal(cat, clue, t){
   } finally { markAfk(null); consumeMutes(); }
 }
 
+/* Challenges in SKILL DIFF: a roulette picks who performs (sometimes two people for a face-off),
+   then everyone else votes on their phone. Anyone who votes against the lobby loses SK_DISSENT points. */
+let CV = null;
+async function rouletteSpin(pool, kicker){
+  const target = rand(pool);
+  titleCard({kicker, extra:'<div class="roul"><div class="name" id="roul-name">?</div></div>'});
+  const nm = $('#roul-name'), steps = pool.length*4 + pool.indexOf(target) + 1;
+  let delay = 55;
+  for(let s=0;s<steps;s++){
+    const i = pool[s % pool.length]; nm.textContent = pname(i); nm.style.setProperty('--pc', G.players[i].color);
+    SFX.tick(1 + (s % pool.length)*.12); await wait(delay); delay = Math.min(300, delay*1.085);
+  }
+  SKS.slam(); flash('white'); shake();
+  if(!RM) anim(nm,[{transform:'scale(1.6)'},{transform:'none'}],{duration:400,easing:'cubic-bezier(.2,1.4,.4,1)'});
+  return target;
+}
+async function playChallengeSK(cat, clue, t){
+  const n = G.players.length, secs = Math.max(3, +clue.seconds || 15), all = G.players.map((_,i) => i);
+  const faceoff = n>=3 && Math.random()<.4;
+  titleCard({kicker:cat.title, title:faceoff ? 'Face-off' : 'Roulette', sub:faceoff ? 'Two players. Same challenge. The lobby picks the winner.' : 'The roulette decides who has to do this.'});
+  SKS.jingle(); Voice.say(faceoff ? 'Face-off! Two of you, same challenge. The lobby decides.' : 'Spin the roulette! Who is doing this one?');
+  await wait(1800);
+  const a = await rouletteSpin(all, faceoff ? 'Face-off · player one' : 'Who’s up?');
+  Voice.say(pname(a)+'!'); await wait(1300);
+  let perf = [a];
+  if(faceoff){
+    const b = await rouletteSpin(all.filter(i => i!==a), 'Face-off · player two');
+    perf = [a, b]; Voice.say(pname(b)+'!'); await wait(1100);
+    titleCard({kicker:'Face-off', extra:'<div class="roul"><div class="vs"><span class="name" style="--pc:'+G.players[a].color+'">'+esc(pname(a))+'</span><i>VS</i><span class="name" style="--pc:'+G.players[b].color+'">'+esc(pname(b))+'</span></div></div>'});
+    SKS.slam(); shake(); flash('bad'); await wait(1800);
+  }
+  clueScreen({cat:cat.title, value:fmt(t.value), text:clue.q}); setPeek(clue.a, clue.note);
+  status(faceoff ? 'Face-off' : pname(a)+' · you’re up', 'hot');
+  Voice.say(clue.q);
+  for(let j=0;j<perf.length;j++){
+    const p = perf[j];
+    showPlate(p, faceoff ? (j ? 'your turn' : 'goes first') : 'your turn');
+    foot([{act:'go',label:'Start '+pname(p)+'’s '+secs+' seconds',kbd:'Space',cls:'gold'}]);
+    await ask({go:['space','enter']});
+    foot([]);
+    for(const c of ['3','2','1']){ stamp(c, 'meh'); SFX.tick(1.6); await wait(650); }
+    stamp('GO!', 'good'); SFX.blip(2);
+    foot([{act:'done',label:'Finished early',kbd:'Space',cls:'ghost'}]);
+    const r = await askTimed({done:['space','enter']}, secs, $('#clue-timer'), {tick:true});
+    if(r.act==='timeout') SFX.horn();
+    hidePlate(); foot([]);
+  }
+  status('');
+  const res = await challengeVote(perf, clue);
+  if(faceoff){
+    if(res.win!=null){ await award(res.win, t.value, {word:'WINNER', kind:'passed'}); G.control = res.win; }
+    else { const half = Math.round(t.value/2/50)*50; perf.forEach(i => { addScore(i, half); confettiAtPod(i, 30); }); SFX.correct(); stamp('DRAW', 'meh', 'The lobby couldn’t split them. Half points each.'); await wait(1500); }
+  } else if(res.win!=null){ await award(a, t.value, {word:'PASSED', kind:'passed'}); G.control = a; }
+  else { SFX.sad(); stamp('FAILED', 'bad', quip('failed', a)); Voice.say(skVo('wrong', a)); await wait(1500); }
+  if(res.dissent.length){ res.dissent.forEach(i => addScore(i, -SK_DISSENT)); SFX.wrong(); toast('Voted against the lobby: '+res.dissent.map(pname).join(', ')+' (−'+SK_DISSENT+' each)', 3600); await wait(1200); }
+  await cont();
+}
+/* The lobby votes on phones (performers can't). With no phones, the host decides with the buttons.
+   Returns { win: side or null, dissent: sides that voted against the majority }. */
+async function challengeVote(perf, clue){
+  const faceoff = perf.length===2, voters = Remote.playerPids().filter(pid => !perf.includes(Remote.sideOfPid(pid)));
+  const opts = faceoff ? perf.map(pname) : ['Pass','Fail'];
+  showAnswer(faceoff ? 'Who did it better?' : 'How to judge it', faceoff ? pname(perf[0])+' or '+pname(perf[1])+'?' : clue.a, faceoff ? clue.a : '', 'note');
+  if(voters.length){
+    CV = { k:'cv'+Date.now(), q:faceoff ? 'Who did it better?' : 'Did '+pname(perf[0])+' pass?', o:opts, votes:{}, open:true, perf };
+    Voice.say('Lobby, vote on your phones!');
+    CV.paint = () => { const c = Object.keys(CV.votes).length; status('Vote on your phone · '+c+' of '+voters.length, 'info'); Remote.push(true); if(c>=voters.length && asker && 'cvdone' in asker.map) resolveAsk('cvdone'); };
+    CV.paint();
+    foot([{act:'cvdone',label:'Close the vote',kbd:'Space',cls:'gold'}]);
+    try{ await askTimed({cvdone:['space','enter']}, 25, $('#clue-timer'), {tick:true}); } finally { if(CV) CV.open = false; }
+    foot([]); status('');
+    const votes = CV.votes, counts = opts.map(() => 0); CV = null;
+    Object.values(votes).forEach(k => { if(counts[k]!=null) counts[k]++; });
+    if(counts.some(c => c>0)){
+      const max = Math.max(...counts), tops = counts.map((c,k) => c===max ? k : -1).filter(k => k>=0);
+      const pick = tops.length===1 ? tops[0] : (faceoff ? -1 : 0);   // a tied pass/fail goes to the performer
+      const tally = '<div class="cv-tally">'+opts.map((o,k) => '<span>'+esc(o)+': '+counts[k]+'</span>').join('')+'</div>';
+      $('#clue-answer').insertAdjacentHTML('beforeend', tally);
+      const dissent = new Set();
+      if(pick>=0 && tops.length===1) Object.keys(votes).forEach(pid => { if(votes[pid]!==pick){ const s = Remote.sideOfPid(+pid); if(s>=0 && !perf.includes(s)) dissent.add(s); } });
+      SFX.drumroll(.8); await wait(900);
+      return { win:pick<0 ? null : faceoff ? perf[pick] : (pick===0 ? perf[0] : null), dissent:[...dissent] };
+    }
+    toast('Nobody voted. The host decides.', 2400);
+  }
+  if(faceoff){
+    foot([{act:'pa',label:pname(perf[0]),kbd:'1',cls:'good'},{act:'pb',label:pname(perf[1]),kbd:'2',cls:'good'},{act:'pd',label:'Draw',kbd:'D',cls:'ghost'}]);
+    const r = await ask({ pa:['1'], pb:['2'], pd:['d'] }); foot([]);
+    return { win:r.act==='pa' ? perf[0] : r.act==='pb' ? perf[1] : null, dissent:[] };
+  }
+  status('The lobby votes', 'info');
+  foot([{act:'pass',label:'Pass',kbd:'C',cls:'good'},{act:'fail',label:'Fail',kbd:'X',cls:'bad'}]);
+  const v = await ask({ pass:['c'], fail:['x'] }); foot([]); status('');
+  return { win:v.act==='pass' ? perf[0] : null, dissent:[] };
+}
+
 /* Ults, fired from the board. */
 async function chooseUlt(i){
   const pl = G.players[i];
@@ -3167,7 +4093,7 @@ async function fireUlt(i, u, t){
   if(!G || !G.sk || !G.players[i] || (G.ult[i]||0)<100 || !SK_ULTS[u]) return;
   if(u!=='double' && (t==null || t===i || !G.players[t])) return;
   const U = SK_ULTS[u], pl = G.players[i];
-  G.ult[i] = 0; pl.stats.ult = (pl.stats.ult||0) + 1; updatePod(i); paintUltBtn();
+  G.ult[i] = 0; pl.stats.ult = (pl.stats.ult||0) + 1; if(G.ultAnn) G.ultAnn[i] = false; updatePod(i); paintUltBtn();
   openOverlay('<div class="sk-ult" style="--pc:'+pl.color+';--uc:'+U.c+'"><div class="band"></div><small>Ultimate</small><h2>'+U.n+'</h2><p>'+esc(pl.name)+(t!=null ? ' → '+esc(pname(t)) : '')+'</p></div>');
   SKS.ult(); Voice.say(pl.name+' pops their ult! '+U.n.toLowerCase()+(t!=null ? ', on '+pname(t) : '')+'!');
   anim($('#overlay .band'),[{transform:'skewY(-6deg) translateX(-100%)'},{transform:'skewY(-6deg)'}],{duration:500,easing:'cubic-bezier(.2,1,.3,1)'});
@@ -3185,7 +4111,7 @@ let VT = null;
 async function hotPhase(){
   topLabel('Half-time · Hot Takes'); topChip(null);
   const phones = Remote.playerCount > 0;
-  titleCard({kicker:'Half-time', title:'Hot Takes', sub:phones ? 'Vote on your phone. Side with the lobby and your ult charges 25%.' : 'Point at your answer on three. The host taps what the lobby picked.'});
+  titleCard({kicker:'Half-time', title:'Hot Takes', sub:phones ? 'Vote on your phone. Side with the lobby: ult +25%. Go against it: −'+SK_DISSENT+'.' : 'Point at your answer on three. The host taps what the lobby picked.'});
   SFX.jingle(); Voice.say('Half-time! Hot takes! '+(phones ? 'Vote on your phones. Side with the lobby, and your ult charges.' : 'Point on three.'));
   $('#card-foot').innerHTML = btnHTML({act:'next',label:'Let’s vote',kbd:'Space',cls:'gold'})+btnHTML({act:'skipall',label:'Skip half-time',kbd:'S',cls:'ghost'});
   const r0 = await ask({ next:['space','enter'], skipall:['s'] });
@@ -3201,7 +4127,7 @@ async function runVote(V){
   titleCard({kicker:'Hot take', extra:'<h2 class="vt-q">'+esc(q)+'</h2><div class="sk-vote" id="sk-vote">'+optHTML(!phones)+'</div><div class="vt-count" id="vt-count"></div>'});
   if(!RM) $$('#sk-vote .vt-opt').forEach((o,k) => anim(o,[{opacity:0,transform:'translateY(20px)'},{opacity:1,transform:'none'}],{duration:340,delay:200+k*90,fill:'backwards'}));
   SKS.whoosh(); Voice.say(q.replace(/👀/g, ''));
-  let counts = opts.map(() => 0), win = [];
+  let counts = opts.map(() => 0), win = [], dissent = [];
   if(phones){
     VT = { k:'vt'+Date.now(), q, o:opts, votes:{}, open:true };
     const total = () => Remote.playerPids().length;
@@ -3214,7 +4140,13 @@ async function runVote(V){
     Object.values(VT.votes).forEach(k => { if(counts[k]!=null) counts[k]++; });
     const max = Math.max(...counts);
     win = max>0 ? counts.map((c,k) => c===max ? k : -1).filter(k => k>=0) : [];
-    if(win.length){ const sides = new Set(); Object.keys(VT.votes).forEach(pid => { if(win.includes(VT.votes[pid])){ const s = Remote.sideOfPid(+pid); if(s>=0) sides.add(s); } }); sides.forEach(s => ultCharge(s, 25)); }
+    if(win.length){
+      const sides = new Set(), against = new Set();
+      Object.keys(VT.votes).forEach(pid => { const s = Remote.sideOfPid(+pid); if(s<0) return; (win.includes(VT.votes[pid]) ? sides : against).add(s); });
+      sides.forEach(s => ultCharge(s, 25));
+      VT.against = [...against];
+    }
+    dissent = (VT.against || []);
     VT = null;
   } else {
     $('#vt-count').textContent = 'Point at your answer on three…';
@@ -3239,6 +4171,11 @@ async function runVote(V){
     stamp('LOBBY VERDICT', 'good', names);
     Voice.say(V.o==='players' ? 'The lobby has spoken. '+names+'!' : 'The lobby picks '+names+'!');
     await wait(1500);
+    if(dissent.length){
+      dissent.forEach(s => addScore(s, -SK_DISSENT)); SFX.wrong();
+      stamp('AGAINST THE LOBBY', 'bad', dissent.map(pname).join(', ')+' · −'+SK_DISSENT);
+      await wait(1600);
+    }
   }
   await beat(0, 'Next');
 }
@@ -3457,8 +4394,8 @@ async function roundPhase(){
       titleCard({kicker:'How it works', title:'Patch Notes', extra:'<div class="howto"><div><b>Buzz in</b>'+G.players.map(p=>esc(p.name)+' is '+p.key.toUpperCase()).join(', ')+'. Or tap your podium or your phone.</div>'
         + '<div><b>Difficulty tiers</b>Every question shows its tier first, from CASUAL to DEEP LORE. Don’t know the topic? Hit your buzzer on the tier screen to go AFK. No points lost.</div>'
         + judging
-        + '<div><b>Ult charge</b>Every right answer charges your ult 25%. At 100%, press U on the board: STEAL 300, DOUBLE UP, or SILENCE someone’s buzzer.</div>'
-        + '<div><b>Hidden tiles</b>SPIKE PLANTED: defuse it in 7 seconds for double, or it blows. LOCK IN: everyone answers on their phone. Plus chaos drops.</div>'
+        + '<div><b>Ult charge</b>Every right answer fills the bar under your score by 25%. When it glows gold, your ult is ready: on the board press U, or tap Use your ult on your phone. STEAL 300, DOUBLE UP, or SILENCE someone.</div>'
+        + '<div><b>Hidden tiles</b>SPIKE PLANTED: defuse it in 7 seconds for double, or it blows. LOCK IN: everyone answers on their phone. Plus chaos drops.</div><div><b>Lobby votes</b>Challenges pick a random player (sometimes a face-off). Everyone else votes on their phone. Vote against the lobby and you lose '+SK_DISSENT+'.</div>'
         + '<div><b>Ranks</b>Climb from Iron to Radiant. Promotions are announced. So are demotions.</div></div>'});
       await beat(0, 'Got it');
     } else if(r===0){
@@ -3476,6 +4413,7 @@ async function roundPhase(){
   }
   while(G.board.tiles.some(t=>!t.used)){
     renderBoard(); show('board'); setControlPod(G.control); setLocked(null); CUR = { ans:'', note:'' };
+    if(G.sk) announceUlts();
     const res = await ask(G.sk ? {tile:[], ult:['u'], pult:[]} : {tile:[]});
     if(res.act==='ult'){ await ultMenu(); continue; }
     if(res.act==='pult'){ const d = res.el || {}; await fireUlt(d.side, d.u, d.t); continue; }
@@ -3537,6 +4475,7 @@ async function finalPhase(){
   }
   FIN.stage = 'write';
   clueScreen({cat:F.cat, value:'Final', text:F.q}); setPeek(F.a, F.note);
+  if(G.sk) setTheme(themeFor({ id:'final', g:'mixed' }, { q:F.cat+' '+F.q, a:F.a, note:F.note }));
   announceClue(F.q);
   status(phones ? 'Write it down or type it on your phone' : 'Write it down', 'info');
   foot([{act:'done',label:'Pens down',kbd:'Space',cls:'gold'}, ...peekBtns()]);
@@ -3725,7 +4664,7 @@ async function director(phase){
     if(next!=='setup' && G){ G.phase = next; G.jumpTo = null; save(); }
     try{ next = await PHASES[next](); }
     catch(e){ if(e instanceof Jump){ next = e.to; } else { console.error(e); toast('Something went wrong: '+e.message, 5000); next = 'setup'; } }
-    closeOverlay(); hidePlate(); Snd.musicStop(); BP = null; FIN = null; HV = null; LI = null; VT = null; GATE = null; $('#sk-gate').hidden = true; clearTags(); if(G) G.jumpTo = null;
+    closeOverlay(); hidePlate(); Snd.musicStop(); BP = null; FIN = null; HV = null; LI = null; VT = null; CV = null; GATE = null; PIC = null; $('#sk-gate').hidden = true; clearTags(); setTheme(''); if(G) G.jumpTo = null;
   }
   running = false;
   applyTheme();
@@ -3821,11 +4760,44 @@ async function toggleSK(){
   } finally { SKBUSY = false; }
 }
 /* The reveal: the screen glitches, cuts to black, an alarm, then SKILL DIFF slams in and the lobby is reskinned. */
+/* Jagged crack lines spreading from the middle of the screen. */
+function crackSvg(){
+  let p = '';
+  for(let k=0;k<12;k++){
+    const a = k/12*Math.PI*2 + Math.random()*.4; let x = 50, y = 50, pts = '50,50';
+    for(let s=0;s<6;s++){ const r = 4+Math.random()*8, aa = a+(Math.random()-.5)*.8; x += Math.cos(aa)*r; y += Math.sin(aa)*r*1.5; pts += ' '+x.toFixed(1)+','+y.toFixed(1); }
+    p += '<polyline points="'+pts+'"/>';
+  }
+  return '<svg viewBox="0 0 100 100" preserveAspectRatio="none"><g fill="none" stroke="#fff" stroke-width=".32" stroke-linejoin="bevel">'+p+'</g></svg>';
+}
 async function takeover(){
   const el = $('#sk-take'), app = $('#app');
   el.innerHTML = '<div class="tk-noise"></div><div class="tk-bars"><i></i><i></i><i></i></div><div class="tk-warn" id="tk-warn">⚠ Signal override ⚠</div><div class="tk-logo" id="tk-logo"><span class="a">SKILL</span><span class="b">DIFF</span></div><div class="tk-sub" id="tk-sub">Confidently Wrong · Ranked Edition</div><div class="tk-ring" id="tk-ring"></div>';
   $('#tk-logo').style.opacity = 0; $('#tk-sub').style.opacity = 0; $('#tk-warn').style.opacity = 0;
-  if(!RM){ app.classList.add('glitching'); SKS.glitch(); await sleep(900); app.classList.remove('glitching'); }
+  /* 1. A hand swings in and slaps FRIGGIN EZ onto the screen. */
+  const kids = [...el.children];
+  kids.forEach(x => { x.style.visibility = 'hidden'; });
+  const slap = document.createElement('div'); slap.className = 'tk-slapwrap';
+  slap.innerHTML = '<div class="tk-burst" id="tk-burst"></div><div class="tk-crack" id="tk-crack">'+crackSvg()+'</div><div class="tk-slap"><b id="tk-ez">FRIGGIN<br>EZ</b></div><div class="tk-hand" id="tk-hand">🖐️</div>';
+  el.appendChild(slap); el.style.background = 'transparent'; el.hidden = false; el.style.opacity = 1;
+  const ez = $('#tk-ez'), hand = $('#tk-hand'); ez.style.opacity = 0;
+  SKS.whip();
+  await Promise.race([anim(hand,[{transform:'translate(60vw,-50%) rotate(40deg)'},{transform:'translate(-50%,-50%) rotate(-10deg)'}],{duration:RM?40:230,easing:'cubic-bezier(.6,0,.9,.4)',fill:'forwards'}), sleep(320)]);
+  ez.style.opacity = ''; SKS.slap(); flash('white'); shake(el); app.classList.remove('punch'); void app.offsetWidth; app.classList.add('punch');
+  anim(ez,[{transform:'rotate(-8deg) scale(2.6)',filter:'blur(8px)'},{transform:'rotate(-11deg) scale(.92)',filter:'blur(0)',offset:.55},{transform:'rotate(-8deg) scale(1)'}],{duration:RM?40:380,easing:'cubic-bezier(.2,1.4,.4,1)'});
+  anim($('#tk-burst'),[{opacity:0,transform:'scale(.6) rotate(0)'},{opacity:1,transform:'scale(1) rotate(8deg)',offset:.2},{opacity:0,transform:'scale(1.3) rotate(16deg)'}],{duration:900,easing:'ease-out'});
+  anim($('#tk-crack'),[{opacity:0},{opacity:.95,offset:.1},{opacity:.7}],{duration:1600,fill:'forwards'});
+  anim(hand,[{transform:'translate(-50%,-50%) rotate(-10deg)'},{transform:'translate(-90vw,-30%) rotate(-60deg)'}],{duration:RM?40:420,delay:60,easing:'cubic-bezier(.2,.6,.4,1)',fill:'forwards'});
+  FX.burst(innerWidth/2, innerHeight/2, 130, {speed:17, colors:['#ffe14d','#ff4655','#ffffff']});
+  Voice.say('Friggin... EZ!', {force:presenter()==='ai'});
+  await sleep(RM?300:1300);
+  if(!RM) anim(ez,[{transform:'rotate(-8deg)'},{transform:'rotate(-6deg) translate(-8px,5px)'},{transform:'rotate(-10deg) translate(8px,-4px)'},{transform:'rotate(-8deg)'}],{duration:220,iterations:3});
+  await sleep(RM?100:700);
+  /* 2. It shatters into a glitch, the screen cuts to black, an alarm, then SKILL DIFF. */
+  SKS.glitch();
+  await Promise.race([anim(slap,[{opacity:1,transform:'none',filter:'none'},{opacity:0,transform:'scale(1.5)',filter:'blur(12px)'}],{duration:RM?40:320,fill:'forwards'}), sleep(380)]);
+  slap.remove(); el.hidden = true; el.style.background = ''; kids.forEach(x => { x.style.visibility = ''; });
+  if(!RM){ app.classList.add('glitching'); await sleep(700); app.classList.remove('glitching'); }
   el.hidden = false; el.style.opacity = 1;
   anim(el,[{opacity:0},{opacity:1}],{duration:RM?60:160});
   SKS.alarm();
@@ -4116,7 +5088,7 @@ document.addEventListener('visibilitychange', () => { if(document.visibilityStat
 const ART_URL = 'https://claude.ai/artifact/Mo3JbKWKzszKtg9X3WipHH';
 const SITE_URL = 'https://slimshadi20.github.io/confidently-wrong/';   // The website, so the offline copy can show a QR code too.
 const PEER_PREFIX = 'confidently-wrong-';
-const PLAYER_ACTS = new Set(['pbuzz','pguess','pbet','pans','phive','phpass','phstart','plock','pvote','pult']);
+const PLAYER_ACTS = new Set(['pbuzz','pguess','pbet','pans','phive','phpass','phstart','plock','pvote','pult','pcv']);
 const inClaude = () => !!(window.claude && typeof window.claude.use === 'function');
 const cleanStr = (s, max) => String(s==null?'':s).replace(/[\u0000-\u001f\u007f­​‎‏‪-‮⁠-⁤﻿]/g,' ').replace(/\s+/g,' ').trim().slice(0, max);
 const isHex = c => /^#[0-9a-f]{6}$/i.test(String(c||''));
@@ -4174,6 +5146,7 @@ function remoteState(){
       if(GATE) st.gate = { d:GATE.d, a:[...GATE.afk] };
       if(LI && LI.open) st.li = { k:LI.k, o:LI.o.map(x => cleanStr(x, 40)), a:[...LI.afk], m:[...LI.muted] };
       if(VT && VT.open) st.vt = { k:VT.k, q:cleanStr(VT.q, 160), o:VT.o.map(x => cleanStr(x, 40)) };
+      if(CV && CV.open) st.cv = { k:CV.k, q:cleanStr(CV.q, 120), o:CV.o.map(x => cleanStr(x, 40)), ex:CV.perf.slice() };
     }
   }
   if(asker){
@@ -4352,6 +5325,11 @@ const Remote = {
     if(act==='pvote'){
       const k = Math.round(+c.v);
       if(VT && VT.open && k>=0 && k<VT.o.length){ VT.votes[pid] = k; SFX.blip(1.3); if(VT.paint) VT.paint(); }
+      return;
+    }
+    if(act==='pcv'){
+      const k = Math.round(+c.v);
+      if(CV && CV.open && k>=0 && k<CV.o.length && !CV.perf.includes(side)){ CV.votes[pid] = k; SFX.blip(1.3); if(CV.paint) CV.paint(); }
       return;
     }
     if(side<0) return;
@@ -4546,6 +5524,7 @@ const Phone = {
     if(r==='quick'){ $('#pl-input').value = b.dataset.v; this.submitForm(); return; }
     if(r==='lock'){ const v = b.dataset.v; this.send({ act:'plock', v }); if(/^\d$/.test(v) && this.st && this.st.li) this.sent['li:'+this.st.li.k] = +v; this.render(); return; }
     if(r==='vote'){ const v = +b.dataset.v; this.send({ act:'pvote', v }); if(this.st && this.st.vt) this.sent['vt:'+this.st.vt.k] = v; this.render(); return; }
+    if(r==='cvote'){ const v = +b.dataset.v; this.send({ act:'pcv', v }); if(this.st && this.st.cv) this.sent['cv:'+this.st.cv.k] = v; this.render(); return; }
     if(r==='ultopen'){ this.ultStep = 'pick'; this.render(); return; }
     if(r==='ultx'){ this.ultStep = null; this.render(); return; }
     if(r==='ultu'){ const u = b.dataset.v; if(u==='double'){ this.send({ act:'pult', u }); this.ultStep = null; } else this.ultStep = { u }; this.render(); return; }
@@ -4600,7 +5579,7 @@ const Phone = {
     if(panel){
       if(this.skHTML!==panel){ this.skHTML = panel; skEl.innerHTML = panel; }
       skEl.hidden = false; $('#pl-form').hidden = true; $('#pl-buzz').hidden = true; this.formKey = ''; this.formKind = '';
-      $('#pl-status').textContent = st.li ? 'Lock in' : st.vt ? 'Hot take' : 'Ultimate ready';
+      $('#pl-status').textContent = st.li ? 'Lock in' : st.cv ? 'Lobby vote' : st.vt ? 'Hot take' : 'Ultimate ready';
       return;
     }
     skEl.hidden = true; this.skHTML = '';
@@ -4660,6 +5639,11 @@ const Phone = {
       else if(afk) h += '<p>You’re AFK for this one. No points lost.</p><button class="btn ghost" type="button" data-r="lock" data-v="back">I’m back · let me answer</button>';
       else h += '<div class="ph-opts">'+(L.o||[]).map((o,k) => '<button class="btn '+(mine===k ? 'gold' : 'ghost')+'" type="button" data-r="lock" data-v="'+k+'"><b>'+ABCD[k]+'</b>'+esc(o)+'</button>').join('')+'</div><button class="btn ghost" type="button" data-r="lock" data-v="afk">Go AFK · sit this one out</button><p>'+(mine!=null ? 'Locked in: '+ABCD[mine]+'. You can change it until time runs out.' : 'Right wins the points. Wrong loses half. AFK costs nothing.')+'</p>';
       return h;
+    }
+    if(st.cv){
+      const V = st.cv, mine = this.sent['cv:'+V.k];
+      if((V.ex||[]).includes(sideIdx)) return '<small>The lobby is voting</small><h3>You’re the performer.</h3><p>Everyone else is deciding your fate right now. Look confident.</p>';
+      return '<small>Lobby vote</small><h3>'+esc(V.q)+'</h3><div class="ph-opts">'+(V.o||[]).map((o,k) => '<button class="btn '+(mine===k ? 'gold' : 'ghost')+'" type="button" data-r="cvote" data-v="'+k+'"><b>'+(k+1)+'</b>'+esc(o)+'</button>').join('')+'</div><p>'+(mine!=null ? 'Voted: '+esc((V.o||[])[mine]||'')+'. You can change it.' : 'Vote with the lobby. If you disagree with the majority, you lose '+SK_DISSENT+'.')+'</p>';
     }
     if(st.vt){
       const V = st.vt, mine = this.sent['vt:'+V.k];
