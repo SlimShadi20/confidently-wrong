@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Confidently Wrong: a party quiz show for one big screen, with phones as buzzers.">
 <meta name="theme-color" content="#0b0930">
+<meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="favicon.ico">
 </head>
 <body>
@@ -1513,6 +1514,8 @@ function status(text, cls=''){ const s = $('#clue-status'); s.textContent = text
 let CUR = { ans:'', note:'' };
 /* BP: phone guesses while a Ballpark question is open. FIN: phone bets and answers during Final Answer. */
 let BP = null, FIN = null;
+/* HV: the Hive Mind turn in play, so the answering player can type on their phone. */
+let HV = null;
 function setPeek(ans, note){ CUR = { ans:String(ans||''), note:String(note||'') }; const h = $('#host-peek'); h.innerHTML = '<small>Host only · the answer</small>'+esc(ans); h.hidden = true; }
 const PEEK = { act:'peek', label:'Host peek', kbd:'H', cls:'ghost' };
 function vanish(on){ $('#clue-text').classList.toggle('vanished', !!on); }
@@ -2087,28 +2090,31 @@ async function hiveRun(p, sec, dupOf){
   show('hive'); H.ans[p] = ['','','','',''];
   const list = () => { $('#hv-list').innerHTML = H.qs.map((q,i)=>'<li class="'+(i===cur?'now':'')+'"><small>Q'+(i+1)+'</small>'+(H.ans[p][i]?esc(H.ans[p][i]):'·')+'</li>').join(''); };
   let cur = -1; list();
+  HV = { side:p, stage:'ready', q:'', n:0, left:sec, msg:'', k:0 };
   await ask({start:['space','enter']});
+  HV.stage = 'answer';
   $('#hv-foot').innerHTML = '<div class="hv-in" style="width:100%"><label class="sr" for="hv-in">Their answer</label><input id="hv-in" placeholder="Type the answer, press Enter" autocomplete="off" maxlength="40">'+btnHTML({act:'submit',label:'Enter',cls:'gold'})+btnHTML({act:'pass',label:'Pass',kbd:'Tab',cls:'ghost'})+'</div>';
   const input = $('#hv-in');
   input.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); resolveAsk('submit'); } else if(e.key==='Tab'){ e.preventDefault(); resolveAsk('pass'); } });
   const clock = $('#hv-clock');
-  const tm = runTimer(sec, null, {tick:true, onSecond:s=>{ clock.textContent = s; clock.classList.toggle('low', s<=5); }});
+  const tm = runTimer(sec, null, {tick:true, onSecond:s=>{ clock.textContent = s; clock.classList.toggle('low', s<=5); if(HV) HV.left = s; }});
   const queue = [0,1,2,3,4];
   try{
     while(queue.length){
       cur = queue[0]; list();
       $('#hv-n').textContent = 'Question '+(cur+1)+' of 5 · we asked 100 people';
       setPeek(surveyText(H.qs[cur]));
+      if(HV){ HV.q = H.qs[cur].q; HV.n = cur+1; HV.k++; }
       const q = $('#hv-q'); q.textContent = H.qs[cur].q; anim(q,[{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}],{duration:200});
       input.value = ''; input.focus();
       const r = await Promise.race([ask({submit:[], pass:[]}), tm.done.then(f=>f?{act:'timeout'}:NEVER)]);
       if(r.act==='timeout'){ cancelAsk(); break; }
       if(r.act==='pass'){ if(queue.length>1){ queue.push(queue.shift()); SFX.blip(.8); } continue; }
       const v = input.value.trim(); if(!v){ input.focus(); continue; }
-      if(dupOf!=null && norm(v)===norm(H.ans[dupOf][cur])){ SFX.dup(); shake(input); toast(pname(dupOf)+' already said that. Try again!'); input.value=''; continue; }
-      H.ans[p][cur] = v; queue.shift(); SFX.blip(1.3);
+      if(dupOf!=null && norm(v)===norm(H.ans[dupOf][cur])){ SFX.dup(); shake(input); toast(pname(dupOf)+' already said that. Try again!'); input.value=''; if(HV){ HV.msg = pname(dupOf)+' already said “'+v+'”. Try something else!'; HV.k++; } continue; }
+      H.ans[p][cur] = v; queue.shift(); SFX.blip(1.3); if(HV) HV.msg = '';
     }
-  } finally { tm.stop(); }
+  } finally { tm.stop(); HV = null; }
   cur = -1; list(); save();
   $('#hv-foot').innerHTML = '';
   SFX.horn(); stamp(queue.length ? 'TIME!' : 'DONE!', 'meh'); Voice.say(queue.length ? 'Time!' : 'Done!');
@@ -2195,7 +2201,7 @@ async function director(phase){
     if(next!=='setup' && G){ G.phase = next; G.jumpTo = null; save(); }
     try{ next = await PHASES[next](); }
     catch(e){ if(e instanceof Jump){ next = e.to; } else { console.error(e); toast('Something went wrong: '+e.message, 5000); next = 'setup'; } }
-    closeOverlay(); hidePlate(); Snd.musicStop(); BP = null; FIN = null; if(G) G.jumpTo = null;
+    closeOverlay(); hidePlate(); Snd.musicStop(); BP = null; FIN = null; HV = null; if(G) G.jumpTo = null;
   }
   running = false;
 }
@@ -2499,7 +2505,7 @@ document.addEventListener('visibilitychange', () => { if(document.visibilityStat
 const ART_URL = 'https://claude.ai/artifact/Mo3JbKWKzszKtg9X3WipHH';
 const SITE_URL = 'https://slimshadi20.github.io/confidently-wrong/';   // The website, so the offline copy can show a QR code too.
 const PEER_PREFIX = 'confidently-wrong-';
-const PLAYER_ACTS = new Set(['pbuzz','pguess','pbet','pans']);
+const PLAYER_ACTS = new Set(['pbuzz','pguess','pbet','pans','phive','phpass','phstart']);
 const inClaude = () => !!(window.claude && typeof window.claude.use === 'function');
 const cleanStr = (s, max) => String(s==null?'':s).replace(/[\u0000-\u001f\u007f­​‎‏‪-‮⁠-⁤﻿]/g,' ').replace(/\s+/g,' ').trim().slice(0, max);
 const isHex = c => /^#[0-9a-f]{6}$/i.test(String(c||''));
@@ -2546,6 +2552,7 @@ function remoteState(){
   }
   if(FIN && live) st.fin = { s:FIN.stage, c:cleanStr(FIN.cat, 40), m:FIN.max, b:G.players.map((_,i) => FIN.bets[i]!=null ? 1 : 0), w:G.players.map((_,i) => FIN.answers[i] ? 1 : 0) };
   if(BP && BP.open) st.bp = 1;
+  if(HV && live) st.hv = { s:HV.side, g:HV.stage, q:cleanStr(HV.q, 160), n:HV.n, t:HV.left, m:cleanStr(HV.msg, 90), k:HV.k };
   if(asker){
     st.acts = Object.keys(asker.map).filter(a => a!=='tile' && a!=='submit').slice(0,16).map(a => [a, actLabel(a)]);
     if('submit' in asker.map) st.typing = 1;
@@ -2733,6 +2740,15 @@ const Remote = {
       }
       return;
     }
+    if(act==='phstart' || act==='phive' || act==='phpass'){
+      if(!HV || HV.side!==side) return;
+      if(act==='phstart'){ if(HV.stage==='ready' && asker && 'start' in asker.map) resolveAsk('start'); return; }
+      if(HV.stage!=='answer' || !asker) return;
+      if(act==='phpass'){ if('pass' in asker.map) resolveAsk('pass'); return; }
+      const v = cleanStr(c.v, 40), inp = $('#hv-in');
+      if(v && inp && 'submit' in asker.map){ inp.value = v; resolveAsk('submit'); }
+      return;
+    }
     if(act==='pans'){
       const v = cleanStr(c.v, 60);
       if(FIN && FIN.stage==='write' && v){
@@ -2872,7 +2888,9 @@ const Phone = {
   setRole(role, pid){ this.role = role; this.pid = (pid==null ? -1 : pid); store.set('cw_rm_role', role); store.set('cw_rm_pid', this.pid); this.hello(); this.render(); },
   submitForm(){
     const v = $('#pl-input').value.trim(); if(!v || !this.formKind) return;
-    this.send({ act:this.formKind==='guess' ? 'pguess' : this.formKind==='bet' ? 'pbet' : 'pans', v });
+    if(this.formKind==='hiveready') return;
+    this.send({ act:this.formKind==='guess' ? 'pguess' : this.formKind==='bet' ? 'pbet' : this.formKind==='hive' ? 'phive' : 'pans', v });
+    if(this.formKind==='hive'){ $('#pl-input').value = ''; return; }
     this.sent[this.formKey] = v; this.render();
   },
   click(e){
@@ -2884,6 +2902,8 @@ const Phone = {
     if(r==='me'){ this.setRole('player', +b.dataset.p); return; }
     if(r==='buzz'){ this.send({ act:'pbuzz' }); b.classList.remove('hit'); void b.offsetWidth; b.classList.add('hit'); return; }
     if(r==='quick'){ $('#pl-input').value = b.dataset.v; this.submitForm(); return; }
+    if(r==='hstart'){ this.send({ act:'phstart' }); return; }
+    if(r==='hpass'){ this.send({ act:'phpass' }); $('#pl-input').value = ''; return; }
     if(r==='eye'){ this.show = !this.show; store.set('cw_rm_show', this.show); this.render(); return; }
     if(r==='act') this.send({ act:b.dataset.a });
     else if(r==='tile') this.send({ act:'tile', t:+b.dataset.t });
@@ -2922,7 +2942,10 @@ const Phone = {
     $('#pl-team').textContent = (st.tm && side) ? 'Team '+side[0] : '';
     $('#pl-score').textContent = side ? fmt(+side[1]||0) : '';
     let kind = '', key = '', label = '', note = '', quick = [];
-    if(st.fin && sideIdx>=0){
+    if(st.hv && sideIdx>=0 && st.hv.s===sideIdx){
+      if(st.hv.g==='ready'){ kind = 'hiveready'; key = 'hvr'; label = 'You’re up in the Hive Mind'; note = 'Say what you think 100 people said. Type each answer here as fast as you can.'; quick = [['start','Start the clock']]; }
+      else { kind = 'hive'; key = 'hv:'+st.hv.k; label = 'Q'+st.hv.n+' of 5 · '+(st.hv.q||''); note = st.hv.m || (st.hv.t+' seconds left'); quick = [['pass','Pass for now']]; }
+    } else if(st.fin && sideIdx>=0){
       if(st.fin.s==='bet'){
         const max = +(st.fin.m && st.fin.m[sideIdx]) || 0;
         kind = 'bet'; key = 'bet:'+st.fin.c; label = 'Your bet · anything from 0 to '+fmt(max);
@@ -2936,14 +2959,17 @@ const Phone = {
     const form = $('#pl-form'), btn = $('#pl-buzz');
     if(kind){
       form.hidden = false; btn.hidden = true;
-      if(this.formKey!==key){ this.formKey = key; this.formKind = kind; const inp = $('#pl-input'); inp.value = ''; inp.type = kind==='answer' ? 'text' : 'number'; inp.inputMode = kind==='answer' ? 'text' : 'decimal'; }
+      if(this.formKey!==key){ this.formKey = key; this.formKind = kind; const inp = $('#pl-input'); inp.value = ''; const txt = kind==='answer' || kind==='hive'; inp.type = txt ? 'text' : 'number'; inp.inputMode = txt ? 'text' : 'decimal'; if(kind==='hive'){ try{ inp.focus(); }catch(e){} } }
       $('#pl-flabel').textContent = label;
-      $('#pl-quick').innerHTML = quick.map(q => '<button class="btn ghost" type="button" data-r="quick" data-v="'+esc(q[0])+'">'+esc(q[1])+'</button>').join('');
-      $('#pl-fnote').textContent = (this.sent[key]!=null ? 'Sent: '+this.sent[key]+'. ' : '') + note;
-      $('#pl-status').textContent = kind==='bet' ? 'Final Answer · '+(st.fin.c||'') : (st.t||'');
+      const hv = kind==='hive' || kind==='hiveready';
+      $('#pl-quick').innerHTML = quick.map(q => hv ? '<button class="btn '+(q[0]==='start' ? 'gold' : 'ghost')+'" type="button" data-r="h'+q[0]+'">'+esc(q[1])+'</button>' : '<button class="btn ghost" type="button" data-r="quick" data-v="'+esc(q[0])+'">'+esc(q[1])+'</button>').join('');
+      $('#pl-input').closest('.rm-code').hidden = kind==='hiveready';
+      $('#pl-fnote').textContent = (!hv && this.sent[key]!=null ? 'Sent: '+this.sent[key]+'. ' : '') + note;
+      $('#pl-status').textContent = kind==='bet' ? 'Final Answer · '+(st.fin.c||'') : hv ? 'The Hive Mind' : (st.t||'');
       return;
     }
-    form.hidden = true; btn.hidden = false; this.formKey = ''; this.formKind = '';
+    form.hidden = true; btn.hidden = false; this.formKey = ''; this.formKind = ''; $('#pl-input').closest('.rm-code').hidden = false;
+    if(st.hv && st.sides && st.sides[st.hv.s]){ btn.className = 'pl-buzz wait'; btn.disabled = false; btn.querySelector('span').textContent = 'BUZZ'; $('#pl-status').textContent = st.sides[st.hv.s][0]+' is in the Hive Mind'; return; }
     const bz = st.bz || {}, locked = Array.isArray(bz.l) && bz.l.includes(sideIdx);
     let cls = 'idle', txt = 'Wait for the question', word = 'BUZZ';
     if(st.ph==='setup' || !st.sides){ cls = 'test'; txt = 'Tap to test your buzzer'; }
