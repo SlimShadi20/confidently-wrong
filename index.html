@@ -108,6 +108,10 @@ main{position:relative;min-height:0;grid-row:2}
 .tagline{font:600 clamp(16px,2.4vmin,24px)/1.35 var(--body);color:var(--muted);margin:0;max-width:30ch;text-wrap:balance}
 .need{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0;padding:0;list-style:none;max-width:520px}
 .need li{font:700 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.modes{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:560px}
+.mode{border:0;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:11px 14px;border-radius:12px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 2px rgba(255,255,255,.16);color:var(--ink);font:800 13px/1.1 var(--body);letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
+.mode:hover{background:rgba(255,255,255,.14)}
+.mode.on{background:var(--gold);color:#140f3d;box-shadow:none}
 .green-room{min-width:0;background:linear-gradient(180deg,rgba(27,23,102,.92),rgba(14,11,52,.94));border-radius:22px;padding:clamp(16px,2.6vmin,28px);box-shadow:0 20px 60px rgba(0,0,0,.45),inset 0 0 0 2px rgba(255,255,255,.08);display:grid;gap:14px}
 .gr-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .gr-head h2{margin:0;font:400 clamp(20px,3vmin,30px)/1 var(--display);letter-spacing:.02em}
@@ -960,6 +964,7 @@ body.sk.themed .clue-fx{display:block}
         <ul class="need" id="need">
           <li>2 to 8 players, or teams of up to 12</li><li>One big screen</li><li>Pen and paper each</li><li>A phone for the bailout call</li>
         </ul>
+        <div class="modes" role="group" aria-label="Game mode"><button class="mode on" type="button" data-act="mode" data-m="classic" aria-pressed="true">Confidently Wrong</button><button class="mode" type="button" data-act="mode" data-m="sk" aria-pressed="false">⚡ SKILL DIFF</button><button class="mode" type="button" data-act="mode" data-m="snake" aria-pressed="false">🐍 Snakes &amp; Ladders</button></div>
       </div>
       <div class="green-room">
         <div class="gr-head"><h2 id="gr-title">The Green Room</h2><span id="gr-sub">Press your buzzer key to test it</span></div>
@@ -4728,6 +4733,7 @@ function applyTheme(){
   $('#tagline').textContent = on ? SK_TAG : CLASSIC_TAG;
   $('#need').innerHTML = (on ? SK_NEED : CLASSIC_NEED).map(x => '<li>'+esc(x)+'</li>').join('');
   $('#gr-title').textContent = on ? 'The Lobby' : 'The Green Room';
+  $$('.mode[data-m]').forEach(b => { const cur = b.dataset.m===(on ? 'sk' : 'classic'); b.classList.toggle('on', cur); b.setAttribute('aria-pressed', String(cur)); });
   $('#gr-sub').textContent = on ? 'Press your buzzer key to test it' : 'Press your buzzer key to test it';
   $('#start-btn').textContent = on ? 'Find match' : 'Start the show';
   $('#obj-btn').innerHTML = (on ? 'Report!' : 'Objection!')+' <kbd style="background:rgba(0,0,0,.2);padding:3px 5px;border-radius:4px;font-size:11px">O</kbd>';
@@ -5008,8 +5014,14 @@ const GLOBAL = {
   },
   delp: el => { if(SETUP.players.length<=2) return; SETUP.players.splice(+el.dataset.i, 1); saveSetup(); renderSetup(); },
   reroll: el => { const i = +el.dataset.i; if(SKMODE){ const used = SETUP.players.map(p=>p.skbio); SETUP.players[i].skbio = rand(SK_BIOS.filter(b=>!used.includes(b))); } else { const used = SETUP.players.map(p=>p.bio); SETUP.players[i].bio = rand(BIOS.filter(b=>!used.includes(b))); } saveSetup(); renderSetup(); SFX.blip(1.2); },
-  edit: openEditor
+  edit: openEditor,
+  mode: el => { if(running || SKBUSY) return; const m = el.dataset.m; if(m==='snake') openSnakes(); else if((m==='sk')!==SKMODE) toggleSK(); }
 };
+/* The third game lives on its own page next to this one. */
+function openSnakes(){
+  if(inClaude()){ toast('Snakes & Ladders is on the website version of the game.', 3600); return; }
+  SFX.whoosh(); toast('🐍 Snakes & Ladders…', 1200); setTimeout(() => { location.href = 'snake.html'; }, 500);
+}
 function syncSetup(){ $$('.pname').forEach(inp => { SETUP.players[+inp.dataset.i].name = inp.value; }); SETUP.host = $('#host-name').value; SETUP.prize = $('#prize').value; saveSetup(); }
 
 document.addEventListener('click', e => {
@@ -5066,12 +5078,7 @@ document.addEventListener('keydown', e => {
        S N A K E opens Snakes & Ladders (its own page, snake.html, next to this one). */
     SKBUF = k.length===1 ? (SKBUF + k).slice(-5) : '';
     if(SKBUF.endsWith('ggez') && !running){ SKBUF = ''; toggleSK(); return; }
-    if(SKBUF==='snake' && !running){
-      SKBUF = '';
-      if(inClaude()){ toast('Snakes & Ladders is on the website version of the game.', 3600); return; }
-      SFX.whoosh(); toast('🐍 Snakes & Ladders…', 1200); setTimeout(() => { location.href = 'snake.html'; }, 500);
-      return;
-    }
+    if(SKBUF==='snake' && !running){ SKBUF = ''; openSnakes(); return; }
     if(SKBUSY) return;
     const i = KEYS.indexOf(k), sides = SETUP.teams.on ? SETUP.teams.count : SETUP.players.length;
     if(i>=0 && i<sides){ SFX.buzz(i); const row = $(SETUP.teams.on ? '#tname-row'+i : '#prow'+i); if(row){ row.classList.add('test'); clearTimeout(row._t); row._t = setTimeout(()=>row.classList.remove('test'), 450); } }
@@ -5803,7 +5810,10 @@ function boot(data){
   FX.init();
   if(/^#(host|join|play)/i.test(location.hash || '')){ Phone.start(); return; }
   if(data && data.G && !store.get('cw_game', null)) store.set('cw_game', data.G);
+  const skStart = /[?&]mode=skill/i.test(location.search || '');
+  if(skStart){ SKMODE = true; ensureSkBios(); swapTeamNames(true); try{ history.replaceState(null, '', location.pathname); }catch(e){} }
   goSetup();
+  if(skStart) applyTheme();
   Remote.start();
 }
 const hot = window.claude && window.claude.hot;

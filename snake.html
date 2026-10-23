@@ -74,7 +74,10 @@ main{position:relative;min-height:0}
 .rules{margin:0;padding:0;list-style:none;display:grid;gap:8px;max-width:520px;text-align:left}
 .rules li{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;border-radius:12px;background:rgba(0,0,0,.25);font:600 clamp(13px,1.8vmin,16px)/1.35 var(--body)}
 .rules li b{font:400 1.1em/1 var(--display);color:var(--gold);min-width:1.2em}
-.back{font:700 13px/1 var(--body);color:var(--muted)}
+.modes{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.mode{display:inline-flex;align-items:center;gap:6px;padding:11px 14px;border-radius:12px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 2px rgba(255,255,255,.16);color:var(--ink);font:800 13px/1.1 var(--body);letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
+a.mode:hover{background:rgba(255,255,255,.14)}
+.mode.on{background:var(--gold);color:#0b1d13;box-shadow:none}
 .room{min-width:0;display:grid;gap:14px;padding:clamp(16px,2.6vmin,26px);border-radius:22px;background:linear-gradient(180deg,rgba(23,53,37,.95),rgba(12,31,22,.96));box-shadow:0 20px 60px rgba(0,0,0,.45),inset 0 0 0 2px var(--line)}
 .room h2{margin:0;font:400 clamp(20px,3vmin,30px)/1 var(--display)}
 .rows{display:grid;gap:8px}
@@ -330,7 +333,7 @@ main{position:relative;min-height:0}
           <li><b>3</b><span>Some cards are challenges the room votes on, or funny tasks: do it to move, chicken out to stay put.</span></li>
           <li><b>4</b><span>Ladders take you up, snakes take you down. First to land exactly on 100 wins.</span></li>
         </ol>
-        <a class="back" href="./">← Back to Confidently Wrong</a>
+        <div class="modes" role="group" aria-label="Game mode"><a class="mode" href="./">Confidently Wrong</a><a class="mode" href="./?mode=skill">⚡ SKILL DIFF</a><span class="mode on" aria-current="page">🐍 Snakes &amp; Ladders</span></div>
       </div>
       <div class="room">
         <h2>The Lobby</h2>
