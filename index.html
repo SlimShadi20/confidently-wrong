@@ -5062,9 +5062,16 @@ document.addEventListener('keydown', e => {
   }
   if(k==='space' || k==='enter') e.preventDefault();
   if(current==='setup'){
-    /* The secret: G G E Z typed in the green room (outside the text boxes) switches SKILL DIFF on or off. */
-    SKBUF = k.length===1 ? (SKBUF + k).slice(-4) : '';
-    if(SKBUF==='ggez' && !running){ SKBUF = ''; toggleSK(); return; }
+    /* The secrets, typed in the green room (outside the text boxes): G G E Z switches SKILL DIFF on or off,
+       S N A K E opens Snakes & Ladders (its own page, snake.html, next to this one). */
+    SKBUF = k.length===1 ? (SKBUF + k).slice(-5) : '';
+    if(SKBUF.endsWith('ggez') && !running){ SKBUF = ''; toggleSK(); return; }
+    if(SKBUF==='snake' && !running){
+      SKBUF = '';
+      if(inClaude()){ toast('Snakes & Ladders is on the website version of the game.', 3600); return; }
+      SFX.whoosh(); toast('🐍 Snakes & Ladders…', 1200); setTimeout(() => { location.href = 'snake.html'; }, 500);
+      return;
+    }
     if(SKBUSY) return;
     const i = KEYS.indexOf(k), sides = SETUP.teams.on ? SETUP.teams.count : SETUP.players.length;
     if(i>=0 && i<sides){ SFX.buzz(i); const row = $(SETUP.teams.on ? '#tname-row'+i : '#prow'+i); if(row){ row.classList.add('test'); clearTimeout(row._t); row._t = setTimeout(()=>row.classList.remove('test'), 450); } }
